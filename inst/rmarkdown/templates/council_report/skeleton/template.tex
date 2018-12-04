@@ -198,7 +198,7 @@ $if(compact-title)$
 % Create subtitle command for use in maketitle
 \newcommand{\subtitle}[1]{
   \posttitle{
-    \begin{center}\large#1\end{center}
+    \large#1
     }
 }
 
@@ -208,7 +208,7 @@ $endif$
 $if(title)$
   \title{$title$}
   $if(compact-title)$
-  \pretitle{\vspace{\droptitle}\centering\huge}
+  \pretitle{\vspace{\droptitle}\huge}
   \posttitle{\par}
   $endif$
 $else$
@@ -224,7 +224,7 @@ $endif$
 $if(author)$
   \author{$for(author)$$author$$sep$ \\ $endfor$}
   $if(compact-title)$
-  \preauthor{\centering\large\emph}
+  \preauthor{\large\emph}
   \postauthor{\par}
   $endif$
 $else$
@@ -235,7 +235,7 @@ $else$
 $endif$
 $if(date)$
   $if(compact-title)$
-  \predate{\centering\large\emph}
+  \predate{\large\emph}
   \postdate{\par}
   $endif$
   \date{$date$}
@@ -250,6 +250,14 @@ $for(header-includes)$
 $header-includes$
 $endfor$
 
+\usepackage{graphicx}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\rhead{\includegraphics[width=2.5in]{img/council-logo}}
+
 \begin{document}
 $if(title)$
 \maketitle
@@ -259,6 +267,7 @@ $if(abstract)$
 $abstract$
 \end{abstract}
 $endif$
+\thispagestyle{fancy}
 
 $for(include-before)$
 $include-before$

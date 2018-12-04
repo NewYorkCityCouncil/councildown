@@ -17,7 +17,7 @@ council_pdf <- function(toc = FALSE, highlight = "default", ...){
                              toc_depth = toc_depth,
                              highlight = highlight,
                              keep_tex = TRUE,
-                             pandoc_args = "--top-level-division=section",
+                             pandoc_args = c("--top-level-division=section"),
                              ...)
 
   # Mostly copied from knitr::render_sweave
