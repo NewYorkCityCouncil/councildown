@@ -11,3 +11,4 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 imports: bookdown
+RoxygenNote: 6.1.1

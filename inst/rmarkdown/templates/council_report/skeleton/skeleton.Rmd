@@ -1,0 +1,20 @@
+---
+title: "Report Title"
+author: "Your Name"
+date: `r Sys.Date()`
+output: councildown::council_pdf
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Summary
+
+# Data
+
+# Assumptions
+
+# Analysis
+
+# Results
