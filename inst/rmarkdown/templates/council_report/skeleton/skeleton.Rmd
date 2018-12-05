@@ -1,12 +1,11 @@
 ---
 title: "Report Title"
 author: "Your Name"
-date: "`r Sys.Date()`"
+date: '`r councildown::pretty_date()`'
 output: 
   councildown::council_pdf:
     latex_engine: xelatex
 header-includes:
-  - \usepackage{fontspec}
   - \setmainfont{OpenSans}
 compact-title: true
 ---
