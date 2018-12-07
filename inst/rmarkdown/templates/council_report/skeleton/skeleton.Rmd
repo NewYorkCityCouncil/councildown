@@ -8,10 +8,16 @@ output:
 header-includes:
   - \setmainfont{OpenSans}
 compact-title: true
+fontsize: 11pt
 ---
 
 ```{r setup, include=FALSE}
+library(tikzDevice)
 knitr::opts_chunk$set(echo = FALSE)
+options(tikzDefaultEngine = "xetex")
+options(tikzXelatexPackages = c(getOption("tikzXelatexPackages"),
+                                "\\usepackage{fontspec}",
+                                "\\setmainfont{OpenSans}"))
 ```
 
 # Summary
@@ -28,18 +34,22 @@ summary(cars)
 
 You can also embed plots, for example, see Figure \@ref(fig:pressure).
 
-```{r pressure, echo=FALSE, fig.cap = "A graph of temperature versus pressure."}
+```{r pressure, echo=FALSE, fig.cap = "A graph of temperature versus pressure.", dev = "tikz", standalone = FALSE}
 plot(pressure)
 ```
 
 ## Including tables
 
-You can also include nicely formatted tables, like \@ref(tab:cars2).
+You can also include nicely formatted tables, like Table \@ref(tab:cars2).
 
 ```{r cars2}
 knitr::kable(head(mtcars), caption = "Some info about cars.", booktabs = TRUE)
 ```
 
+
+## Markdown extensions
+
+This template is built on top of `bookdown`, which enables several extensions to `pandoc` markdown, including cross references. For a full overview of these extensions, see the [`bookdown` book](https://bookdown.org/yihui/bookdown/).
 
 # Data
 
