@@ -2,7 +2,7 @@
 % Please edit documentation in R/council.R
 \name{council_pdf}
 \alias{council_pdf}
-\title{Title}
+\title{Render a New York City Council PDF report}
 \usage{
 council_pdf(toc = FALSE, highlight = "default", ...)
 }
@@ -13,6 +13,9 @@ council_pdf(toc = FALSE, highlight = "default", ...)
 
 \item{...}{Further options passed to \code{bookdown::pdf_document2()}.}
 }
+\value{
+An R Markdown output object
+}
 \description{
-Title
+Render a New York City Council PDF report
 }

@@ -1,20 +1,18 @@
-#' Title
+#' Render a New York City Council PDF report
 #'
 #' @param toc Whether to include a table of contents. Defaults to \code{FALSE}.
 #' @param highlight Highlighting style
 #' @param ... Further options passed to \code{bookdown::pdf_document2()}.
 #'
-#' @return
+#' @return An R Markdown output object
 #' @export
 #'
-#' @examples
 
 # shamelessly pilfered from https://github.com/ismayc/thesisdown/blob/master/R/thesis.R
 council_pdf <- function(toc = FALSE, highlight = "default", ...){
 
   base <- bookdown::pdf_document2(template = "template.tex",
                              toc = toc,
-                             toc_depth = toc_depth,
                              highlight = highlight,
                              keep_tex = TRUE,
                              pandoc_args = c("--top-level-division=section"),
