@@ -5,10 +5,11 @@ date: '`r councildown::pretty_date()`'
 output: 
   councildown::council_pdf:
     latex_engine: xelatex
+    dev: tikz
+  councildown::council_html: default
 compact-title: true
 fontsize: 11pt
 subparagraph: yes
-
 ---
 
 ```{r setup, include=FALSE}
@@ -34,7 +35,7 @@ summary(cars)
 
 You can also embed plots, for example, see Figure \@ref(fig:pressure).
 
-```{r pressure, echo=FALSE, fig.cap = "A graph of temperature versus pressure.", dev = "tikz", standalone = FALSE}
+```{r pressure, echo=FALSE, fig.cap = "A graph of temperature versus pressure."}
 plot(pressure)
 ```
 

@@ -2,20 +2,24 @@
 % Please edit documentation in R/council.R
 \name{council_pdf}
 \alias{council_pdf}
-\title{Render a New York City Council PDF report}
+\alias{council_html}
+\title{Render a New York City Council PDF or HTML report}
 \usage{
 council_pdf(toc = FALSE, highlight = "default", ...)
+
+council_html(toc = FALSE, highlight = "default", ...)
 }
 \arguments{
 \item{toc}{Whether to include a table of contents. Defaults to \code{FALSE}.}
 
 \item{highlight}{Highlighting style}
 
-\item{...}{Further options passed to \code{bookdown::pdf_document2()}.}
+\item{...}{Further options passed to \code{bookdown::pdf_document2()} or
+\code{bookdown::html_document2()}.}
 }
 \value{
 An R Markdown output object
 }
 \description{
-Render a New York City Council PDF report
+Render a New York City Council PDF or HTML report
 }
