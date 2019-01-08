@@ -11,5 +11,10 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: bookdown,
-    ggplot2
+    ggplot2,
+    leaflet,
+    sf,
+    htmltools,
+    htmlwidgets,
+    magrittr
 RoxygenNote: 6.1.1
