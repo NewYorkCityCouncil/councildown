@@ -4,8 +4,10 @@ Version: 0.0.1.9000
 Authors@R: person("Nick", "Solomon", 
     email = "nsolomon@council.nyc.gov", 
     role = c("aut", "cre"))
-Description: This package facilitates the creation of PDF reports for the
-    New York City Council's data scientists.
+Description: This package facilitates the creation of PDF and HTML reports for the
+    New York City Council's data scientists. It also includes various useful
+    functions for visually styling plots made with ggplot2 and maps made with
+    leaflet.
 Depends: R (>= 3.4.4)
 License: MIT + file LICENSE
 Encoding: UTF-8
