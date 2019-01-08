@@ -1,5 +1,5 @@
 Package: councildown
-Title: A New York City Council PDF Report Template
+Title: Visual Styling for New York City Council Reports
 Version: 0.0.2
 Authors@R: person("Nick", "Solomon", 
     email = "nsolomon@council.nyc.gov", 
