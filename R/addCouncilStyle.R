@@ -13,13 +13,10 @@
 #'
 addCouncilStyle <- function(map) {
 
-  dists <- sf::st_read("https://data.cityofnewyork.us/api/geospatial/yusd-j4xi?method=export&format=GeoJSON") %>%
-    sf::st_simplify()
-
   map %>%
     leaflet::addTiles(urlTemplate = "//cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png") %>%
     leaflet::addPolygons(data = dists, fill = FALSE, weight = .5, color = "black", opacity = .2) %>%
-    leaflet::addLabelOnlyMarkers(data = dists %>% sf::st_centroid(), label = ~coun_dist,
+    leaflet::addLabelOnlyMarkers(data = dists, lat = ~lab_y, lng = ~lab_x, label = ~coun_dist,
                         labelOptions = leaflet::labelOptions(permanent = TRUE, noHide = TRUE,
                                                     textOnly = TRUE,
                                                     textsize = "13px",
