@@ -1,6 +1,6 @@
 Package: councildown
 Title: A New York City Council PDF Report Template
-Version: 0.0.1.9000
+Version: 0.0.2.9000
 Authors@R: person("Nick", "Solomon", 
     email = "nsolomon@council.nyc.gov", 
     role = c("aut", "cre"))
