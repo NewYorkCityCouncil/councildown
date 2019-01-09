@@ -4,10 +4,12 @@
 \alias{addCouncilStyle}
 \title{Style a leaflet map}
 \usage{
-addCouncilStyle(map)
+addCouncilStyle(map, add_dists = TRUE)
 }
 \arguments{
 \item{map}{A \code{leaflet} map}
+
+\item{add_dists}{Boolean. Add council districts?}
 }
 \value{
 A \code{leaflet} map that in has City Council styles, including tiles,
@@ -19,6 +21,6 @@ Style a leaflet map
 \examples{
 library(leaflet)
 leaflet() \%>\%
-  addCouncilStyle
+  addCouncilStyle()
 
 }
