@@ -2,6 +2,7 @@
 
 export("%>%")
 export(addCouncilStyle)
+export(councilPopup)
 export(council_html)
 export(council_pdf)
 export(nycc_pal)
