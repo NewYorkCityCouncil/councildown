@@ -13,7 +13,7 @@
 #' councilPopup("Test")
 councilPopup <- function(x) {
 
-  style <- "h1,h2,h3,h4,h5 {font-family: Georgia, serif;}
+  style <- "h1,h2,h3,h4,h5 {font-family: Georgia, serif; margin: inherit;}
 font-family: 'Open Sans', sans-serif;"
 
   paste0("<div>", "<style>", style, "</style>", x, "</div>")
