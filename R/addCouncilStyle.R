@@ -16,9 +16,9 @@ addCouncilStyle <- function(map, add_dists = TRUE) {
 
   map <- map %>%
     leaflet::addTiles(urlTemplate = "//cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png",
-                      options = tileOptions(maxZoom = 12)) %>%
+                      options = leaflet::tileOptions(maxZoom = 12)) %>%
     leaflet::addTiles(urlTemplate = "//cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
-                      options = tileOptions(minZoom = 13, maxZoom = 17)) %>%
+                      options = leaflet::tileOptions(minZoom = 13)) %>%
     htmlwidgets::prependContent(htmltools::tags$style("@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700'); .leaflet-control {font-family: 'Open Sans', sans-serif;}"))
 
   if(add_dists) {

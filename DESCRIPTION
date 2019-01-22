@@ -8,7 +8,7 @@ Description: This package facilitates the creation of PDF and HTML reports for t
     New York City Council's data scientists. It also includes various useful
     functions for visually styling plots made with ggplot2 and maps made with
     leaflet.
-Depends: R (>= 3.4.4)
+Depends: R (>= 3.4.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
