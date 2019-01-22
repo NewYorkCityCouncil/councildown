@@ -2,13 +2,35 @@
 % Please edit documentation in R/theme_nycc.R
 \name{theme_nycc}
 \alias{theme_nycc}
-\title{Title}
+\title{New York City Council Theme}
 \usage{
-theme_nycc(...)
+theme_nycc(..., print = FALSE)
 }
 \arguments{
-\item{...}{}
+\item{...}{Further arguments passed to \code{theme_bw()}.}
+
+\item{print}{Boolean. Changes fonts to Times New Roman to match printed
+documents produced by committees.}
 }
 \description{
-Title
+This is a \code{ggplot2} theme that uses Council fonts and style guidelines
+to produce plots.
+}
+\examples{
+\dontrun{
+library(ggplot2)
+library(councildown)
+data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) \%>\%
+  ggplot(aes(x, y, color = z)) +
+ geom_point() +
+ labs(title = "Test",
+      subtitle = "Test",
+      caption = "Test",
+      color = "Legend",
+      x = "Test a",
+      y = "Test b") +
+ facet_wrap(~z) +
+ theme_nycc() +
+ scale_color_nycc()
+}
 }
