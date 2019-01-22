@@ -2,9 +2,13 @@
 % Please edit documentation in R/colors.R
 \name{scale_fill_nycc}
 \alias{scale_fill_nycc}
+\alias{scale_color_nycc}
 \title{Color and fill scales for ggplots}
 \usage{
 scale_fill_nycc(palette = "mixed", discrete = TRUE, reverse = FALSE,
+  ...)
+
+scale_color_nycc(palette = "mixed", discrete = TRUE, reverse = FALSE,
   ...)
 }
 \arguments{
