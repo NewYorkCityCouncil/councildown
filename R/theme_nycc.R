@@ -50,6 +50,7 @@ theme_nycc <- function(..., print = FALSE) {
           plot.subtitle = font_out(color = "#666666"),
           plot.caption = element_text(hjust = 0, color = "#666666"),
           strip.background = element_rect(fill = NA, color = NA),
+          strip.text = font_out(size = rel(1)),
           panel.border = element_rect(fill = NA, color = "#666666", size = .5),
           # panel.background = element_rect(fill = NA, color = "#666666", size = .5),
           axis.title = font_out(),
