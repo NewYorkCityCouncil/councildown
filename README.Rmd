@@ -1,0 +1,62 @@
+---
+output: github_document
+always_allow_html: yes
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(councildown)
+library(leaflet)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# councildown
+
+The `councildown` package implements style guide compliant defaults for R Markdown documents, `ggplot2` plots, and `leaflet` maps.
+
+## Installation
+
+You can install the released version of councildown from GitHub
+
+``` r
+remotes::install_packages("newyorkcitycouncil/councildown")
+```
+
+## Example
+
+### ggplot2
+
+On load, the `theme_set()` is called, setting `theme_nycc()` as the default `ggplot2` theme. Additionally, common `scale_*` functions are overwritten with `scale_fill_nycc()` and `scale_color_nycc()`.
+
+```{r}
+tibble(x = rnorm(100), 
+       y = rnorm(100), 
+       z = sample(c("a", "b"), 100, replace = TRUE)) %>% 
+  ggplot(aes(x, y, color = z)) +
+  geom_point() +
+  facet_wrap(~z) + 
+  labs(title = "Title",
+       subtitle = "Subtitle",
+       caption = "Caption")
+```
+
+
+### leaflet
+
+The function `addCouncilStyle()` adds default map tiles and City Council district outlines and labels to `leaflet` maps. Use this instead of `addTiles()`.
+
+```{r screenshot.opts = list(vwidth = 1280, vheight = 900)}
+leaflet() %>% 
+  addCouncilStyle()
+```
+
+
+### R Markdown
+
+The package includes an R Markdown template for writing Council reports. After installing the package, create a new report by choosing New > R Markdown > From Template > City Council Report in RStudio.
