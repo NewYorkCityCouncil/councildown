@@ -57,6 +57,5 @@ theme_nycc <- function(..., print = FALSE) {
           axis.line = element_line(color = NA),
           axis.ticks = element_line(color = "#666666", size = .5),
           panel.grid.major = element_line(color = "#CACACA", size = .2),
-          panel.grid.minor = element_line(color = "#CACACA", size = .1),
-          complete = TRUE)
+          panel.grid.minor = element_line(color = "#CACACA", size = .1))
 }
