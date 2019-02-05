@@ -31,6 +31,7 @@ nycc_palettes <- list(
 
 #' Make a color palette with NYCC colors
 #'
+#'
 #' @param palette One of \code{"mixed", "cool", "warm", "diverging"}
 #' @param reverse Boolean, reverse the order of the selected palette
 #' @param ... Further arguments passed to \code{colorRampPalette}
@@ -50,7 +51,23 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
 
 #' Color and fill scales for ggplots
 #'
+#' The functions \code{scale_*_continuous} and \code{scale_*_discrete} are
+#' exported from this package as aliases for the functions \code{scale_*_nycc}
+#' with appropriate default arguments. Because of this, these colors will
+#' overwrite \code{ggplot2}'s default scales. To prevent this, either set scales
+#' manually in plots by calling \code{ggplot2::scale_*}, or attach
+#' \code{ggplot2} after \code{councildown}.
+#'
+#' When \code{discrete} is \code{TRUE} arguments are passed via \code{...} to
+#' \code{\link[ggplot2]{discrete_scale}}. This is the default behavior.
+#' Otherwise, \code{...} arguments are passed to
+#' \code{\link[ggplot2]{scale_color_gradientn}} or
+#' \code{\link[ggplot2]{scale_fill_gradientn}} as appropriate.
+#'
 #' @inheritParams nycc_pal
+#' @inheritParams ggplot2::discrete_scale
+#' @inheritParams ggplot2::scale_fill_gradientn
+#' @inheritParams ggplot2::scale_color_gradientn
 #'
 #' @param discrete Boolean, should the scale be discrete?
 #' @param ... Further arguments passed to \code{scale_*} from \code{ggplot2}
@@ -62,7 +79,7 @@ scale_fill_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE,
   pal <- nycc_pal(palette = palette, reverse = reverse)
 
   if (discrete) {
-    ggplot2::discrete_scale("fill", paste0("nycc_", palette), palette = pal, ...)
+    ggplot2::discrete_scale("fill", paste0("nycc_", palette), palette = pal,na.value = "grey50", ...)
   } else {
     ggplot2::scale_fill_gradientn(colours = pal(256), ...)
   }
@@ -78,8 +95,25 @@ scale_color_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE
   pal <- nycc_pal(palette = palette, reverse = reverse)
 
   if (discrete) {
-    ggplot2::discrete_scale("colour", paste0("nycc_", palette), palette = pal, ...)
+    ggplot2::discrete_scale("colour", paste0("nycc_", palette), palette = pal, na.value = "grey50", ...)
   } else {
     ggplot2::scale_color_gradientn(colours = pal(256), ...)
   }
 }
+
+#' @inherit scale_fill_nycc
+#' @rdname scale_fill_nycc
+#' @export
+scale_color_discrete <- scale_color_nycc
+#' @inherit scale_fill_nycc
+#' @rdname scale_fill_nycc
+#' @export
+scale_color_continuous <- function(...) councildown::scale_color_nycc(..., discrete = FALSE)
+#' @inherit scale_fill_nycc
+#' @rdname scale_fill_nycc
+#' @export
+scale_fill_discrete <- scale_fill_nycc
+#' @inherit scale_fill_nycc
+#' @rdname scale_fill_nycc
+#' @export
+scale_fill_continuous <- function(...) councildown::scale_fill_nycc(discrete = FALSE)
