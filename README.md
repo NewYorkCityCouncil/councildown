@@ -35,6 +35,23 @@ tibble(x = rnorm(100),
 
 <img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />
 
+Additionally, `theme_nycc()` has an argument `print` for changing the theme to better fit print documents made at the council. The main difference is that when `print = TRUE` all plot fonts are Times New Roman as opposed to the web fonts specified in the brand guidelines.
+
+``` r
+tibble(x = rnorm(100), 
+       y = rnorm(100), 
+       z = sample(c("a", "b"), 100, replace = TRUE)) %>% 
+  ggplot(aes(x, y, color = z)) +
+  geom_point() +
+  facet_wrap(~z) + 
+  labs(title = "Title",
+       subtitle = "Subtitle",
+       caption = "Caption") +
+  theme_nycc(print = TRUE)
+```
+
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+
 ### leaflet
 
 The function `addCouncilStyle()` adds default map tiles and City Council district outlines and labels to `leaflet` maps. Use this instead of `addTiles()`.
@@ -44,7 +61,7 @@ leaflet() %>%
   addCouncilStyle()
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 ### R Markdown
 
