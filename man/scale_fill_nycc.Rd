@@ -3,6 +3,10 @@
 \name{scale_fill_nycc}
 \alias{scale_fill_nycc}
 \alias{scale_color_nycc}
+\alias{scale_color_discrete}
+\alias{scale_color_continuous}
+\alias{scale_fill_discrete}
+\alias{scale_fill_continuous}
 \title{Color and fill scales for ggplots}
 \usage{
 scale_fill_nycc(palette = "mixed", discrete = TRUE, reverse = FALSE,
@@ -10,6 +14,16 @@ scale_fill_nycc(palette = "mixed", discrete = TRUE, reverse = FALSE,
 
 scale_color_nycc(palette = "mixed", discrete = TRUE, reverse = FALSE,
   ...)
+
+scale_color_discrete(palette = "mixed", discrete = TRUE,
+  reverse = FALSE, ...)
+
+scale_color_continuous(...)
+
+scale_fill_discrete(palette = "mixed", discrete = TRUE,
+  reverse = FALSE, ...)
+
+scale_fill_continuous(...)
 }
 \arguments{
 \item{palette}{One of \code{"mixed", "cool", "warm", "diverging"}}
@@ -21,5 +35,17 @@ scale_color_nycc(palette = "mixed", discrete = TRUE, reverse = FALSE,
 \item{...}{Further arguments passed to \code{scale_*} from \code{ggplot2}}
 }
 \description{
-Color and fill scales for ggplots
+The functions \code{scale_*_continuous} and \code{scale_*_discrete} are
+exported from this package as aliases for the functions \code{scale_*_nycc}
+with appropriate default arguments. Because of this, these colors will
+overwrite \code{ggplot2}'s default scales. To prevent this, either set scales
+manually in plots by calling \code{ggplot2::scale_*}, or attach
+\code{ggplot2} after \code{councildown}.
+}
+\details{
+When \code{discrete} is \code{TRUE} arguments are passed via \code{...} to
+\code{\link[ggplot2]{discrete_scale}}. This is the default behavior.
+Otherwise, \code{...} arguments are passed to
+\code{\link[ggplot2]{scale_color_gradientn}} or
+\code{\link[ggplot2]{scale_fill_gradientn}} as appropriate.
 }
