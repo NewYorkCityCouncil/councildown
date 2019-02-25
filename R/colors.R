@@ -25,7 +25,7 @@ nycc_palettes <- list(
   # main = nycc_cols("black", "dark blue", "nycc blue"),
   cool = nycc_cols("grape", "teal", "blue"),
   warm = nycc_cols("gold", "red"),
-  mixed = nycc_cols("red", "grape", "blue", "teal", "lime", "gold"),
+  mixed = nycc_cols( "gold", "red", "grape", "blue", "teal", "lime"),
   diverging = nycc_cols("blue", "white", "red")
 )
 
