@@ -11,10 +11,12 @@ fontsize: 11pt
 subparagraph: yes
 ---
 
-```{r setup, include=FALSE}
+```{r include = FALSE}
 library(ggplot2)
 library(councildown)
+
 extrafont::loadfonts()
+knitr::knit_hooks$set(embed = hook_pdfembed)
 knitr::opts_chunk$set(echo = FALSE, embed = TRUE)
 knitr::opts_knit$set(root.dir = here::here())
 ```
