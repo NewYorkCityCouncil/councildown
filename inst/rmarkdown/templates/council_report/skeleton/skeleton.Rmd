@@ -5,7 +5,6 @@ date: '`r councildown::pretty_date()`'
 output: 
   councildown::council_pdf:
     latex_engine: xelatex
-    dev: tikz
   councildown::council_html: default
 compact-title: true
 fontsize: 11pt
@@ -13,12 +12,11 @@ subparagraph: yes
 ---
 
 ```{r setup, include=FALSE}
-library(tikzDevice)
+library(ggplot2)
+library(councildown)
+extrafont::loadfonts()
 knitr::opts_chunk$set(echo = FALSE)
-options(tikzDefaultEngine = "xetex")
-options(tikzXelatexPackages = c(getOption("tikzXelatexPackages"),
-                                "\\usepackage{fontspec}",
-                                "\\setmainfont{OpenSans}"))
+knitr::opts_knit$set(root.dir = here::here())
 ```
 
 # Summary
@@ -33,10 +31,13 @@ summary(cars)
 
 ## Including Plots
 
-You can also embed plots, for example, see Figure \@ref(fig:pressure).
+You can also embed plots, for example, see Figure \@ref(fig:iris).
 
-```{r pressure, echo=FALSE, fig.cap = "A graph of temperature versus pressure."}
-plot(pressure)
+```{r iris, echo=FALSE, fig.cap = "Obligatory iris plot"}
+ggplot(iris, aes(Petal.Length, Petal.Width, color = Species)) +
+  geom_point() +
+  labs(title = "Irises",
+       subtitle = "The most boring plot in the world")
 ```
 
 ## Including tables

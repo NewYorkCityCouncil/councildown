@@ -19,4 +19,6 @@ Imports: bookdown,
     htmltools,
     htmlwidgets,
     magrittr
+Suggests: here,
+    extrafont
 RoxygenNote: 6.1.1
