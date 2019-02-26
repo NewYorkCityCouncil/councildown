@@ -15,7 +15,7 @@ subparagraph: yes
 library(ggplot2)
 library(councildown)
 extrafont::loadfonts()
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, embed = TRUE)
 knitr::opts_knit$set(root.dir = here::here())
 ```
 
