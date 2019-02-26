@@ -10,10 +10,10 @@ h1,h2,h3,h4,h5,h6{
 
 #header {
   background-image: url(council-logo.png);
-  background-size: 33%;
+  background-size: 50%;
   background-position: top right;
   background-repeat: no-repeat;
 }
 .title {
-  width: 66%;
+  width: 50%;
 }
