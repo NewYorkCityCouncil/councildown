@@ -18,7 +18,10 @@ Imports: bookdown,
     sf,
     htmltools,
     htmlwidgets,
-    magrittr
+    magrittr,
+    knitr,
+    rmarkdown,
+    dplyr (>= 0.8)
 Suggests: here,
     extrafont
 RoxygenNote: 6.1.1
