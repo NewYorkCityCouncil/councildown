@@ -20,7 +20,6 @@ Imports: bookdown,
     htmlwidgets,
     magrittr,
     knitr,
-    rmarkdown,
     dplyr (>= 0.8)
 Suggests: here,
     extrafont
