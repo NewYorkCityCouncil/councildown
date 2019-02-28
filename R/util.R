@@ -48,6 +48,7 @@ hook_pdfembed <- function(before, options, envir) {
   ext = options$fig.ext
   if (options$dev == 'tikz' && options$external) ext = 'pdf'
   if (before || (fig.num <- options$fig.num %n% 0L) == 0L) return()
+  if(!"pdf_document" %in% rmarkdown::all_output_formats(knitr::current_input())) return()
   paths = all_figs(options, ext, fig.num)
   in_base_dir(for (f in paths) extrafont::embed_fonts(f))
 }
