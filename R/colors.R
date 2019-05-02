@@ -46,7 +46,20 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
 
   if (reverse) pal <- rev(pal)
 
-  colorRampPalette(pal, ...)
+  raw_pal <- colorRampPalette(pal, ...)
+
+  out <- function(n) {
+
+    names(pal) <- NULL
+
+    if (n >= length(pal)) {
+      return(raw_pal(n))
+    } else {
+      return(pal[1:n])
+    }
+  }
+
+  out
 }
 
 #' Color and fill scales for ggplots
