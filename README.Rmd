@@ -40,6 +40,7 @@ tibble(x = rnorm(100),
        z = sample(c("a", "b"), 100, replace = TRUE)) %>% 
   ggplot(aes(x, y, color = z)) +
   geom_point() +
+  scale_color_nycc(discrete = TRUE) +
   facet_wrap(~z) + 
   labs(title = "Title",
        subtitle = "Subtitle",
@@ -54,6 +55,7 @@ tibble(x = rnorm(100),
        z = sample(c("a", "b"), 100, replace = TRUE)) %>% 
   ggplot(aes(x, y, color = z)) +
   geom_point() +
+  scale_color_nycc(discrete = TRUE) +
   facet_wrap(~z) + 
   labs(title = "Title",
        subtitle = "Subtitle",
