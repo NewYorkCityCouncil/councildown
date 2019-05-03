@@ -41,21 +41,42 @@ theme_nycc <- function(..., print = FALSE) {
     base_theme <- theme_bw(base_family = "Times New Roman", ...)
   } else {
     base_theme <- theme_bw(base_family = "Open Sans", ...)
-
   }
-  base_theme +
-    theme(
-          legend.title = font_out(hjust = .5),
-          plot.title = font_out(),
-          plot.subtitle = font_out(color = "#666666"),
-          plot.caption = element_text(hjust = 0, color = "#666666"),
-          strip.background = element_rect(fill = NA, color = NA),
-          strip.text = font_out(size = rel(1)),
-          panel.border = element_rect(fill = NA, color = "#666666", size = .5),
-          # panel.background = element_rect(fill = NA, color = "#666666", size = .5),
-          axis.title = font_out(),
-          axis.line = element_line(color = NA),
-          axis.ticks = element_line(color = "#666666", size = .5),
-          panel.grid.major = element_line(color = "#CACACA", size = .2),
-          panel.grid.minor = element_line(color = "#CACACA", size = .1))
+
+
+  if (print) {
+    base_theme +
+      theme(
+        legend.title = font_out(hjust = .5),
+        plot.title = font_out(),
+        plot.subtitle = font_out(color = "#666666"),
+        plot.caption = element_text(hjust = 0, color = "#666666"),
+        strip.background = element_rect(fill = NA, color = NA),
+        strip.text = font_out(size = rel(1)),
+        panel.border = element_rect(fill = NA, color = "#666666", size = .5),
+        # panel.background = element_rect(fill = NA, color = "#666666", size = .5),
+        axis.title = font_out(),
+        axis.line = element_line(color = NA),
+        axis.ticks = element_line(color = "#666666", size = .5),
+        panel.grid.major = element_line(color = "#CACACA", size = .2),
+        panel.grid.minor = element_line(color = "#CACACA", size = .1))
+  } else {
+    base_theme +
+      theme(
+        legend.title = font_out(hjust = .5),
+        plot.title = font_out(),
+        plot.subtitle = font_out(color = "#666666"),
+        plot.caption = element_text(hjust = 0, color = "#666666"),
+        strip.background = element_rect(fill = NA, color = NA),
+        strip.text = font_out(size = rel(1)),
+        panel.border = element_blank(),
+        # panel.background = element_rect(fill = NA, color = "#666666", size = .5),
+        axis.title = font_out(),
+        axis.line = element_line(color = NA),
+        axis.ticks = element_line(color = "#666666", size = .5),
+        panel.grid.major = element_line(color = "#CACACA", size = .2),
+        panel.grid.minor = element_line(color = "#CACACA", size = .1))
+  }
+
+
 }
