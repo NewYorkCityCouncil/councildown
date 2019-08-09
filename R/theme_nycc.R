@@ -31,16 +31,16 @@
 theme_nycc <- function(..., print = FALSE) {
 
   if (print) {
-    font_out <- function(...) element_text(..., family = "Times New Roman")
+    font_out <- function(...) element_text(...)
   } else {
     font_out <- function(...) element_text(..., family = "Georgia")
 
   }
 
   if (print) {
-    base_theme <- theme_bw(base_family = "Times New Roman", ...)
+    base_theme <- theme_bw( ...)
   } else {
-    base_theme <- theme_bw(base_family = "Open Sans", ...)
+    base_theme <- theme_bw( ...)
   }
 
 
