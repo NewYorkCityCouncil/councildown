@@ -11,7 +11,7 @@ R Markdown documents, `ggplot2` plots, and `leaflet` maps.
 You can install the released version of councildown from GitHub
 
 ``` r
-remotes::install_packages("newyorkcitycouncil/councildown")
+remotes::install_github("newyorkcitycouncil/councildown")
 ```
 
 ## Example
