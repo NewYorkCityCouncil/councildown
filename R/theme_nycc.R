@@ -28,10 +28,10 @@
 #' }
 #' @import ggplot2
 #'
-theme_nycc <- function(..., print = FALSE) {
+theme_nycc <- function(..., print = FALSE, facet = FALSE) {
 
   if (print) {
-    font_out <- function(...) element_text(...)
+    font_out <- function(...) element_text(..., family = "Times New Roman")
   } else {
     font_out <- function(...) element_text(..., family = "Georgia")
 
@@ -47,42 +47,52 @@ theme_nycc <- function(..., print = FALSE) {
   }
 
 
-  if (print) {
-    base_theme +
-      theme(
-        legend.title = font_out(hjust = .5),
-        plot.title = font_out(),
-        plot.subtitle = font_out(color = "#666666"),
-        plot.caption = element_text(hjust = 0, color = "#666666"),
-        strip.background = element_rect(fill = NA, color = NA),
-        strip.text = font_out(size = rel(1)),
-        panel.border = element_rect(fill = NA, color = "#666666", size = .5),
-        # panel.background = element_rect(fill = NA, color = "#666666", size = .5),
-        axis.title = font_out(),
-        axis.line = element_line(color = NA),
-        axis.ticks = element_line(color = "#666666", size = .5),
-        panel.grid.major = element_line(color = "#CACACA", size = .2),
-        panel.grid.minor = element_line(color = "#CACACA", size = .1))
-  } else {
+  if (facet) {
     base_theme +
       theme(
         legend.position="right",
-        legend.text = element_text(size = 9),
-        panel.border = element_blank(),
+        legend.text = font_out(size = 9),
+        legend.title = font_out(hjust = .5),
+        strip.background = element_rect(fill = NA, color = NA),
+        strip.text = font_out(size = rel(1)),
+        panel.border = element_rect(fill = NA, color = "#666666", size = .5),
         panel.grid.minor.x = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.y = element_blank(),
         panel.grid.major.y = element_blank(),
-        axis.line.x.bottom=element_line(color="grey"),
-        axis.line.y.left=element_line(color="grey"),
+        axis.line.x.bottom=element_line(color = "#CACACA"),
+        axis.line.y.left=element_line(color = "#CACACA"),
         #text = element_text(family = "Open Sans"),
-        plot.title = element_text(family = "Georgia",size = 16),
-        plot.subtitle = element_text(family = "Georgia",size = 12),
-        axis.title.y = element_text(margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        plot.title = font_out(size = 16),
+        plot.subtitle = font_out(size = 12),
+        axis.title.y = font_out(margin = margin(t = 0, r = 10, b = 0, l = 0)),
         axis.ticks = element_blank(),
-        axis.text.y = element_text(margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = element_text(angle = 45, size = 8),
-        axis.title.x = element_text(margin = margin(t = 10, r = 0, b = 0, l = 0))
+        axis.text.y = font_out(margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = font_out(angle = 45, size = 8),
+        axis.title.x = font_out(margin = margin(t = 10, r = 0, b = 0, l = 0))
+        )
+  } else {
+    base_theme +
+      theme(
+        legend.position="right",
+        legend.text = font_out(size = 9),
+        legend.title = font_out(hjust = .5),
+        strip.background = element_rect(fill = NA, color = NA),
+        strip.text = font_out(size = rel(1)),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.line.x.bottom=element_line(color = "#CACACA"),
+        axis.line.y.left=element_line(color = "#CACACA"),
+        #text = element_text(family = "Open Sans"),
+        plot.title = font_out(size = 16),
+        plot.subtitle = font_out(size = 12),
+        axis.title.y = font_out(margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.ticks = element_blank(),
+        axis.text.y = font_out(margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = font_out(angle = 45, size = 8),
+        axis.title.x = font_out(margin = margin(t = 10, r = 0, b = 0, l = 0))
       )
   }
 
