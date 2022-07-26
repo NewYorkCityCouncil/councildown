@@ -1,15 +1,34 @@
 nycc_colors <- c(
-  # "nycc blue" = "#2F56A6",
-  # "dark blue" = "#23417D",
-  # "black" = "#222222",
-  "red" = "#D05D4E",
-  "grape" = "#BE4BDB",
-  "blue" = "#228AE6",
-  "teal" = "#12B886",
-  "lime" = "#82C91E",
-  "gold" = "#F59F00",
-  "brown" = "#A07952",
-  "white" = "#FFFFFF"
+   "nycc blue" = "#2F56A6",
+   "dark blue" = "#23417D",
+   "dark grey" = "#666666",
+   "medium grey" = "#CACACA",
+   "light grey" = "#E6E6E6",
+   "off white" = "#F9F9F9",
+   "white" = "#FFFFFF",
+   "black" = "#222222",
+   "maroon" = "#800000",
+   "blood orange" = "#B63F26",
+   "Bronze" = "#846126",
+   "Forest" = "#007534",
+   "Blue" = "#1D5FD6",
+   "Indigo"= "#3B2483",
+   "Violet" = "#8744BC",
+   "Brown" = "#674200")
+
+nycc_categorical_primary <- c(
+   "dark red" = "#880000",
+   "tan"   = "#bca066",
+   "blue" = "#1d5fd6",
+   "periwinke purple" = "#bbb8ff"
+)
+
+nycc_categorical_secondary <- c(
+  "dark umber brown" = "#471914",
+  "terra orange" ="#dc6d4f",
+  "light grey" = "#e6e6e6",
+  "purple" = "#6a4ca9",
+  "indigo" = "#3b2483"
 )
 
 nycc_cols <- function(...) {
@@ -23,10 +42,10 @@ nycc_cols <- function(...) {
 
 nycc_palettes <- list(
   # main = nycc_cols("black", "dark blue", "nycc blue"),
-  cool = nycc_cols("grape", "teal", "blue"),
-  warm = nycc_cols("gold", "red"),
-  mixed = nycc_cols( "gold", "red", "grape", "blue", "teal", "lime"),
-  diverging = nycc_cols("blue", "grape", "red")
+  mixed = nycc_categorical_primary,
+  warm = nycc_cols("marron", "blood orange"),
+  cool = nycc_cols("dark blue","nycc_blue", "blue"),
+  diverging = nycc_categorical_secondary
 )
 
 #' Make a color palette with NYCC colors
