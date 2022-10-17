@@ -23,7 +23,7 @@
 #'       x = "Test a",
 #'       y = "Test b") +
 #'  facet_wrap(~z) +
-#'  theme_nycc() +
+#'  theme_nycc(facet=TRUE) +
 #'  scale_color_nycc()
 #' }
 #' @import ggplot2
