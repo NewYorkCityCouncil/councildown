@@ -14,7 +14,19 @@ nycc_colors <- c(
    "Blue" = "#1D5FD6",
    "Indigo"= "#3B2483",
    "Violet" = "#8744BC",
-   "Brown" = "#674200")
+   "Brown" = "#674200",
+   "terra orange" ="#dc6d4f")
+
+nycc_monochromatic <- c("#000000",  "#16294f",  "#2c529f",  "#5f85d2",  "#afc2e8")
+nycc_bw <- c("#000000",  "#333333",  "#666666",  "#999999",  "#cccccc")
+
+nycc_categorical_main <- c(
+  "blue" = "#1d5fd6",
+  "dark umber brown" = "#471914",
+  "blood orange" = "#B63F26",
+  "grey" = "#959595",
+  "indigo" = "#3b2483"
+)
 
 nycc_categorical_primary <- c(
    "dark red" = "#880000",
@@ -42,9 +54,11 @@ nycc_cols <- function(...) {
 
 nycc_palettes <- list(
   # main = nycc_cols("black", "dark blue", "nycc blue"),
+  bw = nycc_bw
+  main = nycc_categorical_main,
   mixed = nycc_categorical_primary,
-  warm = nycc_cols("marron", "blood orange"),
-  cool = nycc_cols("dark blue","nycc_blue", "blue"),
+  warm = nycc_cols("marron", "blood orange", "violet", "medium grey","terra orange"),
+  cool = nycc_monochromatic,
   diverging = nycc_categorical_secondary
 )
 
@@ -149,3 +163,4 @@ scale_fill_discrete <- scale_fill_nycc
 #' @rdname scale_fill_nycc
 #' @export
 scale_fill_continuous <- function(...) councildown::scale_fill_nycc(discrete = FALSE)
+
