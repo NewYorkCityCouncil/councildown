@@ -54,7 +54,7 @@ nycc_cols <- function(...) {
 
 nycc_palettes <- list(
   # main = nycc_cols("black", "dark blue", "nycc blue"),
-  bw = nycc_bw
+  bw = nycc_bw,
   main = nycc_categorical_main,
   mixed = nycc_categorical_primary,
   warm = nycc_cols("marron", "blood orange", "violet", "medium grey","terra orange"),
