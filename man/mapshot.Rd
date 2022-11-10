@@ -17,3 +17,14 @@ mapshot(
 This is a \code{mapshot} adjustment that saves maps as pdf and
 warns users if they choose png
 }
+\examples{
+\dontrun{
+library(leaflet)
+
+m <- leaflet() \%>\%
+ addTiles()
+mapshot(m, file = "test.png")
+file.remove("test.pdf")
+}
+
+}
