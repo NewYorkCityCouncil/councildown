@@ -16,8 +16,9 @@ pretty_date <- function(x = NULL) {
 }
 
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage("Using NYCC default colors and theme in `ggplot2` calls. To use `ggplot2` defaults call them with `::`.")
+  packageStartupMessage("Using NYCC default colors and theme in `ggplot2` calls. To use `ggplot2` defaults call them with `::`.\nOverrides default mapshot with councildown::mapshot")
   ggplot2::theme_set(councildown::theme_nycc())
+  mapshot <- councildown::mapshot
 }
 
 

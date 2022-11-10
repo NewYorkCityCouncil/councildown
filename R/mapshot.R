@@ -10,7 +10,6 @@
 #' @examples
 #' \dontrun{
 #' library(leaflet)
-#'
 #' m <- leaflet() %>%
 #'  addTiles()
 #' mapshot(m, file = "test.png")
