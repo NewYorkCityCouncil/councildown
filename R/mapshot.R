@@ -65,4 +65,4 @@ mapshot <- function (x, url = NULL, file = NULL, remove_controls = c("zoomContro
       do.call(webshot::webshot, args[ws_args])
       return(invisible())
     }
-  }
+}

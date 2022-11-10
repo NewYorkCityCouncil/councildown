@@ -4,7 +4,7 @@
 \alias{theme_nycc}
 \title{New York City Council Theme}
 \usage{
-theme_nycc(..., print = FALSE)
+theme_nycc(..., print = FALSE, facet = FALSE)
 }
 \arguments{
 \item{...}{Further arguments passed to \code{theme_bw()}.}
@@ -30,7 +30,7 @@ data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) \%>\%
       x = "Test a",
       y = "Test b") +
  facet_wrap(~z) +
- theme_nycc() +
+ theme_nycc(facet=TRUE) +
  scale_color_nycc()
 }
 }
