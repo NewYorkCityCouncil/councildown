@@ -13,6 +13,23 @@ mapshot(
   ...
 )
 }
+\arguments{
+\item{x}{\code{mapview} or \code{leaflet} object (or any other hmtlwidget).}
+
+\item{url}{Output \code{.html} file. If not supplied and 'file' is specified,
+a temporary index file will be created.}
+
+\item{file}{Output \code{.png}, \code{.pdf}, or \code{.jpeg} file.}
+
+\item{remove_controls}{\code{character} vector of control buttons to be removed
+from the map when saving to file. Any combination of
+"zoomControl", "layersControl", "homeButton", "scaleBar", "drawToolbar",
+"easyButton". If set to \code{NULL} nothing will be removed. Ignord if \code{x}
+is not a mapview or leaflet map.}
+
+\item{...}{Further arguments passed on to \code{\link[htmlwidgets]{saveWidget}}
+and/or \code{\link[webshot]{webshot}}.}
+}
 \description{
 This is a \code{mapshot} adjustment that saves maps as pdf and
 warns users if they choose png
@@ -20,7 +37,6 @@ warns users if they choose png
 \examples{
 \dontrun{
 library(leaflet)
-
 m <- leaflet() \%>\%
  addTiles()
 mapshot(m, file = "test.png")

@@ -3,7 +3,7 @@
 #' This is a \code{mapshot} adjustment that saves maps as pdf and
 #' warns users if they choose png
 #'
-#' @param
+#' @inheritParams mapview::mapshot
 #'
 #' @export
 #'

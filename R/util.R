@@ -16,9 +16,8 @@ pretty_date <- function(x = NULL) {
 }
 
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage("Using NYCC default colors and theme in `ggplot2` calls. To use `ggplot2` defaults call them with `::`.\nOverrides default mapshot with councildown::mapshot")
+  packageStartupMessage("Using NYCC default colors and theme in `ggplot2` calls. To use `ggplot2` defaults call them with `::`.\nOverrides default mapshot with councildown::mapshot\nOverrides default ggplot_add with councildown::ggplot_add")
   ggplot2::theme_set(councildown::theme_nycc())
-  mapshot <- councildown::mapshot
 }
 
 
@@ -30,6 +29,9 @@ all_figs = getFromNamespace("all_figs", "knitr")
 
 in_base_dir = getFromNamespace("in_base_dir", "knitr")
 
+mapshot = getFromNamespace("mapshot", "councildown")
+
+ggplot_add = getFromNamespace("ggplot_add", "councildown")
 
 #' Embed fonts in PDF images
 #'
