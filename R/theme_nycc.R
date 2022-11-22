@@ -65,11 +65,11 @@ theme_nycc <- function(..., print = FALSE, facet = FALSE) {
         #text = element_text(family = "Open Sans"),
         plot.title = font_out(size = 16),
         plot.subtitle = font_out(size = 12),
-        axis.title.y = font_out(margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.title.y = font_out(size = 12, margin = margin(t = 0, r = 10, b = 0, l = 0)),
         axis.ticks = element_blank(),
-        axis.text.y = font_out(margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = font_out(angle = 45, size = 8),
-        axis.title.x = font_out(margin = margin(t = 10, r = 0, b = 0, l = 0))
+        axis.text.y = font_out(size = 11, margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = font_out(size = 11),
+        axis.title.x = font_out(size = 12, margin = margin(t = 10, r = 0, b = 0, l = 0))
         )
   } else {
     base_theme +
@@ -88,11 +88,11 @@ theme_nycc <- function(..., print = FALSE, facet = FALSE) {
         #text = element_text(family = "Open Sans"),
         plot.title = font_out(size = 16),
         plot.subtitle = font_out(size = 12),
-        axis.title.y = font_out(margin = margin(t = 0, r = 10, b = 0, l = 0)),
+        axis.title.y = font_out(size = 12, margin = margin(t = 0, r = 10, b = 0, l = 0)),
         axis.ticks = element_blank(),
-        axis.text.y = font_out(margin = margin(t = 10, r = 0, b = 0, l = 0)),
-        axis.text.x = font_out(angle = 45, size = 8),
-        axis.title.x = font_out(margin = margin(t = 10, r = 0, b = 0, l = 0))
+        axis.text.y = font_out(size = 11, margin = margin(t = 10, r = 0, b = 0, l = 0)),
+        axis.text.x = font_out(size = 11),
+        axis.title.x = font_out(size = 12, margin = margin(t = 10, r = 0, b = 0, l = 0))
       )
   }
 
