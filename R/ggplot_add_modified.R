@@ -1,5 +1,5 @@
 #' THIS SECTION IS COPIED FROM THE ORIGINAL GGPLOT2 CODE.
-#' 
+#'
 #' Add components to a plot
 #'
 #' `+` is the key to constructing sophisticated ggplot2 graphics. It
@@ -49,11 +49,11 @@
       "i" = "Did you accidentally put {.code +} on a new line?"
     ))
   }
-  
+
   # Get the name of what was passed in as e2, and pass along so that it
   # can be displayed in error messages
   e2name <- deparse(substitute(e2))
-  
+
   if      (is.theme(e1))  ggplot2:::add_theme(e1, e2, e2name)
   else if (is.ggplot(e1)) add_ggplot(e1, e2, e2name)
   else if (is.ggproto(e1)) {
@@ -71,7 +71,7 @@
 
 add_ggplot <- function(p, object, objectname) {
   if (is.null(object)) return(p)
-  
+
   p <- ggplot2:::plot_clone(p)
   p <- ggplot_add(object, p, objectname)
   set_last_plot(p)
@@ -115,7 +115,7 @@ ggplot_add.function <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.theme <- function(object, plot, object_name) {
-  plot$theme <- add_theme(plot$theme, object)
+  plot$theme <- ggplot2:::add_theme(plot$theme, object)
   plot
 }
 #' @export
@@ -139,7 +139,7 @@ ggplot_add.uneval <- function(object, plot, object_name) {
   plot$mapping <- ggplot2:::defaults(object, plot$mapping)
   # ggplot2:::defaults() doesn't copy class, so copy it.
   class(plot$mapping) <- class(object)
-  
+
   labels <- ggplot2:::make_labels(object)
   names(labels) <- names(object)
   update_labels(plot, labels)
@@ -149,7 +149,7 @@ ggplot_add.Coord <- function(object, plot, object_name) {
   if (!isTRUE(plot$coordinates$default)) {
     cli::cli_inform("Coordinate system already present. Adding new coordinate system, which will replace the existing one.")
   }
-  
+
   plot$coordinates <- object
   plot
 }
@@ -176,7 +176,7 @@ ggplot_add.by <- function(object, plot, object_name) {
 #' @export
 ggplot_add.Layer <- function(object, plot, object_name) {
   plot$layers <- append(plot$layers, object)
-  
+
   # Add any new labels
   mapping <- ggplot2:::make_labels(object$mapping)
   default <- lapply(ggplot2:::make_labels(object$stat$default_aes), function(l) {
