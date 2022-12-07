@@ -7,7 +7,7 @@
 nycc_pal(palette = "mixed", reverse = FALSE, ...)
 }
 \arguments{
-\item{palette}{One of \code{"mixed", "cool", "warm", "diverging"}}
+\item{palette}{One of \code{"bw","main", "mixed", "cool", "warm", "diverging"}}
 
 \item{reverse}{Boolean, reverse the order of the selected palette}
 

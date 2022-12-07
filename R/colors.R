@@ -1,47 +1,34 @@
 nycc_colors <- c(
-   "nycc blue" = "#2F56A6",
-   "dark blue" = "#23417D",
-   "dark grey" = "#666666",
-   "medium grey" = "#CACACA",
-   "light grey" = "#E6E6E6",
-   "off white" = "#F9F9F9",
-   "white" = "#FFFFFF",
-   "black" = "#222222",
-   "maroon" = "#800000",
-   "blood orange" = "#B63F26",
-   "Bronze" = "#846126",
-   "Forest" = "#007534",
-   "Blue" = "#1D5FD6",
-   "Indigo"= "#3B2483",
-   "Violet" = "#8744BC",
-   "Brown" = "#674200",
-   "terra orange" ="#dc6d4f")
-
-nycc_monochromatic <- c("#000000",  "#16294f",  "#2c529f",  "#5f85d2",  "#afc2e8")
-nycc_bw <- c("#000000",  "#333333",  "#666666",  "#999999",  "#cccccc")
-
-nycc_categorical_main <- c(
-  "blue" = "#1d5fd6",
-  "dark umber brown" = "#471914",
+  "nycc blue" = "#2F56A6",
+  "dark blue" = "#23417D",
+  "dark grey" = "#666666",
+  "medium grey" = "#CACACA",
+  "light grey" = "#E6E6E6",
+  "off white" = "#F9F9F9",
+  "white" = "#FFFFFF",
+  "black" = "#222222",
+  "maroon" = "#800000",
   "blood orange" = "#B63F26",
-  "grey" = "#959595",
-  "indigo" = "#3b2483"
-)
+  "Bronze" = "#846126",
+  "Forest" = "#007534",
+  "Blue" = "#1D5FD6",
+  "Indigo"= "#3B2483",
+  "Violet" = "#8744BC",
+  "Brown" = "#674200",
+  "terra orange" ="#dc6d4f")
 
-nycc_categorical_primary <- c(
-   "dark red" = "#880000",
-   "tan"   = "#bca066",
-   "blue" = "#1d5fd6",
-   "periwinke purple" = "#bbb8ff"
-)
 
-nycc_categorical_secondary <- c(
-  "dark umber brown" = "#471914",
-  "terra orange" ="#dc6d4f",
-  "light grey" = "#e6e6e6",
-  "purple" = "#6a4ca9",
-  "indigo" = "#3b2483"
-)
+secondary <- c('#211183','#979797','#1d5fd6',"#d6593f",'#002e14','#9d9dff','#584019')
+
+primary <- c("#660000","#1850b5","#ba9f64","#1f3a70","#b3b3ff","#af6d46","#666666")
+
+warm <- c( '#3f0000', '#7f0000' ,'#bf0000','#ff0000','#ff3f3f' ,'#ff7f7f', '#ffbfbf' )
+
+cool <- c('#0d1931', '#1b3363','#294d95', '#3767c7', '#698dd5','#9bb3e3','#cdd9f1')
+
+bw <- c('#000000','#242424','#484848','#6d6d6d', '#919191','#b6b6b6','#dadada')
+
+div <- c('#6d2516', '#a93922' , '#dc6c55', "#e6e6e6", '#53c4de','#2091ab', '#155d6d')
 
 nycc_cols <- function(...) {
   cols <- c(...)
@@ -54,18 +41,18 @@ nycc_cols <- function(...) {
 
 nycc_palettes <- list(
   # main = nycc_cols("black", "dark blue", "nycc blue"),
-  bw = nycc_bw,
-  main = nycc_categorical_main,
-  mixed = nycc_categorical_primary,
-  warm = nycc_cols("marron", "blood orange", "violet", "medium grey","terra orange"),
-  cool = nycc_monochromatic,
-  diverging = nycc_categorical_secondary
+  bw = bw,
+  main = primary,
+  mixed = secondary,
+  warm = warm,
+  cool = cool,
+  diverging = div
 )
 
 #' Make a color palette with NYCC colors
 #'
 #'
-#' @param palette One of \code{"mixed", "cool", "warm", "diverging"}
+#' @param palette One of \code{"bw","main", "mixed", "cool", "warm", "diverging"}
 #' @param reverse Boolean, reverse the order of the selected palette
 #' @param ... Further arguments passed to \code{colorRampPalette}
 #'
@@ -125,7 +112,7 @@ scale_fill_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE,
   pal <- nycc_pal(palette = palette, reverse = reverse)
 
   if (discrete) {
-    ggplot2::discrete_scale("fill", paste0("nycc_", palette), palette = pal,na.value = "grey50", ...)
+    ggplot2::discrete_scale("fill", paste0("nycc_", palette), palette = pal,na.value = "#CACACA", ...)
   } else {
     ggplot2::scale_fill_gradientn(colours = pal(256), ...)
   }
@@ -163,4 +150,3 @@ scale_fill_discrete <- scale_fill_nycc
 #' @rdname scale_fill_nycc
 #' @export
 scale_fill_continuous <- function(...) councildown::scale_fill_nycc(discrete = FALSE)
-
