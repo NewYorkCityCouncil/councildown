@@ -31,7 +31,7 @@ in_base_dir = getFromNamespace("in_base_dir", "knitr")
 
 mapshot = getFromNamespace("mapshot", "councildown")
 
-ggplot_add = getFromNamespace("ggplot_add", "councildown")
+#ggplot_add = getFromNamespace("ggplot_add", "councildown")
 
 #' Embed fonts in PDF images
 #'

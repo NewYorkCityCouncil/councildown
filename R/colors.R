@@ -112,7 +112,9 @@ scale_fill_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE,
   pal <- nycc_pal(palette = palette, reverse = reverse)
 
   if (discrete) {
-    ggplot2::discrete_scale("fill", paste0("nycc_", palette), palette = pal,na.value = "#CACACA", ...)
+    out <- ggplot2::discrete_scale("fill", paste0("nycc_", palette), palette = pal,na.value = "#CACACA", ...)
+    class(out) <- c("ScaleDiscrete_Fill",class(out))
+    return(out)
   } else {
     ggplot2::scale_fill_gradientn(colours = pal(256), ...)
   }
@@ -128,7 +130,9 @@ scale_color_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE
   pal <- nycc_pal(palette = palette, reverse = reverse)
 
   if (discrete) {
-    ggplot2::discrete_scale("colour", paste0("nycc_", palette), palette = pal, na.value = "grey50", ...)
+    out <- ggplot2::discrete_scale("colour", paste0("nycc_", palette), palette = pal, na.value = "grey50", ...)
+    class(out) <- c("ScaleDiscrete_Colour",class(out))
+    return(out)
   } else {
     ggplot2::scale_color_gradientn(colours = pal(256), ...)
   }
@@ -150,3 +154,23 @@ scale_fill_discrete <- scale_fill_nycc
 #' @rdname scale_fill_nycc
 #' @export
 scale_fill_continuous <- function(...) councildown::scale_fill_nycc(discrete = FALSE)
+
+#' @export
+ggplot_add.ScaleDiscrete_Colour <- function(object, plot, object_name) {
+  num_colours <- nrow(unique(ggplot_build(plot)$data[[1]]["colour"]))
+  if (num_colours > 7) {
+    cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object when there are more than 7 levels (colors).")
+  }
+  plot$scales$add(object)
+  plot
+}
+
+#' @export
+ggplot_add.ScaleDiscrete_Fill <- function(object, plot, object_name) {
+  num_colours <- nrow(unique(ggplot_build(plot)$data[[1]]["fill"]))
+  if (num_colours > 7) {
+    cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object when there are more than 7 levels (colors).")
+  }
+  plot$scales$add(object)
+  plot
+}
