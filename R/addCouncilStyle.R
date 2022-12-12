@@ -10,12 +10,11 @@
 #' @examples
 #' library(leaflet)
 #' leaflet() %>%
-#'   addCouncilStyle()
+#'  addCouncilStyle()
 #'
 addCouncilStyle <- function(map, add_dists = FALSE) {
 
-  map <- map %>%
-    leaflet(options = leafletOptions(zoomControl = FALSE, minZoom = 10, maxZoom = 16)) %>%
+  map <-  map %>%
     setView(-73.984865,40.710542, zoom = 10) %>%
     leaflet.extras::setMapWidgetStyle(list(background= "white"))
 
