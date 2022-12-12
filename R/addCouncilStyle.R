@@ -12,14 +12,13 @@
 #' leaflet() %>%
 #'   addCouncilStyle()
 #'
-addCouncilStyle <- function(map, add_dists = TRUE) {
+addCouncilStyle <- function(map, add_dists = FALSE) {
 
   map <- map %>%
-    leaflet::addTiles(urlTemplate = "//cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png",
-                      options = leaflet::tileOptions(maxZoom = 12)) %>%
-    leaflet::addTiles(urlTemplate = "//cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
-                      options = leaflet::tileOptions(minZoom = 13)) %>%
-    htmlwidgets::prependContent(htmltools::tags$style("@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700'); .leaflet-control {font-family: 'Open Sans', sans-serif;}"))
+    leaflet(options = leafletOptions(zoomControl = FALSE, minZoom = 10, maxZoom = 16)) %>%
+    setView(-73.984865,40.710542, zoom = 10) %>%
+    leaflet.extras::setMapWidgetStyle(list(background= "white"))
+
 
   if(add_dists) {
     map <- map %>%

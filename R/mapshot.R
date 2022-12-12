@@ -11,7 +11,8 @@
 #' \dontrun{
 #' library(leaflet)
 #' m <- leaflet() %>%
-#'  addTiles()
+#'  addTiles() %>%
+#'  addCouncilStyle(add_dists = TRUE)
 #' mapshot(m, file = "test.png")
 #' file.remove("test.pdf")
 #' }
