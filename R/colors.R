@@ -126,7 +126,7 @@ scale_fill_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE,
 #' @inherit scale_fill_nycc
 #' @rdname scale_fill_nycc
 #' @export
-scale_color_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE, ...) {
+scale_color_nycc <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
   pal <- nycc_pal(palette = palette, reverse = reverse)
 
   if (discrete) {
