@@ -15,7 +15,7 @@
 addCouncilStyle <- function(map, add_dists = FALSE) {
 
   map <-  map %>%
-    setView(-73.984865,40.710542, zoom = 10) %>%
+    setView(-73.984865,40.710542, zoom = 11) %>%
     leaflet.extras::setMapWidgetStyle(list(background= "white"))
 
 
