@@ -18,8 +18,8 @@ remotes::install_packages("newyorkcitycouncil/councildown")
 
 ### ggplot2
 
-On load, common `scale_*` functions are
-overwritten with `scale_fill_nycc()` and `scale_color_nycc()`.
+On load, common scale\_\* functions are overwritten with
+scale_fill_nycc() and scale_color_nycc().
 
 ``` r
 data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
@@ -69,6 +69,11 @@ leaflet() %>%
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+Additionally, `mapshot()` overwrites `mapview::mapshot()` to force map
+saves as pdf for increased picture quality and warns users if they
+choose a different file type. Use `mapview::mapshot` if you want the
+original mapshot function.
 
 ### R Markdown
 
