@@ -11,7 +11,7 @@ R Markdown documents, `ggplot2` plots, and `leaflet` maps.
 You can install the released version of councildown from GitHub
 
 ``` r
-remotes::install_github("newyorkcitycouncil/councildown")
+remotes::install_packages("newyorkcitycouncil/councildown")
 ```
 
 ## Example
@@ -23,50 +23,50 @@ default `ggplot2` theme. Additionally, common `scale_*` functions are
 overwritten with `scale_fill_nycc()` and `scale_color_nycc()`.
 
 ``` r
-tibble(x = rnorm(100), 
-       y = rnorm(100), 
-       z = sample(c("a", "b"), 100, replace = TRUE)) %>% 
+data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
   ggplot(aes(x, y, color = z)) +
-  geom_point() +
-  scale_color_nycc(discrete = TRUE) +
-  facet_wrap(~z) + 
-  labs(title = "Title",
-       subtitle = "Subtitle",
-       caption = "Caption")
+ geom_point() +
+ labs(title = "Test",
+      subtitle = "Test",
+      caption = "Test",
+      color = "Legend",
+      x = "Test a",
+      y = "Test b") +
+ theme_nycc() +
+ scale_color_nycc()
 ```
 
 <img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />
 
-Additionally, `theme_nycc()` has an argument `print` for changing the
-theme to better fit print documents made at the council. The main
-difference is that when `print = TRUE` all plot fonts are Times New
-Roman as opposed to the web fonts specified in the brand guidelines.
+Additionally, `theme_nycc()` has an argument `facet` for changing the
+theme to better fit faceted plots.
 
 ``` r
-tibble(x = rnorm(100), 
-       y = rnorm(100), 
-       z = sample(c("a", "b"), 100, replace = TRUE)) %>% 
+data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
   ggplot(aes(x, y, color = z)) +
-  geom_point() +
-  scale_color_nycc(discrete = TRUE) +
-  facet_wrap(~z) + 
-  labs(title = "Title",
-       subtitle = "Subtitle",
-       caption = "Caption") +
-  theme_nycc(print = TRUE)
+ geom_point() +
+ labs(title = "Test",
+      subtitle = "Test",
+      caption = "Test",
+      color = "Legend",
+      x = "Test a",
+      y = "Test b") +
+ facet_wrap(~z) +
+ theme_nycc(facet=TRUE) +
+ scale_color_nycc()
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
 ### leaflet
 
-The function `addCouncilStyle()` adds default map tiles and City Council
-district outlines and labels to `leaflet` maps. Use this instead of
-`addTiles()`.
+The function `addCouncilStyle()` sets the default view, zoom, and
+background. There is an additional option for `add_dists` to add map
+tiles and City Council district outlines and labels to `leaflet` maps.
 
 ``` r
 leaflet() %>% 
-  addCouncilStyle()
+  addCouncilStyle(add_dists = TRUE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />

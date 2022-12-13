@@ -35,41 +35,43 @@ remotes::install_packages("newyorkcitycouncil/councildown")
 On load, the `theme_set()` is called, setting `theme_nycc()` as the default `ggplot2` theme. Additionally, common `scale_*` functions are overwritten with `scale_fill_nycc()` and `scale_color_nycc()`.
 
 ```{r dpi=300}
-tibble(x = rnorm(100), 
-       y = rnorm(100), 
-       z = sample(c("a", "b"), 100, replace = TRUE)) %>% 
+data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
   ggplot(aes(x, y, color = z)) +
-  geom_point() +
-  scale_color_nycc(discrete = TRUE) +
-  facet_wrap(~z) + 
-  labs(title = "Title",
-       subtitle = "Subtitle",
-       caption = "Caption")
+ geom_point() +
+ labs(title = "Test",
+      subtitle = "Test",
+      caption = "Test",
+      color = "Legend",
+      x = "Test a",
+      y = "Test b") +
+ theme_nycc() +
+ scale_color_nycc()
 ```
 
-Additionally, `theme_nycc()` has an argument `print` for changing the theme to better fit print documents made at the council. The main difference is that when `print = TRUE` all plot fonts are Times New Roman as opposed to the web fonts specified in the brand guidelines.
+Additionally, `theme_nycc()` has an argument `facet` for changing the theme to better fit faceted plots.
 
 ```{r dpi=300}
-tibble(x = rnorm(100), 
-       y = rnorm(100), 
-       z = sample(c("a", "b"), 100, replace = TRUE)) %>% 
+data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
   ggplot(aes(x, y, color = z)) +
-  geom_point() +
-  scale_color_nycc(discrete = TRUE) +
-  facet_wrap(~z) + 
-  labs(title = "Title",
-       subtitle = "Subtitle",
-       caption = "Caption") +
-  theme_nycc(print = TRUE)
+ geom_point() +
+ labs(title = "Test",
+      subtitle = "Test",
+      caption = "Test",
+      color = "Legend",
+      x = "Test a",
+      y = "Test b") +
+ facet_wrap(~z) +
+ theme_nycc(facet=TRUE) +
+ scale_color_nycc()
 ```
 
 ### leaflet
 
-The function `addCouncilStyle()` adds default map tiles and City Council district outlines and labels to `leaflet` maps. Use this instead of `addTiles()`.
+The function `addCouncilStyle()` sets the default view, zoom, and background. There is an additional option for `add_dists` to add map tiles and City Council district outlines and labels to `leaflet` maps. 
 
 ```{r screenshot.opts = list(vwidth = 1280, vheight = 900)}
 leaflet() %>% 
-  addCouncilStyle()
+  addCouncilStyle(add_dists = TRUE)
 ```
 
 
