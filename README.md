@@ -18,8 +18,7 @@ remotes::install_packages("newyorkcitycouncil/councildown")
 
 ### ggplot2
 
-On load, the `theme_set()` is called, setting `theme_nycc()` as the
-default `ggplot2` theme. Additionally, common `scale_*` functions are
+On load, common `scale_*` functions are
 overwritten with `scale_fill_nycc()` and `scale_color_nycc()`.
 
 ``` r
