@@ -8,7 +8,7 @@ R Markdown documents, `ggplot2` plots, and `leaflet` maps.
 
 ## Installation
 
-You can install the released version of councildown from GitHub
+You can install the released version of `councildown` from GitHub
 
 ``` r
 remotes::install_packages("newyorkcitycouncil/councildown")
@@ -16,10 +16,18 @@ remotes::install_packages("newyorkcitycouncil/councildown")
 
 ## Example
 
+Note that the order of loading the libraries is important. Make sure to
+load `councildown` last.
+
+``` r
+library(tidyverse)
+library(councildown)
+```
+
 ### ggplot2
 
-On load, common scale\_\* functions are overwritten with
-scale_fill_nycc() and scale_color_nycc().
+On load, common `ggplot2` scale\_\* functions are overwritten with
+`scale_fill_nycc()` and `scale_color_nycc()`.
 
 ``` r
 data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
@@ -35,7 +43,7 @@ data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
  scale_color_nycc()
 ```
 
-<img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
 Additionally, `theme_nycc()` has an argument `facet` for changing the
 theme to better fit faceted plots.
@@ -55,7 +63,7 @@ data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
  scale_color_nycc()
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 ### leaflet
 
@@ -64,16 +72,24 @@ background. There is an additional option for `add_dists` to add map
 tiles and City Council district outlines and labels to `leaflet` maps.
 
 ``` r
+library(leaflet)
 leaflet() %>% 
   addCouncilStyle(add_dists = TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
-Additionally, `mapshot()` overwrites `mapview::mapshot()` to force map
-saves as pdf for increased picture quality and warns users if they
-choose a different file type. Use `mapview::mapshot` if you want the
-original mapshot function.
+Additionally, use `mapshot` to save leaflet maps as a static pdf image.
+`mapshot()` overwrites `mapview::mapshot()` to force map saves as pdf
+for increased picture quality and warns users if they choose a different
+file type. Use `mapview::mapshot` if you want the original `mapshot`
+function.
+
+``` r
+map <- leaflet() %>% 
+  addCouncilStyle(add_dists = TRUE)
+mapshot(map, file = "map.pdf")
+```
 
 ### R Markdown
 
