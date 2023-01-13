@@ -11,9 +11,9 @@
 \usage{
 scale_fill_nycc(palette = "mixed", discrete = TRUE, reverse = FALSE, ...)
 
-scale_color_nycc(palette = "mixed", discrete = TRUE, reverse = FALSE, ...)
+scale_color_nycc(palette = "main", discrete = TRUE, reverse = FALSE, ...)
 
-scale_color_discrete(palette = "mixed", discrete = TRUE, reverse = FALSE, ...)
+scale_color_discrete(palette = "main", discrete = TRUE, reverse = FALSE, ...)
 
 scale_color_continuous(...)
 

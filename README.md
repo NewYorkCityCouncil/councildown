@@ -79,16 +79,15 @@ leaflet() %>%
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
-Additionally, use `mapshot` to save leaflet maps as a static pdf image.
-`mapshot()` overwrites `mapview::mapshot()` to force map saves as pdf
-for increased picture quality and warns users if they choose a different
-file type. Use `mapview::mapshot` if you want the original `mapshot`
-function.
+Additionally, use `mapshot` to save leaflet maps as a static png image.
+`mapshot()` overwrites `mapview::mapshot()` to force map saves with
+standardized width, height, and zoom. Use `mapview::mapshot` if you want
+the original `mapshot` function.
 
 ``` r
 map <- leaflet() %>% 
   addCouncilStyle(add_dists = TRUE)
-mapshot(map, file = "map.pdf")
+mapshot(map, file = "map.png")
 ```
 
 ### R Markdown

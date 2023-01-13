@@ -8,6 +8,9 @@ mapshot(
   x,
   url = NULL,
   file = NULL,
+  zoom = 2,
+  vwidth = 1000,
+  vheight = 850,
   remove_controls = c("zoomControl", "layersControl", "homeButton", "scaleBar",
     "drawToolbar", "easyButton"),
   ...
@@ -37,8 +40,10 @@ warns users if they choose png
 \examples{
 \dontrun{
 library(leaflet)
+library(councildown)
 m <- leaflet() \%>\%
- addTiles()
+ addTiles() \%>\%
+ addCouncilStyle(add_dists = TRUE)
 mapshot(m, file = "test.png")
 file.remove("test.pdf")
 }

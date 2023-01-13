@@ -4,7 +4,7 @@
 \alias{addCouncilStyle}
 \title{Style a leaflet map}
 \usage{
-addCouncilStyle(map, add_dists = TRUE)
+addCouncilStyle(map, add_dists = FALSE)
 }
 \arguments{
 \item{map}{A \code{leaflet} map}
@@ -20,7 +20,8 @@ Style a leaflet map
 }
 \examples{
 library(leaflet)
+library(councildown)
 leaflet() \%>\%
-  addCouncilStyle()
+ addCouncilStyle(add_dists=TRUE)
 
 }
