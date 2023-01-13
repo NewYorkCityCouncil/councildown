@@ -10,6 +10,7 @@
 #' @examples
 #' \dontrun{
 #' library(leaflet)
+#' library(councildown)
 #' m <- leaflet() %>%
 #'  addTiles() %>%
 #'  addCouncilStyle(add_dists = TRUE)
@@ -23,9 +24,10 @@
 #'
 
 # copied from original mapshot code
-mapshot <- function (x, url = NULL, file = NULL, remove_controls = c("zoomControl",
-                                                                     "layersControl", "homeButton", "scaleBar", "drawToolbar",
-                                                                     "easyButton"), ...)
+mapshot <- function (x, url = NULL, file = NULL, zoom = 2, vwidth = 1000, vheight = 850,
+                     remove_controls = c("zoomControl",
+                                         "layersControl", "homeButton", "scaleBar", "drawToolbar",
+                                         "easyButton"), ...)
   {
     avl_url = !is.null(url)
     avl_file = !is.null(file)
@@ -34,10 +36,6 @@ mapshot <- function (x, url = NULL, file = NULL, remove_controls = c("zoomContro
     if (avl_url)
       url = normalizePath(url, mustWork = FALSE)
     if (avl_file)
-      if (file_ext(file) == "png" | file_ext(file) == "jpeg") {
-        file = paste0(file_path_sans_ext(file), ".pdf")
-        warning("councildown overrides .png and .jpeg extensions with .pdf to improve image quality\nuse mapview::mapshot if you want the default function")
-      }
       file = normalizePath(file, mustWork = FALSE)
     if (inherits(x, "mapview")) {
       x = mapview2leaflet(x)
@@ -49,7 +47,7 @@ mapshot <- function (x, url = NULL, file = NULL, remove_controls = c("zoomContro
       url = tempfile(fileext = ".html")
       x = mapview:::removeMapJunk(x, remove_controls)
     }
-    args = list(url = url, file = file, ...)
+    args = list(url = url, file = file, vwidth = vwidth, vheight = vheight, zoom = zoom, ...)
     sw_ls = args
     sw_ls[names(sw_ls) == "file"] = NULL
     names(sw_ls)[which(names(sw_ls) == "url")] = "file"

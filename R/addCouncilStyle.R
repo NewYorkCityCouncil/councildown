@@ -9,8 +9,9 @@
 #'
 #' @examples
 #' library(leaflet)
+#' library(councildown)
 #' leaflet() %>%
-#'  addCouncilStyle()
+#'  addCouncilStyle(add_dists=TRUE)
 #'
 addCouncilStyle <- function(map, add_dists = FALSE) {
 
