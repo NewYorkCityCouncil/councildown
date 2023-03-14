@@ -81,6 +81,7 @@ data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
  scale_color_nycc()
 ```
 
+At this time, the color palettes do not work if you are only using one variable/color. You can manually use NYCC blue with `"#2F56A6"`. 
 
 ### leaflet
 

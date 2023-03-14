@@ -79,6 +79,9 @@ data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
+At this time, the color palettes do not work if you are only using one
+variable/color. You can manually use NYCC blue with `"#2F56A6"`.
+
 ### leaflet
 
 The function `addCouncilStyle()` sets the default view, zoom, and
