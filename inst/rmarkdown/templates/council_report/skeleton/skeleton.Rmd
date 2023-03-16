@@ -13,6 +13,7 @@ subparagraph: yes
 
 ```{r include = FALSE}
 library(ggplot2)
+library(tidyverse)
 library(councildown)
 
 extrafont::loadfonts()
@@ -39,7 +40,9 @@ You can also embed plots, for example, see Figure \@ref(fig:iris).
 ggplot(iris, aes(Petal.Length, Petal.Width, color = Species)) +
   geom_point() +
   labs(title = "Irises",
-       subtitle = "The most boring plot in the world")
+       subtitle = "The most boring plot in the world") +
+  theme_nycc() +
+  scale_color_nycc()
 ```
 
 ## Including tables
@@ -55,11 +58,17 @@ knitr::kable(head(mtcars), caption = "Some info about cars.", booktabs = TRUE)
 
 This template is built on top of `bookdown`, which enables several extensions to `pandoc` markdown, including cross references. For a full overview of these extensions, see the [`bookdown` book](https://bookdown.org/yihui/bookdown/).
 
+# Summary & Intention
+
+# Key Findings
+
 # Data
 
-# Assumptions
+## Assumptions
 
-# Analysis
+# Analysis & Takeaways
 
-# Results
+# Case Study
+
+# Further Questions
 
