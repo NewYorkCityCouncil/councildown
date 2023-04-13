@@ -4,12 +4,21 @@
 \alias{addCouncilStyle}
 \title{Style a leaflet map}
 \usage{
-addCouncilStyle(map, add_dists = FALSE)
+addCouncilStyle(
+  map,
+  add_dists = FALSE,
+  highlight_dists = NULL,
+  highlight_color = "white"
+)
 }
 \arguments{
 \item{map}{A \code{leaflet} map}
 
 \item{add_dists}{Boolean. Add council districts?}
+
+\item{highlight_dists}{a vector including the numbers of council districts that you would like to use a non-standard color for the numeric label. Especially useful when using the "cool" palette with council districts as the label color here blends right in.}
+
+\item{highlight_color}{used IF you specify a list of highlight_dists as the color for their text. Defaults to white}
 }
 \value{
 A \code{leaflet} map that in has City Council styles, including tiles,
