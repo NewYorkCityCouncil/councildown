@@ -26,7 +26,8 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL,
   if(add_dists) {
     map <- map %>%
       leaflet::addPolygons(data = dists, fill = FALSE, weight = 1, 
-                           color = "#2F56A6", opacity = .5, smoothFactor = 0) %>%
+                           color = "#2F56A6", opacity = .5, smoothFactor = 0, 
+                           group = "Council Districts") %>%
       leaflet::addLabelOnlyMarkers(data = dists, lat = ~lab_y, lng = ~lab_x, label = ~coun_dist,
                                    labelOptions = leaflet::labelOptions(permanent = TRUE, noHide = TRUE,
                                                                         textOnly = TRUE,
