@@ -72,11 +72,7 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
 
     names(pal) <- NULL
 
-    if (n >= length(pal)) {
-      return(raw_pal(n))
-    } else {
-      return(pal[1:n])
-    }
+   return(raw_pal(n))
   }
 
   out
