@@ -19,8 +19,8 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL,
                             highlight_color = "white") {
 
   map <-  map %>%
-    setView(-73.984865,40.710542, zoom = 11) %>%
-    leaflet.extras::setMapWidgetStyle(list(background= "white"))
+    setView(-73.984865, 40.710542, zoom = 11) %>%
+    leaflet.extras::setMapWidgetStyle(list(background = "white"))
 
 
   if(add_dists) {
@@ -34,8 +34,8 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL,
                                                                         textsize = 12,
                                                                         direction = "center",
                                                                         style = list(color = "#23417D",
-                                                                                     `font-family` = "'Open Sans', sans-serif",
-                                                                                     `font-weight` = "bold")))
+                                                                                     "font-family" = "'Open Sans', sans-serif",
+                                                                                     "font-weight" = "bold")))
     
     if (length(highlight_dists) > 0) {
       map <- map %>% 
@@ -46,8 +46,8 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL,
                                                                           textsize = 12,
                                                                           direction = "center",
                                                                           style = list(color = highlight_color,
-                                                                                       `font-family` = "'Open Sans', sans-serif",
-                                                                                       `font-weight` = "bold")))
+                                                                                       "font-family" = "'Open Sans', sans-serif",
+                                                                                       "font-weight" = "bold")))
     }
   }
 
