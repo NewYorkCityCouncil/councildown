@@ -8,7 +8,7 @@ addCouncilStyle(
   map,
   add_dists = FALSE,
   highlight_dists = NULL,
-  highlight_color = "white"
+  highlight_color = "#cdd9f1"
 )
 }
 \arguments{
