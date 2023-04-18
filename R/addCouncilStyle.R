@@ -16,7 +16,7 @@
 #'  addCouncilStyle(add_dists=TRUE)
 #'
 addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL, 
-                            highlight_color = "white") {
+                            highlight_color = "#cdd9f1") {
 
   map <-  map %>%
     setView(-73.984865, 40.710542, zoom = 11) %>%
@@ -38,6 +38,7 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL,
                                                                                      "font-weight" = "bold")))
     
     if (length(highlight_dists) > 0) {
+      
       map <- map %>% 
         leaflet::addLabelOnlyMarkers(data = dists[dists$coun_dist %in% highlight_dists, ], 
                                      lat = ~lab_y, lng = ~lab_x, label = ~coun_dist,
@@ -52,4 +53,50 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL,
   }
 
   return(map)
+}
+
+
+#' Add a "Source" note to a leaflet that will be a static output
+#'
+#' @param map A \code{leaflet} map
+#' @param source_text The text that you want added to the map
+#' @param color 
+#' @param fontSize
+#' 
+#' @return A \code{leaflet} map with a source note added in the bottom right for the councildown defined NYC frame
+#' @export
+addSourceText <- function(map, source_text, color = "#555555", fontSize = "15px", ...) {
+  
+  geo = st_sfc(st_point(c(-73.645, 40.5)))
+  source_notes_geo = st_sf(source = source_text, 
+                           geometry = geo)
+  
+  map = map %>% 
+    leaflet::addLabelOnlyMarkers(data = source_notes_geo, 
+                                 label = ~source, 
+                                 labelOptions = labelOptions(noHide = T, 
+                                                             direction = 'left', 
+                                                             textOnly = T, 
+                                                             style = list('color'="#555555", 
+                                                                          'fontSize'="15px")))
+  
+  return(map)
+  
+}
+
+
+#' Wrapper for addPolygons
+#' 
+#' All the same inputs apply as the leaflet::addPolygons function, we just use this wrapper to define the "defaults" for certain inputs
+#'
+#' @param map A \code{leaflet} map
+#' 
+#' @return A \code{leaflet} map with polygons added
+#' @export
+#'
+addPolygons <- function(map, smoothFactor = 0, weight = 0, 
+                        fillOpacity = 1, ...) {
+  map = map %>%
+    leaflet::addPolygons(smoothFactor = smoothFactor, weight = weight, 
+                         fillOpacity = fillOpacity, ...)
 }
