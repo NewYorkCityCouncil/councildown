@@ -1,3 +1,13 @@
+#' Create a leaflet map
+#'
+#' @export
+leaflet <- function(minZoom = 10, maxZoom = 17...) {
+  leaflet::leaflet(options = leafletOptions(attributionControl=FALSE, 
+                                            zoomControl = FALSE), 
+                   minZoom = minZoom, 
+                   maxZoom = maxZoom, ...)
+}
+
 #' Style a leaflet map
 #'
 #' @param map A \code{leaflet} map
