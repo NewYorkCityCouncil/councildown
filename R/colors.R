@@ -1,3 +1,5 @@
+##### list of main council colors --------
+
 nycc_colors <- c(
   "nycc blue" = "#2F56A6",
   "dark blue" = "#23417D",
@@ -17,19 +19,38 @@ nycc_colors <- c(
   "Brown" = "#674200",
   "terra orange" ="#dc6d4f")
 
+###### for accessibility colorblindcheck::palette_check(), viz palette and pinetools website were used ------------
+# https://projects.susielu.com/viz-palette?colors=[%22#B63F26%22,%22#846126%22,%22#1D5FD6%22,%22#007534%22,%22#666666%22,%22#8744BC%22,%22#3b2483%22]&backgroundColor=%22white%22&fontColor=%22black%22&mode=%22normal%22
+# https://pinetools.com/monochromatic-colors-generator
+# example:
+#colorblindcheck::palette_plot(indigo)
 
+
+
+##### categorical palettes ------------
 secondary <- c('#211183','#979797','#1d5fd6',"#d6593f",'#002e14','#9d9dff','#584019')
 
 primary <- c("#660000","#1850b5","#ba9f64","#1f3a70","#b3b3ff","#af6d46","#666666")
 
-warm <- c( '#3f0000', '#7f0000' ,'#bf0000','#ff0000','#ff3f3f' ,'#ff7f7f', '#ffbfbf' )
+##### continuous palettes ---------
 
-cool <- c('#0d1931', '#1b3363','#294d95', '#3767c7', '#698dd5','#9bb3e3','#cdd9f1')
+# palette based off maroon:#800000
+warm <- c( '#3f0000','#7f0000','#bf0000','#ff0000','#ff3f3f','#ff7f7f','#ffbfbf' )
+# palette based off dark blue:#23417D
+cool <- c('#0d1931','#1b3363','#294d95','#3767c7','#698dd5','#9bb3e3','#cdd9f1')
+# palette based off black:#222222
+bw <- c('#000000','#242424','#484848','#6d6d6d','#919191','#b6b6b6','#dadada')
+# palette based off maroon:#800000, light grey:#E6E6E6, and forest:#007534 / blue:#1D5FD6
+div <- c('#6d2516','#a93922','#dc6c55',"#e6e6e6",'#53c4de','#2091ab','#155d6d')
+# additional council color based palettes
+indigo <- c('#160d32','#2d1b64','#432996', '#5a36c8','#8368d5','#ac9ae3','#d5ccf1')
+blue <- c('#071838','#0f3170','#164aa8','#1e63e0','#568ae8','#8eb1ef','#c6d8f7')
+violet <- c('#21102e','#43215d','#64328c','#8643bb','#a472cc','#c2a1dd','#e0d0ee')
+bronze <- c('#31240e','#62481c','#946d2a','#c59139','#d4ac6a','#e2c89c','#f0e3cd')
+blood_orange <- c('#34120b','#692416','#9e3621','#d2492c','#dd7660','#e8a495','#f3d1ca')
+forest <- c('#152919','#2b5333','#417d4c','#57a766','#81bd8c','#abd3b2','#d5e9d8')
 
-bw <- c('#000000','#242424','#484848','#6d6d6d', '#919191','#b6b6b6','#dadada')
-
-div <- c('#6d2516', '#a93922' , '#dc6c55', "#e6e6e6", '#53c4de','#2091ab', '#155d6d')
-
+# color and palette functions ------
 nycc_cols <- function(...) {
   cols <- c(...)
 
