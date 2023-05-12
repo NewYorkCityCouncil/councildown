@@ -67,7 +67,13 @@ nycc_palettes <- list(
   mixed = secondary,
   warm = warm,
   cool = cool,
-  diverging = div
+  diverging = div,
+  indigo = indigo,
+  blue = blue,
+  violet = violet,
+  bronze = bronze,
+  orange = blood_orange,
+  forest = forest
 )
 
 #' Make a color palette with NYCC colors
