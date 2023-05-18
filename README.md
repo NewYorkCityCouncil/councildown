@@ -29,6 +29,20 @@ library(councildown)
 On load, common `ggplot2` scale\_\* functions are overwritten with
 `scale_fill_nycc()` and `scale_color_nycc()`.
 
+There are 6 color palettes available for `scale_fill_nycc()` and
+`scale_color_nycc()`. Check the documentation for full default
+parameters. For brand guidelines, see:
+<https://newyorkcitycouncil.github.io/nycc-brand-guidelines/>.
+
+`palette = "main"` for use of primary Council colors. Default for
+`scale_color_nycc()`.  
+`palette = "mixed"` for secondary Council colors. Default for
+`scale_fill_nycc()`.  
+`palette = "bw"` for grey scale.  
+`palette = "warm"` for a warm palette.  
+`palette = "cool"` for a cool palette.  
+`palette = "diverging"` for a diverging palette.
+
 ``` r
 data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
   ggplot(aes(x, y, color = z)) +
@@ -65,6 +79,9 @@ data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
+At this time, the color palettes do not work if you are only using one
+variable/color. You can manually use NYCC blue with `"#2F56A6"`.
+
 ### leaflet
 
 The function `addCouncilStyle()` sets the default view, zoom, and
@@ -94,4 +111,5 @@ mapshot(map, file = "map.png")
 
 The package includes an R Markdown template for writing Council reports.
 After installing the package, create a new report by choosing New \> R
-Markdown \> From Template \> City Council Report in RStudio.
+Markdown \> From Template \> City Council Report in RStudio. \[In
+Progress\]
