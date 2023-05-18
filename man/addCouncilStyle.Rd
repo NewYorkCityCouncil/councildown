@@ -4,7 +4,7 @@
 \alias{addCouncilStyle}
 \title{Style a leaflet map}
 \usage{
-addCouncilStyle(map, add_dists = FALSE)
+addCouncilStyle(map, add_dists = FALSE, minZoom = 10, maxZoom = 15)
 }
 \arguments{
 \item{map}{A \code{leaflet} map}

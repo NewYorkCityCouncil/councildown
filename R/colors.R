@@ -30,6 +30,10 @@ bw <- c('#000000','#242424','#484848','#6d6d6d', '#919191','#b6b6b6','#dadada')
 
 div <- c('#6d2516', '#a93922' , '#dc6c55', "#e6e6e6", '#53c4de','#2091ab', '#155d6d')
 
+single_palette <- '#2F56A6'
+
+double_palette <- c('#1D5FD6','#D6593F')
+  
 nycc_cols <- function(...) {
   cols <- c(...)
 
@@ -46,7 +50,9 @@ nycc_palettes <- list(
   mixed = secondary,
   warm = warm,
   cool = cool,
-  diverging = div
+  diverging = div,
+  single = single_palette,
+  double = double_palette
 )
 
 #' Make a color palette with NYCC colors
@@ -131,7 +137,12 @@ scale_color_nycc <- function(palette = "main", discrete = TRUE, reverse = FALSE,
 
   if (discrete) {
     out <- ggplot2::discrete_scale("colour", paste0("nycc_", palette), palette = pal, na.value = "grey50", ...)
-    class(out) <- c("ScaleDiscrete_Colour",class(out))
+    if (palette != "main"){
+      class(out) <- c("ScaleDiscrete_Colour","Changed_Palette",class(out))
+    } else{
+      class(out) <- c("ScaleDiscrete_Colour",class(out))
+    }
+    
     return(out)
   } else {
     ggplot2::scale_color_gradientn(colours = pal(256), ...)
@@ -157,10 +168,21 @@ scale_fill_continuous <- function(...) councildown::scale_fill_nycc(discrete = F
 
 #' @export
 ggplot_add.ScaleDiscrete_Colour <- function(object, plot, object_name) {
+  # This may cause problems if there are more than one dataset? I'm not certain
   num_colours <- nrow(unique(ggplot_build(plot)$data[[1]]["colour"]))
-  if (num_colours > 7) {
-    cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object when there are more than 7 levels (colors).")
-  }
+  browser()
+  #if ("Changed_Palette" %in% class(object)){
+    if (num_colours > 7) {
+      cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object when there are more than 7 levels (colors).")
+    } else if (num_colours <= 1){
+      pal <- nycc_pal(palette = "single")
+      object <- ggplot2::discrete_scale("colour", "single_palette", palette = pal, na.value = "grey50")
+    } else if (num_colours == 2){
+      pal <- nycc_pal(palette = "double")
+      object <- ggplot2::discrete_scale("colour", "double_palette", palette = pal, na.value = "grey50")
+    }
+  #}
+  
   plot$scales$add(object)
   plot
 }
