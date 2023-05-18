@@ -32,12 +32,7 @@ secondary <- c('#211183','#979797','#1d5fd6',"#d6593f",'#002e14','#9d9dff','#584
 
 primary <- c("#660000","#1850b5","#ba9f64","#1f3a70","#b3b3ff","#af6d46","#666666")
 
-<<<<<<< HEAD
-single_palette <- '#2F56A6'
 
-double_palette <- c('#1D5FD6','#D6593F')
-  
-=======
 ##### continuous palettes ---------
 
 # palette based off maroon:#800000
@@ -57,7 +52,6 @@ blood_orange <- c('#34120b','#692416','#9e3621','#d2492c','#dd7660','#e8a495','#
 forest <- c('#152919','#2b5333','#417d4c','#57a766','#81bd8c','#abd3b2','#d5e9d8')
 
 # color and palette functions ------
->>>>>>> 9187e37fbebe7c2153cd30191ccde7941f2679da
 nycc_cols <- function(...) {
   cols <- c(...)
 
@@ -75,17 +69,12 @@ nycc_palettes <- list(
   warm = warm,
   cool = cool,
   diverging = div,
-<<<<<<< HEAD
-  single = single_palette,
-  double = double_palette
-=======
   indigo = indigo,
   blue = blue,
   violet = violet,
   bronze = bronze,
   orange = blood_orange,
   forest = forest
->>>>>>> 9187e37fbebe7c2153cd30191ccde7941f2679da
 )
 
 #' Make a color palette with NYCC colors
