@@ -19,9 +19,10 @@ nycc_colors <- c(
   "Brown" = "#674200",
   "terra orange" ="#dc6d4f")
 
-###### for accessibility colorblindcheck::palette_check(), viz palette and pinetools website were used ------------
+###### for accessibility colorblindcheck::palette_check(), viz palette, pinetools and chroma.js color paletter helper websites were used ------------
 # https://projects.susielu.com/viz-palette?colors=[%22#B63F26%22,%22#846126%22,%22#1D5FD6%22,%22#007534%22,%22#666666%22,%22#8744BC%22,%22#3b2483%22]&backgroundColor=%22white%22&fontColor=%22black%22&mode=%22normal%22
-# https://pinetools.com/monochromatic-colors-generator
+# https://gka.github.io/palettes/#/7|s|e6e6e6,800000|ffffe0,ff005e,93003a|1|1
+# https://pinetools.com/lighten-color
 # example:
 #colorblindcheck::palette_plot(indigo)
 
@@ -32,24 +33,23 @@ secondary <- c('#211183','#979797','#1d5fd6',"#d6593f",'#002e14','#9d9dff','#584
 
 primary <- c("#660000","#1850b5","#ba9f64","#1f3a70","#b3b3ff","#af6d46","#666666")
 
-
 ##### continuous palettes ---------
 
 # palette based off maroon:#800000
-warm <- c( '#3f0000','#7f0000','#bf0000','#ff0000','#ff3f3f','#ff7f7f','#ffbfbf' )
+warm <- c('#ffd8d8', '#eeb6b1', '#db958b', '#c67466', '#b05344', '#993123', '#800000' )
 # palette based off dark blue:#23417D
-cool <- c('#0d1931','#1b3363','#294d95','#3767c7','#698dd5','#9bb3e3','#cdd9f1')
+cool <- c('#e3eaf7', '#c4cbe2', '#a5adcd', '#8691b9', '#6775a5', '#485a91', '#23417d')
 # palette based off black:#222222
-bw <- c('#000000','#242424','#484848','#6d6d6d','#919191','#b6b6b6','#dadada')
+bw <- c('#e8e8e8', '#c3c3c3', '#a0a0a0', '#7e7e7e', '#5d5d5d', '#3e3e3e', '#222222')
 # palette based off maroon:#800000, light grey:#E6E6E6, and forest:#007534 / blue:#1D5FD6
 div <- c('#6d2516','#a93922','#dc6c55',"#e6e6e6",'#53c4de','#2091ab','#155d6d')
 # additional council color based palettes
-indigo <- c('#160d32','#2d1b64','#432996', '#5a36c8','#8368d5','#ac9ae3','#d5ccf1')
-blue <- c('#071838','#0f3170','#164aa8','#1e63e0','#568ae8','#8eb1ef','#c6d8f7')
-violet <- c('#21102e','#43215d','#64328c','#8643bb','#a472cc','#c2a1dd','#e0d0ee')
-bronze <- c('#31240e','#62481c','#946d2a','#c59139','#d4ac6a','#e2c89c','#f0e3cd')
-blood_orange <- c('#34120b','#692416','#9e3621','#d2492c','#dd7660','#e8a495','#f3d1ca')
-forest <- c('#152919','#2b5333','#417d4c','#57a766','#81bd8c','#abd3b2','#d5e9d8')
+indigo <- c('#e8e4f7', '#ccc1e3', '#b0a0d0', '#947fbc', '#7760a9', '#5a4296', '#3b2483')
+blue <- c('#e7eefb', '#cdd4f5', '#b3bbf0', '#98a3ea', '#7a8be3', '#5675dd', '#1d5fd6')
+violet <- c('#f3ecf8', '#e2cfee', '#d1b3e5', '#c098db', '#ae7cd1', '#9b60c6', '#8744bc')
+bronze <- c('#f7f0e4', '#e5d7c2', '#d2bea1', '#bfa681', '#ac8e62', '#987744', '#846126')
+blood_orange <- c('#f9eae7', '#f3cdc4', '#eab1a2', '#e09582', '#d37962', '#c65d44', '#b63f26')
+forest <- c('#d1ffe6', '#addbc0', '#89b99b', '#679778', '#467757', '#255837', '#003a1a')
 
 # color and palette functions ------
 nycc_cols <- function(...) {
@@ -160,7 +160,7 @@ scale_color_nycc <- function(palette = "main", discrete = TRUE, reverse = FALSE,
     } else{
       class(out) <- c("ScaleDiscrete_Colour",class(out))
     }
-    
+
     return(out)
   } else {
     ggplot2::scale_color_gradientn(colours = pal(256), ...)
@@ -200,7 +200,7 @@ ggplot_add.ScaleDiscrete_Colour <- function(object, plot, object_name) {
       object <- ggplot2::discrete_scale("colour", "double_palette", palette = pal, na.value = "grey50")
     }
   #}
-  
+
   plot$scales$add(object)
   plot
 }

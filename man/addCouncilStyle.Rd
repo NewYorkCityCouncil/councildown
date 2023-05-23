@@ -4,16 +4,14 @@
 \alias{addCouncilStyle}
 \title{Style a leaflet map}
 \usage{
-<<<<<<< HEAD
-addCouncilStyle(map, add_dists = FALSE, minZoom = 10, maxZoom = 15)
-=======
 addCouncilStyle(
   map,
   add_dists = FALSE,
   highlight_dists = NULL,
-  highlight_color = "#cdd9f1"
+  highlight_color = "#cdd9f1",
+  minZoom = 10,
+  maxZoom = 15
 )
->>>>>>> 9187e37fbebe7c2153cd30191ccde7941f2679da
 }
 \arguments{
 \item{map}{A \code{leaflet} map}
