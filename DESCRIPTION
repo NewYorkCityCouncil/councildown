@@ -1,10 +1,10 @@
 Package: councildown
-Title: Visual Styling for New York City Council Reports
+Title: Brand Guideline Styling for New York City Council Reports & Dashboards
 Version: 0.0.3.9000
-Authors@R: person("Nick", "Solomon", 
-    email = "nsolomon@council.nyc.gov", 
+Authors@R: person("Data", "Team", 
+    email = "datainfo@council.nyc.gov", 
     role = c("aut", "cre"))
-Description: This package facilitates the creation of PDF and HTML reports for the
+Description: This package facilitates the creation of reports & dashboards for the
     New York City Council's data scientists. It also includes various useful
     functions for visually styling plots made with ggplot2 and maps made with
     leaflet.
