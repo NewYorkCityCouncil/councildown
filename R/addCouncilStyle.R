@@ -2,7 +2,8 @@
 #'
 #' @param map A \code{leaflet} map
 #' @param add_dists Boolean. Add council districts?
-#' @param highlight_dists a vector including the numbers of council districts that you would like to use a non-standard color for the numeric label. Especially useful when using the "cool" palette with council districts as the label color here blends right in. 
+#' @param highlight_dists a vector including the numbers of council districts that you would like to use a non-standard color for the numeric label. Especially useful when using the "cool" palette with council districts as the label color here blends right in.
+#' @param dist_year Either "2013" (for 2013-2023 lines) or "2023" (for 2023-2033 lines).
 #' @param highlight_color used IF you specify a list of highlight_dists as the color for their text. Defaults to white
 #'
 #' @return A \code{leaflet} map that in has City Council styles, including tiles,
@@ -16,7 +17,7 @@
 #'  addCouncilStyle(add_dists=TRUE)
 #'
 
-addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL, 
+addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL, dist_year = "2013",
                             highlight_color = "#cdd9f1", minZoom = 10, maxZoom = 15) {
 
   map <-  map %>%
@@ -26,9 +27,12 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL,
 
 
   if(add_dists) {
+    dists <- if(dist_year == "2013") {councildown::nycc_cd_13}
+    else if(dist_year == "2023") {councildown::nycc_cd_23}
+    else {stop("The dist_year you have entered is invalid. Choose either '2013' or '2023'")}
     map <- map %>%
-      leaflet::addPolygons(data = dists, fill = FALSE, weight = 1, 
-                           color = "#2F56A6", opacity = .5, smoothFactor = 0, 
+      leaflet::addPolygons(data = dists, fill = FALSE, weight = 1,
+                           color = "#2F56A6", opacity = .5, smoothFactor = 0,
                            group = "Council Districts") %>%
       leaflet::addLabelOnlyMarkers(data = dists, lat = ~lab_y, lng = ~lab_x, label = ~coun_dist,
                                    labelOptions = leaflet::labelOptions(permanent = TRUE, noHide = TRUE,
@@ -38,11 +42,11 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL,
                                                                         style = list(color = "#23417D",
                                                                                      "font-family" = "'Open Sans', sans-serif",
                                                                                      "font-weight" = "bold")))
-    
+
     if (length(highlight_dists) > 0) {
-      
-      map <- map %>% 
-        leaflet::addLabelOnlyMarkers(data = dists[dists$coun_dist %in% highlight_dists, ], 
+
+      map <- map %>%
+        leaflet::addLabelOnlyMarkers(data = dists[dists$coun_dist %in% highlight_dists, ],
                                      lat = ~lab_y, lng = ~lab_x, label = ~coun_dist,
                                      labelOptions = leaflet::labelOptions(permanent = TRUE, noHide = TRUE,
                                                                           textOnly = TRUE,
@@ -62,43 +66,43 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL,
 #'
 #' @param map A \code{leaflet} map
 #' @param source_text The text that you want added to the map
-#' @param color 
+#' @param color
 #' @param fontSize
-#' 
+#'
 #' @return A \code{leaflet} map with a source note added in the bottom right for the councildown defined NYC frame
 #' @export
 addSourceText <- function(map, source_text, color = "#555555", fontSize = "15px", ...) {
-  
+
   geo = st_sfc(st_point(c(-73.645, 40.5)))
-  source_notes_geo = st_sf(source = source_text, 
+  source_notes_geo = st_sf(source = source_text,
                            geometry = geo)
-  
-  map = map %>% 
-    leaflet::addLabelOnlyMarkers(data = source_notes_geo, 
-                                 label = ~source, 
-                                 labelOptions = labelOptions(noHide = T, 
-                                                             direction = 'left', 
-                                                             textOnly = T, 
-                                                             style = list('color'="#555555", 
+
+  map = map %>%
+    leaflet::addLabelOnlyMarkers(data = source_notes_geo,
+                                 label = ~source,
+                                 labelOptions = labelOptions(noHide = T,
+                                                             direction = 'left',
+                                                             textOnly = T,
+                                                             style = list('color'="#555555",
                                                                           'fontSize'="15px")))
-  
+
   return(map)
-  
+
 }
 
 
 #' Wrapper for addPolygons
-#' 
+#'
 #' All the same inputs apply as the leaflet::addPolygons function, we just use this wrapper to define the "defaults" for certain inputs
 #'
 #' @param map A \code{leaflet} map
-#' 
+#'
 #' @return A \code{leaflet} map with polygons added
 #' @export
 #'
-addPolygons <- function(map, smoothFactor = 0, weight = 0, 
+addPolygons <- function(map, smoothFactor = 0, weight = 0,
                         fillOpacity = 1, ...) {
   map = map %>%
-    leaflet::addPolygons(smoothFactor = smoothFactor, weight = weight, 
+    leaflet::addPolygons(smoothFactor = smoothFactor, weight = weight,
                          fillOpacity = fillOpacity, ...)
 }
