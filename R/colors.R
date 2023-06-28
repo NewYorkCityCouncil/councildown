@@ -90,7 +90,13 @@ nycc_palettes <- list(
 #' @importFrom grDevices colorRampPalette
 #'
 nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
-  pal <- nycc_palettes[[palette]]
+  if (palette =="single"){
+    pal <- nycc_palettes[["main"]][1]}
+  else if (palette =="double"){
+    pal <- nycc_palettes[["main"]][1:2]}
+  else{
+    pal <- nycc_palettes[[palette]]
+  }
 
   if (reverse) pal <- rev(pal)
 
@@ -188,7 +194,6 @@ scale_fill_continuous <- function(...) councildown::scale_fill_nycc(discrete = F
 ggplot_add.ScaleDiscrete_Colour <- function(object, plot, object_name) {
   # This may cause problems if there are more than one dataset? I'm not certain
   num_colours <- nrow(unique(ggplot_build(plot)$data[[1]]["colour"]))
-  browser()
   #if ("Changed_Palette" %in% class(object)){
     if (num_colours > 7) {
       cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object when there are more than 7 levels (colors).")
