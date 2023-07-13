@@ -7,7 +7,7 @@ library(dplyr)
 
 # download 2020 census tract shapefile from Department of Planning
 ct20_url <- "https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyct2020_23b.zip"
-nycc_tracts_20 <- sf::read_sf(councildown::unzip_sf(ct20_url))  %>%
+nycc_ct_20 <- sf::read_sf(councildown::unzip_sf(ct20_url))  %>%
   st_transform("+proj=longlat +datum=WGS84") %>%
   mutate(
     # match county numbers with those from the acs data
@@ -21,12 +21,12 @@ nycc_tracts_20 <- sf::read_sf(councildown::unzip_sf(ct20_url))  %>%
     # create GEO_ID to match acs data
     GEO_ID = paste0("1400000US36", county, CT2020)
   )
-usethis::use_data(nycc_tracts_20, overwrite = TRUE)
+usethis::use_data(nycc_ct_20, overwrite = TRUE)
 
 # 2010 (clipped to shoreline) --------------------------------------------
 
 ct10_url <- "https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyct2010_23a.zip"
-nycc_tracts_10 <- sf::read_sf(councildown::unzip_sf(ct10_url))  %>%
+nycc_ct_10 <- sf::read_sf(councildown::unzip_sf(ct10_url))  %>%
   st_transform("+proj=longlat +datum=WGS84") %>%
   mutate(
     # match county numbers with those from the acs data
@@ -40,4 +40,4 @@ nycc_tracts_10 <- sf::read_sf(councildown::unzip_sf(ct10_url))  %>%
     # create GEO_ID to match acs data
     GEO_ID = paste0("1400000US36", county, CT2010)
   )
-usethis::use_data(nycc_tracts_10, overwrite = TRUE)
+usethis::use_data(nycc_ct_10, overwrite = TRUE)

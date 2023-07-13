@@ -66,8 +66,8 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL, dist
 #'
 #' @param map A \code{leaflet} map
 #' @param source_text The text that you want added to the map
-#' @param color
-#' @param fontSize
+#' @param color color of source text
+#' @param fontSize font size of source text
 #'
 #' @return A \code{leaflet} map with a source note added in the bottom right for the councildown defined NYC frame
 #' @export

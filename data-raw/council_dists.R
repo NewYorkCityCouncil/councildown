@@ -8,7 +8,8 @@ library(purrr)
 # 2023-2033 --------------------------------------------
 
 # https://data.cityofnewyork.us/City-Government/City-Council-Districts/yusd-j4xi
-nycc_cd_23 <- sf::read_sf("https://data.cityofnewyork.us/api/geospatial/yusd-j4xi?method=export&format=GeoJSON")
+cd_url <- "https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycc_23b.zip"
+nycc_cd_23 <- sf::read_sf(councildown::unzip_sf(cd_url))
 
 nycc_cd_23 <- nycc_cd_23 %>%
   st_transform("+proj=longlat +datum=WGS84") %>%
