@@ -8,6 +8,7 @@ addCouncilStyle(
   map,
   add_dists = FALSE,
   highlight_dists = NULL,
+  dist_year = "2013",
   highlight_color = "#cdd9f1",
   minZoom = 10,
   maxZoom = 15
@@ -19,6 +20,8 @@ addCouncilStyle(
 \item{add_dists}{Boolean. Add council districts?}
 
 \item{highlight_dists}{a vector including the numbers of council districts that you would like to use a non-standard color for the numeric label. Especially useful when using the "cool" palette with council districts as the label color here blends right in.}
+
+\item{dist_year}{Either "2013" (for 2013-2023 lines) or "2023" (for 2023-2033 lines).}
 
 \item{highlight_color}{used IF you specify a list of highlight_dists as the color for their text. Defaults to white}
 }
