@@ -2,7 +2,7 @@
 % Please edit documentation in R/colors.R
 \name{nycc_pal}
 \alias{nycc_pal}
-\title{Make a color palette with NYCC colors}
+\title{DEPRACATED: Make a color palette with NYCC colors}
 \usage{
 nycc_pal(palette = "mixed", reverse = FALSE, ...)
 }
@@ -17,5 +17,5 @@ nycc_pal(palette = "mixed", reverse = FALSE, ...)
 A function made by \code{colorRampPalette}
 }
 \description{
-Make a color palette with NYCC colors
+DEPRACATED: Make a color palette with NYCC colors
 }

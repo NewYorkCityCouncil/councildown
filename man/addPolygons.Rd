@@ -4,7 +4,7 @@
 \alias{addPolygons}
 \title{Wrapper for addPolygons}
 \usage{
-addPolygons(map, smoothFactor = 0, weight = 0, fillOpacity = 1, ...)
+addPolygons(map, smoothFactor = 0, weight = 0, ...)
 }
 \arguments{
 \item{map}{A \code{leaflet} map}

@@ -100,9 +100,30 @@ addSourceText <- function(map, source_text, color = "#555555", fontSize = "15px"
 #' @return A \code{leaflet} map with polygons added
 #' @export
 #'
-addPolygons <- function(map, smoothFactor = 0, weight = 0,
-                        fillOpacity = 1, ...) {
+addPolygons <- function(map, smoothFactor = 0, weight = 0, ...) {
   map = map %>%
-    leaflet::addPolygons(smoothFactor = smoothFactor, weight = weight,
-                         fillOpacity = fillOpacity, ...)
+    leaflet::addPolygons(smoothFactor = smoothFactor,
+                         weight = weight, ...)
+
+  return(map)
+}
+
+#' Wrapper for colorBin
+#'
+#' All the same inputs apply as the leaflet::colorBin function, just use this wrapper to define the "defaults" for certain inputs
+#'
+#' @param domain Possible values to be mapped by \code{leaflet}
+#'
+#' @return A \code{leaflet} colorBin palette
+#' @export
+#'
+colorBin <- function(palette = "nycc_blue", domain = NULL,
+                     bins = 7, na.color = "#FFFFFF", ...) {
+  if(bins > 7 | length(bins) > 7){
+    cli::cli_abort("Can't create color mapping with more than 7 bins")
+  }
+  leaflet::colorBin(
+    palette = palette,
+    na.color = na.color
+  )
 }
