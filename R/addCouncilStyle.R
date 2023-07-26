@@ -100,11 +100,12 @@ addSourceText <- function(map, source_text, color = "#555555", fontSize = "15px"
 #' @return A \code{leaflet} map with polygons added
 #' @export
 #'
-addPolygons <- function(map, smoothFactor = 0, weight = 0,
-                        fillOpacity = 1, ...) {
+addPolygons <- function(map, smoothFactor = 0, weight = 0, ...) {
   map = map %>%
-    leaflet::addPolygons(smoothFactor = smoothFactor, weight = weight,
-                         fillOpacity = fillOpacity, ...)
+    leaflet::addPolygons(smoothFactor = smoothFactor,
+                         weight = weight, ...)
+
+  return(map)
 }
 
 #' Wrapper for colorBin
