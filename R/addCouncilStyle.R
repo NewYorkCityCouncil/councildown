@@ -27,7 +27,7 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL, dist
 
 
   if(add_dists) {
-    if(dist_year != "2013" | dist_year != "2023") {stop("The dist_year you have entered is invalid. Choose either '2013' or '2023'")}
+    if(dist_year != "2013" & dist_year != "2023") {stop("The dist_year you have entered is invalid. Choose either '2013' or '2023'")}
     dists <- ifelse(dist_year == "2013", councildown::nycc_cd_13, councildown::nycc_cd_23)
     map <- map %>%
       leaflet::addPolygons(data = dists, fill = FALSE, weight = 1,
