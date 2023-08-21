@@ -119,11 +119,12 @@ addPolygons <- function(map, smoothFactor = 0, weight = 0, ...) {
 #'
 colorBin <- function(palette = "nycc_blue", domain = NULL,
                      bins = 7, na.color = "#FFFFFF", ...) {
-  if(bins > 7 | length(bins) > 7){
+  if((length(bins) == 1 & bins[1] > 7) | length(bins) > 7){
     cli::cli_abort("Can't create color mapping with more than 7 bins")
   }
   leaflet::colorBin(
     palette = palette,
-    na.color = na.color
+    na.color = na.color,
+    domain = domain
   )
 }
