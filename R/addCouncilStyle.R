@@ -27,9 +27,9 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL, dist
 
 
   if(add_dists) {
-    dists <- if(dist_year == "2013") {councildown::nycc_cd_13}
-    else if(dist_year == "2023") {councildown::nycc_cd_23}
-    else {stop("The dist_year you have entered is invalid. Choose either '2013' or '2023'")}
+    if(dist_year != "2013" & dist_year != "2023") {stop("The dist_year you have entered is invalid. Choose either '2013' or '2023'")}
+    if(dist_year == "2013") {dists <- councildown::nycc_cd_13} else {dists <- councildown::nycc_cd_23}
+
     map <- map %>%
       leaflet::addPolygons(data = dists, fill = FALSE, weight = 1,
                            color = "#2F56A6", opacity = .5, smoothFactor = 0,
@@ -66,8 +66,8 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL, dist
 #'
 #' @param map A \code{leaflet} map
 #' @param source_text The text that you want added to the map
-#' @param color
-#' @param fontSize
+#' @param color color of source text
+#' @param fontSize font size of source text
 #'
 #' @return A \code{leaflet} map with a source note added in the bottom right for the councildown defined NYC frame
 #' @export
@@ -100,9 +100,31 @@ addSourceText <- function(map, source_text, color = "#555555", fontSize = "15px"
 #' @return A \code{leaflet} map with polygons added
 #' @export
 #'
-addPolygons <- function(map, smoothFactor = 0, weight = 0,
-                        fillOpacity = 1, ...) {
+addPolygons <- function(map, smoothFactor = 0, weight = 0, ...) {
   map = map %>%
-    leaflet::addPolygons(smoothFactor = smoothFactor, weight = weight,
-                         fillOpacity = fillOpacity, ...)
+    leaflet::addPolygons(smoothFactor = smoothFactor,
+                         weight = weight, ...)
+
+  return(map)
+}
+
+#' Wrapper for colorBin
+#'
+#' All the same inputs apply as the leaflet::colorBin function, just use this wrapper to define the "defaults" for certain inputs
+#'
+#' @param domain Possible values to be mapped by \code{leaflet}
+#'
+#' @return A \code{leaflet} colorBin palette
+#' @export
+#'
+colorBin <- function(palette = "nycc_blue", domain = NULL,
+                     bins = 7, na.color = "#FFFFFF", ...) {
+  if((length(bins) == 1 & bins[1] > 7) | length(bins) > 7){
+    cli::cli_abort("Can't create color mapping with more than 7 bins")
+  }
+  leaflet::colorBin(
+    palette = palette,
+    na.color = na.color,
+    domain = domain
+  )
 }

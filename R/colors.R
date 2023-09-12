@@ -43,6 +43,8 @@ cool <- c('#e3eaf7', '#c4cbe2', '#a5adcd', '#8691b9', '#6775a5', '#485a91', '#23
 bw <- c('#e8e8e8', '#c3c3c3', '#a0a0a0', '#7e7e7e', '#5d5d5d', '#3e3e3e', '#222222')
 # palette based off maroon:#800000, light grey:#E6E6E6, and forest:#007534 / blue:#1D5FD6
 div <- c('#6d2516','#a93922','#dc6c55',"#e6e6e6",'#53c4de','#2091ab','#155d6d')
+# meant for mapping; palette interpolated from white to nycc_blue, with white removed (can use white as NA)
+nycc_blue <- c('#e3e5f2', '#c8cbe6', '#acb2d9', '#909acc', '#7482c0', '#556cb3', '#2f56a6')
 # additional council color based palettes
 indigo <- c('#e8e4f7', '#ccc1e3', '#b0a0d0', '#947fbc', '#7760a9', '#5a4296', '#3b2483')
 blue <- c('#e7eefb', '#cdd4f5', '#b3bbf0', '#98a3ea', '#7a8be3', '#5675dd', '#1d5fd6')
@@ -66,6 +68,7 @@ nycc_palettes <- list(
   bw = bw,
   main = primary,
   mixed = secondary,
+  nycc_blue = nycc_blue,
   warm = warm,
   cool = cool,
   diverging = div,
@@ -74,10 +77,35 @@ nycc_palettes <- list(
   violet = violet,
   bronze = bronze,
   orange = blood_orange,
-  forest = forest
+  forest_green = forest
 )
 
-#' Make a color palette with NYCC colors
+#' Make a color palette with NYCC colors. Second iteration from nycc_pal.
+#'
+#'
+#' @param palette One of \code{"bw","main", "mixed", "nycc_blue", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}
+#' @param reverse Boolean, reverse the order of the selected palette
+#'
+#' @return The palette inputted, forward or reverse, grabbed from nycc_palettes and with additional palette options for \code{"single", "double"}
+#' @export
+#'
+#' @importFrom grDevices colorRampPalette
+#'
+pal_nycc <- function(palette = "main", reverse = FALSE) {
+  if (palette =="single"){
+    pal <- nycc_palettes[["main"]][1]}
+  else if (palette =="double"){
+    pal <- nycc_palettes[["main"]][1:2]}
+  else{
+    pal <- nycc_palettes[[palette]]
+  }
+
+  if (reverse) pal <- rev(pal)
+
+  return(pal)
+}
+
+#' DEPRACATED: Make a color palette with NYCC colors
 #'
 #'
 #' @param palette One of \code{"bw","main", "mixed", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.
@@ -109,6 +137,7 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
    return(raw_pal(n))
   }
 
+  .Deprecated("pal_nycc")
   out
 }
 
