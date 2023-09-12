@@ -80,7 +80,7 @@ nycc_palettes <- list(
 #' Make a color palette with NYCC colors
 #'
 #'
-#' @param palette One of \code{"bw","main", "mixed", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest"}
+#' @param palette One of \code{"bw","main", "mixed", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.
 #' @param reverse Boolean, reverse the order of the selected palette
 #' @param ... Further arguments passed to \code{colorRampPalette}
 #'

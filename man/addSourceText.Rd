@@ -11,8 +11,6 @@ addSourceText(map, source_text, color = "#555555", fontSize = "15px", ...)
 
 \item{source_text}{The text that you want added to the map}
 
-\item{color}{}
-
 \item{fontSize}{}
 }
 \value{
