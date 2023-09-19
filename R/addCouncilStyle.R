@@ -21,9 +21,14 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL, dist
                             highlight_color = "#cdd9f1", minZoom = 10, maxZoom = 15) {
 
   map <-  map %>%
-    leaflet(options = leafletOptions(minZoom = minZoom, maxZoom = maxZoom)) %>%
+    leaflet(options = leafletOptions(minZoom = minZoom,
+                                     maxZoom = maxZoom,
+                                     zoomControl = FALSE)) %>%
     setView(-73.984865, 40.710542, zoom = 11) %>%
-    leaflet.extras::setMapWidgetStyle(list(background = "white"))
+    leaflet.extras::setMapWidgetStyle(list(background = "white")) %>%
+    htmlwidgets::onRender("function(el, x) {
+        L.control.zoom({ position: 'topright' }).addTo(this)
+    }")
 
 
   if(add_dists) {
