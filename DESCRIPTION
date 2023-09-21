@@ -20,7 +20,9 @@ Imports: bookdown,
     htmlwidgets,
     magrittr,
     knitr,
-    dplyr (>= 0.8)
+    dplyr (>= 0.8),
+    mapview
 Suggests: here,
-    extrafont
+    extrafont,
+    sf
 RoxygenNote: 7.2.3
