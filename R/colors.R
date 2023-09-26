@@ -134,7 +134,7 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
 
     names(pal) <- NULL
 
-   return(raw_pal(n))
+    return(raw_pal(n))
   }
 
   .Deprecated("pal_nycc", msg = "'nycc_pal' is deprecated.\nUse 'pal_nycc' for discrete palettes.\ncolorRampPalette() is an option to interpolate more bins.\nE.g. colorRampPalette(nycc_palettes[[\"main\"]])(100)")
@@ -156,7 +156,7 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
 #' \code{\link[ggplot2]{scale_color_gradientn}} or
 #' \code{\link[ggplot2]{scale_fill_gradientn}} as appropriate.
 #'
-#' @inheritParams nycc_pal
+#' @inheritParams pal_nycc
 #' @inheritParams ggplot2::discrete_scale
 #' @inheritParams ggplot2::scale_fill_gradientn
 #' @inheritParams ggplot2::scale_color_gradientn
@@ -168,7 +168,7 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
 #'
 #'
 scale_fill_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE, ...) {
-  pal <- nycc_pal(palette = palette, reverse = reverse)
+  pal <- pal_nycc(palette = palette, reverse = reverse)
 
   if (discrete) {
     out <- ggplot2::discrete_scale("fill", paste0("nycc_", palette), palette = pal,na.value = "#CACACA", ...)
@@ -186,7 +186,7 @@ scale_fill_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE,
 #' @rdname scale_fill_nycc
 #' @export
 scale_color_nycc <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
-  pal <- nycc_pal(palette = palette, reverse = reverse)
+  pal <- pal_nycc(palette = palette, reverse = reverse)
 
   if (discrete) {
     out <- ggplot2::discrete_scale("colour", paste0("nycc_", palette), palette = pal, na.value = "grey50", ...)
@@ -224,15 +224,15 @@ ggplot_add.ScaleDiscrete_Colour <- function(object, plot, object_name) {
   # This may cause problems if there are more than one dataset? I'm not certain
   num_colours <- nrow(unique(ggplot_build(plot)$data[[1]]["colour"]))
   #if ("Changed_Palette" %in% class(object)){
-    if (num_colours > 7) {
-      cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object when there are more than 7 levels (colors).")
-    } else if (num_colours <= 1){
-      pal <- nycc_pal(palette = "single")
-      object <- ggplot2::discrete_scale("colour", "single_palette", palette = pal, na.value = "grey50")
-    } else if (num_colours == 2){
-      pal <- nycc_pal(palette = "double")
-      object <- ggplot2::discrete_scale("colour", "double_palette", palette = pal, na.value = "grey50")
-    }
+  if (num_colours > 7) {
+    cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object when there are more than 7 levels (colors).")
+  } else if (num_colours <= 1){
+    pal <- pal_nycc(palette = "single")
+    object <- ggplot2::discrete_scale("colour", "single_palette", palette = pal, na.value = "grey50")
+  } else if (num_colours == 2){
+    pal <- pal_nycc(palette = "double")
+    object <- ggplot2::discrete_scale("colour", "double_palette", palette = pal, na.value = "grey50")
+  }
   #}
 
   plot$scales$add(object)
