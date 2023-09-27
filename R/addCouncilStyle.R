@@ -25,7 +25,10 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL, dist
 
   map <-  map %>%
     setView(-73.984865, 40.710542, zoom = 11) %>%
-    leaflet.extras::setMapWidgetStyle(list(background = "white"))
+    leaflet.extras::setMapWidgetStyle(list(background = "white")) %>%
+    htmlwidgets::onRender("function(el, x) {
+        L.control.zoom({ position: 'topright' }).addTo(this)
+    }")
 
 
   if(add_dists) {

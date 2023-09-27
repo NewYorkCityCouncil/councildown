@@ -18,7 +18,7 @@
 #' file.remove("test.png")
 #' }
 #'
-#' @import mapview
+#' @importFrom mapview mapshot
 #' @importFrom tools file_path_sans_ext
 #' @importFrom tools file_ext
 #'
@@ -84,37 +84,37 @@ mapshot <- function (x, url = NULL, file = NULL, zoom = 2, vwidth = 1000, vheigh
 #' @import leaflet
 #'
 addLegend_decreasing <- function (map, position = c("topright", "bottomright", "bottomleft","topleft"),
-                                  pal, values, na.label = "NA", bins = 7, colors, 
-                                  opacity = 0.5, labels = NULL, labFormat = labelFormat(), 
-                                  title = NULL, className = "info legend", layerId = NULL, 
+                                  pal, values, na.label = "NA", bins = 7, colors,
+                                  opacity = 0.5, labels = NULL, labFormat = labelFormat(),
+                                  title = NULL, className = "info legend", layerId = NULL,
                                   group = NULL, data = getMapData(map), decreasing = FALSE) {
-  
+
   position <- match.arg(position)
   type <- "unknown"
   na.color <- NULL
   extra <- NULL
   if (!missing(pal)) {
-    if (!missing(colors)) 
+    if (!missing(colors))
       stop("You must provide either 'pal' or 'colors' (not both)")
-    if (missing(title) && inherits(values, "formula")) 
+    if (missing(title) && inherits(values, "formula"))
       title <- deparse(values[[2]])
     values <- evalFormula(values, data)
     type <- attr(pal, "colorType", exact = TRUE)
     args <- attr(pal, "colorArgs", exact = TRUE)
     na.color <- args$na.color
-    if (!is.null(na.color) && col2rgb(na.color, alpha = TRUE)[[4]] == 
+    if (!is.null(na.color) && col2rgb(na.color, alpha = TRUE)[[4]] ==
         0) {
       na.color <- NULL
     }
-    if (type != "numeric" && !missing(bins)) 
+    if (type != "numeric" && !missing(bins))
       warning("'bins' is ignored because the palette type is not numeric")
     if (type == "numeric") {
-      cuts <- if (length(bins) == 1) 
+      cuts <- if (length(bins) == 1)
         pretty(values, bins)
-      else bins   
-      if (length(bins) > 2) 
-        if (!all(abs(diff(bins, differences = 2)) <= 
-                 sqrt(.Machine$double.eps))) 
+      else bins
+      if (length(bins) > 2)
+        if (!all(abs(diff(bins, differences = 2)) <=
+                 sqrt(.Machine$double.eps)))
           stop("The vector of breaks 'bins' must be equally spaced")
       n <- length(cuts)
       r <- range(values, na.rm = TRUE)
@@ -174,16 +174,16 @@ addLegend_decreasing <- function (map, position = c("topright", "bottomright", "
       }
     }
     else stop("Palette function not supported")
-    if (!any(is.na(values))) 
+    if (!any(is.na(values)))
       na.color <- NULL
   }
   else {
-    if (length(colors) != length(labels)) 
+    if (length(colors) != length(labels))
       stop("'colors' and 'labels' must be of the same length")
   }
-  legend <- list(colors = I(unname(colors)), labels = I(unname(labels)), 
-                 na_color = na.color, na_label = na.label, opacity = opacity, 
-                 position = position, type = type, title = title, extra = extra, 
+  legend <- list(colors = I(unname(colors)), labels = I(unname(labels)),
+                 na_color = na.color, na_label = na.label, opacity = opacity,
+                 position = position, type = type, title = title, extra = extra,
                  layerId = layerId, className = className, group = group)
   invokeMethod(map, data, "addLegend", legend)
 }

@@ -137,7 +137,7 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
    return(raw_pal(n))
   }
 
-  .Deprecated("pal_nycc")
+  .Deprecated("pal_nycc", msg = "'nycc_pal' is deprecated.\nUse 'pal_nycc' for discrete palettes.\ncolorRampPalette() is an option to interpolate more bins.\nE.g. colorRampPalette(nycc_palettes[[\"main\"]])(100)")
   out
 }
 
