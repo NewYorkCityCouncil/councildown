@@ -130,6 +130,7 @@ colorBin <- function(palette = "nycc_blue", domain = NULL,
   leaflet::colorBin(
     palette = palette,
     na.color = na.color,
+    bins = bins,
     domain = domain
   )
 }
