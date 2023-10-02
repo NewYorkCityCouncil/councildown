@@ -101,7 +101,13 @@ pal_nycc <- function(palette = "main", reverse = FALSE) {
 
   if (reverse) pal <- rev(pal)
 
-  return(pal)
+  out <- function(n) {
+
+    names(pal) <- NULL
+
+    return(pal)
+  }
+  out
 }
 
 #' DEPRACATED: Make a color palette with NYCC colors
@@ -149,7 +155,7 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
 #' \code{\link[ggplot2]{scale_color_gradientn}} or
 #' \code{\link[ggplot2]{scale_fill_gradientn}} as appropriate.
 #'
-#' @inheritParams nycc_pal
+#' @inheritParams pal_nycc
 #' @inheritParams ggplot2::discrete_scale
 #' @inheritParams ggplot2::scale_fill_gradientn
 #' @inheritParams ggplot2::scale_color_gradientn
@@ -161,7 +167,7 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
 #'
 #'
 scale_fill_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE, ...) {
-  pal <- nycc_pal(palette = palette, reverse = reverse)
+  pal <- pal_nycc(palette = palette, reverse = reverse)
 
   if (discrete) {
     out <- ggplot2::discrete_scale("fill", paste0("nycc_", palette), palette = pal,na.value = "#CACACA", ...)
@@ -179,7 +185,7 @@ scale_fill_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE,
 #' @rdname scale_fill_nycc
 #' @export
 scale_color_nycc <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
-  pal <- nycc_pal(palette = palette, reverse = reverse)
+  pal <- pal_nycc(palette = palette, reverse = reverse)
 
   if (discrete) {
     out <- ggplot2::discrete_scale("colour", paste0("nycc_", palette), palette = pal, na.value = "grey50", ...)
@@ -216,15 +222,14 @@ scale_fill_continuous <- function(...) councildown::scale_fill_nycc(discrete = F
 ggplot_add.ScaleDiscrete_Colour <- function(object, plot, object_name) {
   # This may cause problems if there are more than one dataset? I'm not certain
   num_colours <- nrow(unique(ggplot_build(plot)$data[[1]]["colour"]))
-  browser()
   #if ("Changed_Palette" %in% class(object)){
     if (num_colours > 7) {
       cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object when there are more than 7 levels (colors).")
     } else if (num_colours <= 1){
-      pal <- nycc_pal(palette = "single")
+      pal <- pal_nycc(palette = "single")
       object <- ggplot2::discrete_scale("colour", "single_palette", palette = pal, na.value = "grey50")
     } else if (num_colours == 2){
-      pal <- nycc_pal(palette = "double")
+      pal <- pal_nycc(palette = "double")
       object <- ggplot2::discrete_scale("colour", "double_palette", palette = pal, na.value = "grey50")
     }
   #}
