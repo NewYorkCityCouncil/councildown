@@ -102,7 +102,13 @@ pal_nycc <- function(palette = "main", reverse = FALSE) {
 
   if (reverse) pal <- rev(pal)
 
-  return(pal)
+  out <- function(n) {
+
+    names(pal) <- NULL
+
+    return(pal)
+  }
+  out
 }
 
 #' DEPRACATED: Make a color palette with NYCC colors
