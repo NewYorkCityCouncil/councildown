@@ -83,7 +83,7 @@ nycc_palettes <- list(
 #' Make a color palette with NYCC colors. Second iteration from nycc_pal.
 #'
 #'
-#' @param palette One of \code{"bw","main", "mixed", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.
+#' @param palette One of \code{"bw","main", "mixed", "nycc_blue", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.
 #' @param reverse Boolean, reverse the order of the selected palette
 #'
 #' @return The palette inputted, forward or reverse, grabbed from nycc_palettes and with additional palette options for \code{"single", "double"}
@@ -108,7 +108,7 @@ pal_nycc <- function(palette = "main", reverse = FALSE) {
 #' Make a color palette with NYCC colors for scale_*_nycc
 #'
 #'
-#' @param palette One of \code{"bw","main", "mixed", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.
+#' @param palette One of \code{"bw","main", "mixed", "nycc_blue", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.
 #' @param reverse Boolean, reverse the order of the selected palette
 #' @param ... Further arguments passed to \code{colorRampPalette}
 #'
@@ -141,7 +141,7 @@ scale_nycc <- function(palette = "mixed", reverse = FALSE, ...) {
 #' DEPRACATED: Make a color palette with NYCC colors
 #'
 #'
-#' @param palette One of \code{"bw","main", "mixed", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.
+#' @param palette One of \code{"bw","main", "mixed", "nycc_blue", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.
 #' @param reverse Boolean, reverse the order of the selected palette
 #' @param ... Further arguments passed to \code{colorRampPalette}
 #'

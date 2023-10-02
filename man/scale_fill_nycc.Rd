@@ -22,7 +22,7 @@ scale_fill_discrete(palette = "mixed", discrete = TRUE, reverse = FALSE, ...)
 scale_fill_continuous(...)
 }
 \arguments{
-\item{palette}{One of \code{"bw","main", "mixed", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.}
+\item{palette}{One of \code{"bw","main", "mixed", "nycc_blue", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.}
 
 \item{discrete}{Boolean, should the scale be discrete?}
 
