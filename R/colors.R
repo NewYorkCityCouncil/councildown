@@ -83,7 +83,7 @@ nycc_palettes <- list(
 #' Make a color palette with NYCC colors. Second iteration from nycc_pal.
 #'
 #'
-#' @param palette One of \code{"bw","main", "mixed", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.
+#' @param palette One of \code{"bw","main", "mixed", "nycc_blue", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}
 #' @param reverse Boolean, reverse the order of the selected palette
 #'
 #' @return The palette inputted, forward or reverse, grabbed from nycc_palettes and with additional palette options for \code{"single", "double"}
@@ -102,13 +102,7 @@ pal_nycc <- function(palette = "main", reverse = FALSE) {
 
   if (reverse) pal <- rev(pal)
 
-  out <- function(n) {
-
-    names(pal) <- NULL
-
-    return(pal)
-  }
-  out
+  return(pal)
 }
 
 #' DEPRACATED: Make a color palette with NYCC colors
@@ -162,7 +156,7 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
 #' \code{\link[ggplot2]{scale_color_gradientn}} or
 #' \code{\link[ggplot2]{scale_fill_gradientn}} as appropriate.
 #'
-#' @inheritParams pal_nycc
+#' @inheritParams nycc_pal
 #' @inheritParams ggplot2::discrete_scale
 #' @inheritParams ggplot2::scale_fill_gradientn
 #' @inheritParams ggplot2::scale_color_gradientn
@@ -174,7 +168,7 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
 #'
 #'
 scale_fill_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE, ...) {
-  pal <- pal_nycc(palette = palette, reverse = reverse)
+  pal <- nycc_pal(palette = palette, reverse = reverse)
 
   if (discrete) {
     out <- ggplot2::discrete_scale("fill", paste0("nycc_", palette), palette = pal,na.value = "#CACACA", ...)
@@ -192,7 +186,7 @@ scale_fill_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE,
 #' @rdname scale_fill_nycc
 #' @export
 scale_color_nycc <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
-  pal <- pal_nycc(palette = palette, reverse = reverse)
+  pal <- nycc_pal(palette = palette, reverse = reverse)
 
   if (discrete) {
     out <- ggplot2::discrete_scale("colour", paste0("nycc_", palette), palette = pal, na.value = "grey50", ...)
@@ -233,10 +227,10 @@ ggplot_add.ScaleDiscrete_Colour <- function(object, plot, object_name) {
     if (num_colours > 7) {
       cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object when there are more than 7 levels (colors).")
     } else if (num_colours <= 1){
-      pal <- pal_nycc(palette = "single")
+      pal <- nycc_pal(palette = "single")
       object <- ggplot2::discrete_scale("colour", "single_palette", palette = pal, na.value = "grey50")
     } else if (num_colours == 2){
-      pal <- pal_nycc(palette = "double")
+      pal <- nycc_pal(palette = "double")
       object <- ggplot2::discrete_scale("colour", "double_palette", palette = pal, na.value = "grey50")
     }
   #}
