@@ -83,7 +83,7 @@ nycc_palettes <- list(
 #' Make a color palette with NYCC colors. Second iteration from nycc_pal.
 #'
 #'
-#' @param palette One of \code{"bw","main", "mixed", "nycc_blue", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}
+#' @param palette One of \code{"bw","main", "mixed", "nycc_blue", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.
 #' @param reverse Boolean, reverse the order of the selected palette
 #'
 #' @return The palette inputted, forward or reverse, grabbed from nycc_palettes and with additional palette options for \code{"single", "double"}
@@ -105,10 +105,43 @@ pal_nycc <- function(palette = "main", reverse = FALSE) {
   return(pal)
 }
 
+#' Make a color palette with NYCC colors for scale_*_nycc
+#'
+#'
+#' @param palette One of \code{"bw","main", "mixed", "nycc_blue", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.
+#' @param reverse Boolean, reverse the order of the selected palette
+#' @param ... Further arguments passed to \code{colorRampPalette}
+#'
+#' @return A function made by \code{colorRampPalette}
+#'
+#' @importFrom grDevices colorRampPalette
+#'
+scale_nycc <- function(palette = "mixed", reverse = FALSE, ...) {
+  if (palette =="single"){
+    pal <- nycc_palettes[["main"]][1]}
+  else if (palette =="double"){
+    pal <- nycc_palettes[["main"]][1:2]}
+  else{
+    pal <- nycc_palettes[[palette]]
+  }
+
+  if (reverse) pal <- rev(pal)
+
+  raw_pal <- colorRampPalette(pal, ...)
+
+  out <- function(n) {
+
+    names(pal) <- NULL
+
+    return(raw_pal(n))
+  }
+  out
+}
+
 #' DEPRACATED: Make a color palette with NYCC colors
 #'
 #'
-#' @param palette One of \code{"bw","main", "mixed", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.
+#' @param palette One of \code{"bw","main", "mixed", "nycc_blue", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.
 #' @param reverse Boolean, reverse the order of the selected palette
 #' @param ... Further arguments passed to \code{colorRampPalette}
 #'
@@ -137,7 +170,7 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
    return(raw_pal(n))
   }
 
-  .Deprecated("pal_nycc", msg = "'nycc_pal' is deprecated.\nUse 'pal_nycc' for discrete palettes.\ncolorRampPalette() is an option to interpolate more bins.\nE.g. colorRampPalette(nycc_palettes[[\"main\"]])(100)")
+  .Deprecated("pal_nycc", msg = "'nycc_pal' is deprecated.\nUse 'pal_nycc' for discrete palettes.\ncolorRampPalette() is an option to interpolate more bins.\nE.g. colorRampPalette(pal_nycc(\"main\"))(100)")
   out
 }
 
@@ -168,7 +201,7 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
 #'
 #'
 scale_fill_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE, ...) {
-  pal <- nycc_pal(palette = palette, reverse = reverse)
+  pal <- scale_nycc(palette = palette, reverse = reverse)
 
   if (discrete) {
     out <- ggplot2::discrete_scale("fill", paste0("nycc_", palette), palette = pal,na.value = "#CACACA", ...)
@@ -186,7 +219,7 @@ scale_fill_nycc <- function(palette = "mixed", discrete = TRUE, reverse = FALSE,
 #' @rdname scale_fill_nycc
 #' @export
 scale_color_nycc <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
-  pal <- nycc_pal(palette = palette, reverse = reverse)
+  pal <- scale_nycc(palette = palette, reverse = reverse)
 
   if (discrete) {
     out <- ggplot2::discrete_scale("colour", paste0("nycc_", palette), palette = pal, na.value = "grey50", ...)
@@ -227,10 +260,10 @@ ggplot_add.ScaleDiscrete_Colour <- function(object, plot, object_name) {
     if (num_colours > 7) {
       cli::cli_abort("Can't add {.var {object_name}} to a {.cls ggplot} object when there are more than 7 levels (colors).")
     } else if (num_colours <= 1){
-      pal <- nycc_pal(palette = "single")
+      pal <- scale_nycc(palette = "single")
       object <- ggplot2::discrete_scale("colour", "single_palette", palette = pal, na.value = "grey50")
     } else if (num_colours == 2){
-      pal <- nycc_pal(palette = "double")
+      pal <- scale_nycc(palette = "double")
       object <- ggplot2::discrete_scale("colour", "double_palette", palette = pal, na.value = "grey50")
     }
   #}

@@ -7,7 +7,7 @@
 pal_nycc(palette = "main", reverse = FALSE)
 }
 \arguments{
-\item{palette}{One of \code{"bw","main", "mixed", "nycc_blue", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}}
+\item{palette}{One of \code{"bw","main", "mixed", "nycc_blue", "cool", "warm", "diverging", "indigo", "blue", "violet", "bronze", "orange", "forest", "single", "double"}. When palette is set to "single" or "double", it returns the first color and first and second color from the "main" palette respectively.}
 
 \item{reverse}{Boolean, reverse the order of the selected palette}
 }
