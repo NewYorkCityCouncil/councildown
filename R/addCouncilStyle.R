@@ -78,8 +78,8 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL, dist
 #' @export
 addSourceText <- function(map, source_text, color = "#555555", fontSize = "15px", ...) {
 
-  geo = st_sfc(st_point(c(-73.645, 40.5)))
-  source_notes_geo = st_sf(source = source_text,
+  geo = sf::st_sfc(sf::st_point(c(-73.645, 40.5)))
+  source_notes_geo = sf::st_sf(source = source_text,
                            geometry = geo)
 
   map = map %>%
