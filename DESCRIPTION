@@ -22,7 +22,10 @@ Imports: bookdown,
     knitr,
     dplyr (>= 0.8),
     mapview
-Suggests: here,
+Suggests: 
+    here,
     extrafont,
-    sf
+    sf,
+    rmarkdown
 RoxygenNote: 7.2.3
+VignetteBuilder: knitr

@@ -1,0 +1,137 @@
+---
+title: "councildown"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{councildown}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Install Package
+
+```{r dpi=300, eval=FALSE}
+# replace councilverse with councildown if you only want councildown
+remotes::install_github("newyorkcitycouncil/councilverse")
+```
+
+## Load Package
+
+```{r dpi=300}
+library(tidyverse)
+library(leaflet)
+# load last; councilverse contains councildown
+library(councilverse)
+```
+
+## Example Project Using CouncilDown Function
+
+### Load CouncilCount Data
+
+CouncilCount data is a part of the CouncilVerse package. We will use this data as an example of how to make plots and maps.
+
+```{r dpi=300}
+# councilverse::get_census_variables to check available variables
+census_vars <- get_census_variables()
+# councilverse::get_geo_estimates to read in council district data for % work from home
+# borough, community, council, neighborhood, precinct, schooldist geos are available
+council_geo <- get_geo_estimates("council") %>%
+  select(council, percent_work_from_home_workers_16_and_older, geometry)
+```
+
+### Visualize Data and Determine Map Breaks
+
+```{r dpi=300}
+# check distribution of data (no councildown additions yet)
+ggplot(data = council_geo, aes(percent_work_from_home_workers_16_and_older)) + geom_histogram(bins = 30)
+# use fisher-jenks natural breaks
+nat_intvl = classInt::classIntervals(council_geo$percent_work_from_home_workers_16_and_older, n = 5, style = 'fisher')
+```
+
+```{r dpi=300}
+# visualize breaks using councilcount functions and styling
+ggplot(data = council_geo, aes(percent_work_from_home_workers_16_and_older)) +
+  # use first color from nycc_palette "main" for the histogram bars
+  geom_histogram(bins = 30, aes(fill=pal_nycc("main")[1])) +
+  # use last color from nycc_palette "main" for the breaks
+  geom_vline(xintercept = nat_intvl$brks, color = pal_nycc("main")[6]) +
+  labs(
+    x = "% Work From Home",
+    y = "Count",
+    title = "Histogram of % Work From Home",
+    color = ""
+  ) +
+  # councildown::theme_nycc() for styling
+  theme_nycc() +
+  theme(legend.position="none")
+```
+
+### Make Palette for Map
+
+```{r dpi=300}
+# councildown::colorBin has default options for palette, bins, and na.color
+pal_council = colorBin(
+  # use nycc_blue, which is the default palette for councildown::colorBin
+  palette = pal_nycc("nycc_blue"),
+  # note: make sure rounding doesn't leave out any data in the bottom or top bin
+  bins = round(nat_intvl$brks,2),
+  domain = council_geo$percent_work_from_home_workers_16_and_older,
+  # use the default NA color for councildown::colorBin
+  na.color = "#FFFFFF"
+)
+```
+
+### Create Map
+
+```{r dpi=300}
+map <- leaflet() %>%
+  # councildown::addCouncilStyle() for styling
+  addCouncilStyle() %>%
+  # councildown::addPolygons has default smoothFactor and weight
+  addPolygons(data = council_geo,
+              fillColor = ~pal_council(percent_work_from_home_workers_16_and_older),
+              fillOpacity = 1,
+              # councildown::councilPopup to style popups
+              label = ~lapply(councilPopup(
+                paste0("<h3>", paste0("CD: ",council), "</h3>",
+                       "<p>", paste0("Work From Home: ", percent_work_from_home_workers_16_and_older, "%"), "</p>")),
+                htmltools::HTML)) %>%
+  # councildown::addLegend_decreasing to change the default ordering of the legend
+  addLegend_decreasing(position = "topleft", pal = pal_council,
+                       title = paste0("% Work From Home"),
+                       values = c(0,1), opacity = 1, decreasing = T,
+                       labFormat = labelFormat(suffix = "%"),
+                       na.label = "NA") %>%
+  # councildown::addSourceText to add text on bottom left for source
+  addSourceText("Source: NYCC Data Team")
+map
+```
+
+```{r eval=FALSE}
+# add districts for 2013 or 2023
+map_w_dists <- map %>%
+  # councildown::addCouncilStyle has options to add 2013 or 2023 council districts to map
+  addCouncilStyle(add_dists = T, dist_year = "2023")
+
+# note: can access cd shapefiles by themselves
+councildown::nycc_cd_13 # 2013 council district lines
+councildown::nycc_cd_23 # 2023 council district lines
+```
+
+### Save Map
+
+```{r eval=FALSE}
+# councildown::mapshot has default zoom, vwidth, vheight, remove_controls
+map_png <- file_name_generator(description = "council_district_percent_work_from_home", date_year = 2022, file_extension = ".png")
+mapshot(map, file = glue::glue("visuals/{map_png}"))
+
+map_html <- file_name_generator(description = "council_district_percent_work_from_home", date_year = 2022, file_extension = ".html")
+# save leaflet html (function not a part of councilverse)
+htmlwidgets::saveWidget(map, file="visuals/{map_html}", selfcontained = T)
+```
