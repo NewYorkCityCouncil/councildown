@@ -22,6 +22,7 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL, dist
   # Adds min and max Zoom
   map$x$options$minZoom = minZoom
   map$x$options$maxZoom = maxZoom
+  map$x$options$zoomControl = F
 
   map <-  map %>%
     setView(-73.984865, 40.710542, zoom = 11) %>%
