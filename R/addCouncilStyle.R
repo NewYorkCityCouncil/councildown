@@ -22,6 +22,7 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL, dist
   # Adds min and max Zoom
   map$x$options$minZoom = minZoom
   map$x$options$maxZoom = maxZoom
+  map$x$options$zoomControl = F
 
   map <-  map %>%
     setView(-73.984865, 40.710542, zoom = 11) %>%
@@ -78,8 +79,8 @@ addCouncilStyle <- function(map, add_dists = FALSE, highlight_dists = NULL, dist
 #' @export
 addSourceText <- function(map, source_text, color = "#555555", fontSize = "15px", ...) {
 
-  geo = st_sfc(st_point(c(-73.645, 40.5)))
-  source_notes_geo = st_sf(source = source_text,
+  geo = sf::st_sfc(sf::st_point(c(-73.645, 40.5)))
+  source_notes_geo = sf::st_sf(source = source_text,
                            geometry = geo)
 
   map = map %>%
@@ -128,7 +129,7 @@ colorBin <- function(palette = "nycc_blue", domain = NULL,
     cli::cli_abort("Can't create color mapping with more than 7 bins")
   }
   leaflet::colorBin(
-    palette = palette,
+    palette = councildown::pal_nycc(palette),
     na.color = na.color,
     bins = bins,
     domain = domain
