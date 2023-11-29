@@ -78,7 +78,7 @@ ggplot(data = council_geo, aes(percent_work_from_home_workers_16_and_older)) +
 # councildown::colorBin has default options for palette, bins, and na.color
 pal_council = colorBin(
   # use nycc_blue, which is the default palette for councildown::colorBin
-  palette = pal_nycc("nycc_blue"),
+  palette = "nycc_blue",
   # note: make sure rounding doesn't leave out any data in the bottom or top bin
   bins = round(nat_intvl$brks,2),
   domain = council_geo$percent_work_from_home_workers_16_and_older,
