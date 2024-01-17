@@ -41,8 +41,8 @@ CouncilCount data is a part of the CouncilVerse package. We will use this data a
 census_vars <- get_census_variables()
 # councilverse::get_geo_estimates to read in council district data for % work from home
 # borough, community, council, neighborhood, precinct, schooldist geos are available
-council_geo <- get_geo_estimates("council") %>%
-  select(council, percent_work_from_home_workers_16_and_older, geometry)
+council_geo <- get_geo_estimates("councildist") %>%
+  select(councildist13, percent_work_from_home_workers_16_and_older, geometry)
 ```
 
 ### Visualize Data and Determine Map Breaks
@@ -99,7 +99,7 @@ map <- leaflet() %>%
               fillOpacity = 1,
               # councildown::councilPopup to style popups
               label = ~lapply(councilPopup(
-                paste0("<h3>", paste0("CD: ",council), "</h3>",
+                paste0("<h3>", paste0("CD: ",councildist13), "</h3>",
                        "<p>", paste0("Work From Home: ", percent_work_from_home_workers_16_and_older, "%"), "</p>")),
                 htmltools::HTML)) %>%
   # councildown::addLegend_decreasing to change the default ordering of the legend
@@ -133,5 +133,5 @@ mapshot(map, file = glue::glue("visuals/{map_png}"))
 
 map_html <- file_name_generator(description = "council_district_percent_work_from_home", date_year = 2022, file_extension = ".html")
 # save leaflet html (function not a part of councilverse)
-htmlwidgets::saveWidget(map, file="visuals/{map_html}", selfcontained = T)
+htmlwidgets::saveWidget(map, file=glue::glue("visuals/{map_html}"), selfcontained = T)
 ```
