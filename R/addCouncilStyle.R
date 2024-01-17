@@ -129,7 +129,7 @@ colorBin <- function(palette = "nycc_blue", domain = NULL,
     cli::cli_abort("Can't create color mapping with more than 7 bins")
   }
   leaflet::colorBin(
-    palette = ifelse(!is.null(nycc_palettes[[palette]]), councildown::pal_nycc(palette), palette),
+    palette = ifelse(!is.null(councildown:::nycc_palettes[[palette]]), councildown::pal_nycc(palette), palette),
     na.color = na.color,
     bins = bins,
     domain = domain
