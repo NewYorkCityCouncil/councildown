@@ -23,26 +23,25 @@ remotes::install_github("newyorkcitycouncil/councilverse")
 
 ## Load Package
 
-```{r dpi=300}
+```{r dpi=300, results='hide', message=FALSE}
 library(tidyverse)
 library(leaflet)
 # load last; councilverse contains councildown
 library(councilverse)
 ```
 
-## Example Project Using CouncilDown Function
+## Example Project Using CouncilVerse, CouncilVerse (CouncilCount) Functions
 
 ### Load CouncilCount Data
 
 CouncilCount data is a part of the CouncilVerse package. We will use this data as an example of how to make plots and maps.
 
-```{r dpi=300}
+```{r dpi=300, message=FALSE}
 # councilverse::get_census_variables to check available variables
 census_vars <- get_census_variables()
 # councilverse::get_geo_estimates to read in council district data for % work from home
 # borough, community, council, neighborhood, precinct, schooldist geos are available
-council_geo <- get_geo_estimates("councildist") %>%
-  select(councildist13, percent_work_from_home_workers_16_and_older, geometry)
+council_geo <- get_geo_estimates("councildist", var_codes = "DP03_0024E", boundary_year = "2013") 
 ```
 
 ### Visualize Data and Determine Map Breaks
