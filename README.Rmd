@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# councildown
+# Overview
 
 The `councildown` package implements style guide compliant defaults for R Markdown documents, `ggplot2` plots, and `leaflet` maps.
 
@@ -29,7 +29,7 @@ You can install the released version of `councildown` from GitHub
 remotes::install_github("newyorkcitycouncil/councildown")
 ```
 
-## Loading Package
+## Load Package
 
 Note that the order of loading the libraries is important. Make sure to load `councildown` last.
 
@@ -41,30 +41,7 @@ library(councildown)
 
 ## Vignette
 
-For a full demo of the functions in this package, see `vignettes/councildown.Rmd`.
-
-## List of commonly used functions
-
-Colors
-
--   nycc_cols()
--   pal_nycc()
--   ~~nycc_pal()~~ (**DEPRECATED**)
-
-ggplot2
-
--   theme_nycc()
--   scale_fill_nycc() / scale_color_nycc()
-
-Leaflet
-
--   addCouncilStyle()
--   addSourceText()
--   addPolygons()
--   colorBin()
--   councilPopup()
--   mapshot()
--   addLegend_decreasing()
+For a demo of the functions available, see `vignettes/councilverse.Rmd` in the `councilverse` package.
 
 ## Quick Start
 
@@ -97,7 +74,7 @@ data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
       x = "Test a",
       y = "Test b") +
   scale_color_nycc() +
-  theme_nycc() +
+  theme_nycc()
 ```
 
 Additionally, `theme_nycc()` has an argument `facet` for changing the theme to better fit faceted plots.
@@ -117,7 +94,7 @@ data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
   theme_nycc(facet=TRUE)
 ```
 
-If you are only using one variable/color, you can add the `"single"` palette using `pal_nycc`.
+If you are only using one variable/color, you can add the `"single"` palette using `pal_nycc`. Use the `"double"` palette for two variables/colors.
 
 ```{r dpi=300}
 data.frame(x = rnorm(20), y = rnorm(20)) %>%
