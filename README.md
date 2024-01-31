@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# councildown
+# Overview
 
 The `councildown` package implements style guide compliant defaults for
 R Markdown documents, `ggplot2` plots, and `leaflet` maps.
@@ -14,15 +14,25 @@ You can install the released version of `councildown` from GitHub
 remotes::install_github("newyorkcitycouncil/councildown")
 ```
 
-## Example
+## Load Package
 
 Note that the order of loading the libraries is important. Make sure to
 load `councildown` last.
 
 ``` r
 library(tidyverse)
+# load last
 library(councildown)
 ```
+
+## Vignette
+
+For a demo of the functions available, see `vignettes/councilverse.Rmd`
+in the `councilverse` package.
+
+## Quick Start
+
+First load the `councildown` package as above.
 
 ### ggplot2
 
@@ -43,6 +53,11 @@ parameters. For brand guidelines, see:
 `palette = "cool"` for a cool palette.  
 `palette = "diverging"` for a diverging palette.
 
+If `palette = "single"` then the color will be the first color of
+`"main"`.  
+If `palette = "double"`, then the color will be the first and second
+color of `"main"`.
+
 ``` r
 data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
   ggplot(aes(x, y, color = z)) +
@@ -53,8 +68,8 @@ data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
       color = "Legend",
       x = "Test a",
       y = "Test b") +
- theme_nycc() +
- scale_color_nycc()
+  scale_color_nycc() +
+  theme_nycc()
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
@@ -72,29 +87,43 @@ data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
       color = "Legend",
       x = "Test a",
       y = "Test b") +
- facet_wrap(~z) +
- theme_nycc(facet=TRUE) +
- scale_color_nycc()
+  facet_wrap(~z) +
+  scale_color_nycc() +
+  theme_nycc(facet=TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+If you are only using one variable/color, you can add the `"single"`
+palette using `pal_nycc`. Use the `"double"` palette for two
+variables/colors.
 
-At this time, the color palettes do not work if you are only using one
-variable/color. You can manually use NYCC blue with `"#2F56A6"`.
+``` r
+data.frame(x = rnorm(20), y = rnorm(20)) %>%
+  ggplot(aes(x, y)) +
+ geom_point(color = pal_nycc("single")) +
+ labs(title = "Test",
+      subtitle = "Test",
+      caption = "Test",
+      color = "Legend",
+      x = "Test a",
+      y = "Test b") +
+  theme_nycc()
+```
 
 ### leaflet
 
 The function `addCouncilStyle()` sets the default view, zoom, and
 background. There is an additional option for `add_dists` to add map
 tiles and City Council district outlines and labels to `leaflet` maps.
+The `dist_year` option allows for `"2023"` or `"2013"` Council District
+lines.
 
 ``` r
 library(leaflet)
 leaflet() %>% 
-  addCouncilStyle(add_dists = TRUE)
+  addCouncilStyle(add_dists = T, dist_year = "2023")
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 Additionally, use `mapshot` to save leaflet maps as a static png image.
 `mapshot()` overwrites `mapview::mapshot()` to force map saves with
@@ -103,7 +132,7 @@ the original `mapshot` function.
 
 ``` r
 map <- leaflet() %>% 
-  addCouncilStyle(add_dists = TRUE)
+  addCouncilStyle(add_dists = T, dist_year = "2023")
 mapshot(map, file = "map.png")
 ```
 
