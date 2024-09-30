@@ -24,6 +24,10 @@ addCouncilStyle(
 \item{dist_year}{Either "2013" (for 2013-2023 lines) or "2023" (for 2023-2033 lines).}
 
 \item{highlight_color}{used IF you specify a list of highlight_dists as the color for their text. Defaults to white}
+
+\item{minZoom}{Minimum zoom level for the map. Defaults to 10.}
+
+\item{maxZoom}{Maximum zoom level for the map. Defaults to 15.}
 }
 \value{
 A \code{leaflet} map that in has City Council styles, including tiles,
