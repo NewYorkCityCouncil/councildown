@@ -31,7 +31,7 @@ from the map when saving to file. Any combination of
 is not a mapview or leaflet map.}
 
 \item{...}{Further arguments passed on to \code{\link[htmlwidgets]{saveWidget}}
-and/or \code{\link[webshot]{webshot}}.}
+and/or \code{\link[webshot2]{webshot}}.}
 }
 \description{
 This is a \code{mapshot} adjustment that saves maps as pdf and
