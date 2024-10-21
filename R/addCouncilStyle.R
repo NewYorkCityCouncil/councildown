@@ -93,11 +93,11 @@ addCouncilStyle <- function(map,
 #'
 #' @export
 addSourceText <- function(map, source_text, color = "#555555",
-                          fontSize = "15px", ...) {
+                          fontSize = "15px", lat=-73.645, lon=40.5,...) {
 
-  geo = sf::st_sfc(sf::st_point(c(-73.645, 40.5)))
+  geo = sf::st_sfc(sf::st_point(c(lat, lon)))
   source_notes_geo = sf::st_sf(source = source_text,
-                           geometry = geo)
+                               geometry = geo)
 
   map = map %>%
     leaflet::addLabelOnlyMarkers(data = source_notes_geo,
