@@ -88,16 +88,18 @@ addCouncilStyle <- function(map,
 #' @param source_text The text that you want added to the map
 #' @param color color of source text
 #' @param fontSize font size of source text
+#' @param lat the latitude of the source text on the map
+#' @param lon the longitude of the source text on the map
 #'
 #' @return A \code{leaflet} map with a source note added in the bottom right for the councildown defined NYC frame
 #'
 #' @export
 addSourceText <- function(map, source_text, color = "#555555",
-                          fontSize = "15px", ...) {
+                          fontSize = "15px", lat=-73.645, lon=40.5,...) {
 
-  geo = sf::st_sfc(sf::st_point(c(-73.645, 40.5)))
+  geo = sf::st_sfc(sf::st_point(c(lat, lon)))
   source_notes_geo = sf::st_sf(source = source_text,
-                           geometry = geo)
+                               geometry = geo)
 
   map = map %>%
     leaflet::addLabelOnlyMarkers(data = source_notes_geo,

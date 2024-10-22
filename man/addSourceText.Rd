@@ -4,7 +4,15 @@
 \alias{addSourceText}
 \title{Add a "Source" note to a leaflet that will be a static output}
 \usage{
-addSourceText(map, source_text, color = "#555555", fontSize = "15px", ...)
+addSourceText(
+  map,
+  source_text,
+  color = "#555555",
+  fontSize = "15px",
+  lat = -73.645,
+  lon = 40.5,
+  ...
+)
 }
 \arguments{
 \item{map}{A \code{leaflet} map}
@@ -14,6 +22,10 @@ addSourceText(map, source_text, color = "#555555", fontSize = "15px", ...)
 \item{color}{color of source text}
 
 \item{fontSize}{font size of source text}
+
+\item{lat}{the latitude of the source text on the map}
+
+\item{lon}{the longitude of the source text on the map}
 }
 \value{
 A \code{leaflet} map with a source note added in the bottom right for the councildown defined NYC frame
