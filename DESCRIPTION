@@ -21,7 +21,8 @@ Imports: bookdown,
     magrittr,
     knitr,
     dplyr (>= 0.8),
-    mapview
+    mapview,
+    leaflet.extras
 Suggests: here,
     extrafont,
     sf
