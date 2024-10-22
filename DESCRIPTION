@@ -25,5 +25,5 @@ Imports: bookdown,
 Suggests: here,
     extrafont,
     sf
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 URL: https://newyorkcitycouncil.github.io/councildown/
