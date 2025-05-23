@@ -242,8 +242,8 @@ add_council_basemaps <- function(map,
   if (!is.character(control_position) || length(control_position) != 1) {
     stop("'control_position' must be a single character string.", call. = FALSE)
   }
-  if (!is.logical(control_collapsed) || length(control_collapsed) != 1) {
-    stop("'control_collapsed' must be a single logical value (TRUE or FALSE).", call. = FALSE)
+  if (!is.logical(control_collapsed) || length(control_collapsed) != 1 || is.na(control_collapsed)) {
+    stop("'control_collapsed' must be a single logical value (TRUE or FALSE), not NA.", call. = FALSE)
   }
 
   # Validate and process 'selection'
