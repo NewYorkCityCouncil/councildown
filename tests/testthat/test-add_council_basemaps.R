@@ -215,21 +215,21 @@ test_that("custom_names order matches selection order", {
 
 
 # Additional code to test add_council_basemaps directly in the console
-# setwd("~/Documents/councildown")
-# devtools::load_all()
-# library(leaflet)
-# # Base map centered on NYC
-# nyc_map_base <- leaflet() %>%
-#   setView(lng = -74.0060, lat = 40.7128, zoom = 10)
-# # Test 1: Default settings
-# nyc_map_base %>%
-#   add_council_basemaps()
-# # Test 2: Specific selection
-# nyc_map_base %>%
-#   add_council_basemaps(selection = c(1, 5))
-# # Test 3: Custom names and control options
-# nyc_map_base %>%
-#   add_council_basemaps(selection = c(2, 4),
-#                        custom_names = c("My Dark Theme", "Topo View"),
-#                        control_position = "topright",
-#                        control_collapsed = FALSE)
+setwd("~/Documents/councildown")
+devtools::load_all()
+library(leaflet)
+# Base map centered on NYC
+nyc_map_base <- leaflet() %>%
+  setView(lng = -74.0060, lat = 40.7128, zoom = 10)
+# Test 1: Default settings
+nyc_map_base %>%
+  add_council_basemaps()
+# Test 2: Specific selection
+nyc_map_base %>%
+  add_council_basemaps(selection = c(1, 5))
+# Test 3: Custom names and control options
+nyc_map_base %>%
+  add_council_basemaps(selection = c(2, 4),
+                       custom_names = c("My Dark Theme", "Topo View"),
+                       control_position = "topright",
+                       control_collapsed = FALSE)
