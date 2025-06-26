@@ -119,6 +119,18 @@ leaflet() %>%
   addCouncilStyle(add_dists = T, dist_year = "2023")
 ```
 
+You may also use the add_council_basemaps function to directly add one or more of six different background maps to your leaflet map (1 = Dark, 2 = Light, 3 = Streets, 4 = Physical, 5 = Satellite, 6 = Basic). 
+
+```{r screenshot.opts = list(vwidth = 1280, vheight = 900)}
+library(leaflet)
+leaflet() %>%
+  addCouncilStyle(add_dists = T, dist_year = "2023") %>%
+    add_council_basemaps(selection = c(1, 5),
+                       custom_names = c("Default View", "Satellite View"),
+                       control_position = "topright",
+                       control_collapsed = FALSE)
+```
+
 Additionally, use `mapshot` to save leaflet maps as a static png image. `mapshot()` overwrites `mapview::mapshot()` to force map saves with standardized width, height, and zoom. Use `mapview::mapshot` if you want the original `mapshot` function.
 
 ```{r eval=FALSE}
