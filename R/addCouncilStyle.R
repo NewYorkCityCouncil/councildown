@@ -310,3 +310,126 @@ add_council_basemaps <- function(map,
 
   return(map)
 }
+
+#'
+#'
+#' Set Leaflet Map Size and Position
+#'
+#' Modifies a leaflet map widget's size and position using pre-defined layouts.
+#' This is achieved by injecting CSS to style the map's container. It's ideal
+#' for creating standalone map pages, dashboards, or reports.
+#'
+#' @details
+#' This function uses `htmlwidgets::prependContent` to add a `<style>` tag to
+#' the map's HTML dependencies. The generated CSS will vary based on the chosen
+#' `layout`. For directional layouts (e.g., `"right"`), the map will occupy 75%
+#' of the viewport, leaving the remaining 25% free for other content like text
+#' or controls in your R Markdown or HTML document.
+#'
+#' @param map A leaflet map object created by `leaflet::leaflet()`.
+#' @param layout A character string specifying one of the pre-defined layouts.
+#'   Defaults to `"full_screen"`. The available options are:
+#'   \itemize{
+#'     \item `"full_screen"`: The map fills the entire browser viewport (100% width, 100% height).
+#'     \item `"right"`: The map fills the right 75% of the viewport width and 100% of the height.
+#'     \item `"left"`: The map fills the left 75% of the viewport width and 100% of the height.
+#'     \item `"top"`: The map fills the top 75% of the viewport height and 100% of the width.
+#'     \item `"bottom"`: The map fills the bottom 75% of the viewport height and 100% of the width.
+#'   }
+#'
+#' @return A modified leaflet map object that will render in the specified layout.
+#'   The object remains a `leaflet` map, so it can be piped into other functions.
+#'
+#' @export
+#' @importFrom htmltools tags
+#' @importFrom htmlwidgets prependContent
+#'
+#' @examples
+#' \dontrun{
+#' if (requireNamespace("leaflet", quietly = TRUE)) {
+#'   library(leaflet)
+#'   library(councildown)
+#'
+#'   # Default: Create a full-screen map
+#'   leaflet() %>%
+#'     set_council_mapsize() %>%
+#'     add_council_basemaps()
+#'
+#'   # Create a map that fills the right 75% of the screen
+#'   # (You would add content to the left 25% in your Rmd or HTML)
+#'   leaflet() %>%
+#'     set_council_mapsize(layout = "right") %>%
+#'     add_council_basemaps()
+#' }
+#' }
+set_council_mapsize <- function(map, layout = "full_screen") {
+
+  # --- Input Validation ---
+  if (!inherits(map, "leaflet")) {
+    stop("Input 'map' must be a leaflet map object created by leaflet::leaflet().", call. = FALSE)
+  }
+
+  supported_layouts <- c("full_screen", "right", "left", "top", "bottom")
+  layout <- match.arg(layout, supported_layouts)
+
+  # --- Generate CSS based on the chosen layout ---
+  css_string <- ""
+
+  # Base CSS for layouts that need the page to act as a canvas
+  page_canvas_css <- "html, body { width: 100%; height: 100%; margin: 0; padding: 0; }"
+
+  switch(layout,
+         "full_screen" = {
+           css_string <- "
+        html, body {
+            width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+        }
+        .html-widget, .leaflet-container {
+            width: 100% !important; height: 100% !important;
+        }
+      "
+         },
+         "right" = {
+           css_string <- paste(page_canvas_css, "
+        .html-widget {
+            position: absolute !important;
+            top: 0; right: 0;
+            width: 75% !important; height: 100% !important;
+        }
+      ")
+         },
+         "left" = {
+           css_string <- paste(page_canvas_css, "
+        .html-widget {
+            position: absolute !important;
+            top: 0; left: 0;
+            width: 75% !important; height: 100% !important;
+        }
+      ")
+         },
+         "top" = {
+           css_string <- paste(page_canvas_css, "
+        .html-widget {
+            position: absolute !important;
+            top: 0; left: 0;
+            width: 100% !important; height: 75% !important;
+        }
+      ")
+         },
+         "bottom" = {
+           css_string <- paste(page_canvas_css, "
+        .html-widget {
+            position: absolute !important;
+            bottom: 0; left: 0;
+            width: 100% !important; height: 75% !important;
+        }
+      ")
+         }
+  )
+
+  # --- Create the HTML style tag and attach it to the map widget ---
+  style_tag <- htmltools::tags$style(css_string)
+  map_with_style <- htmlwidgets::prependContent(map, style_tag)
+
+  return(map_with_style)
+}
