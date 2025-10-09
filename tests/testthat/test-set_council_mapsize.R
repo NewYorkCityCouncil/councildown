@@ -92,34 +92,34 @@ test_that("set_council_mapsize creates correct CSS for directional layouts", {
 
 
 
-# Additional code to test set_council_mapsize directly in the console
-setwd("~/Documents/councildown")
-devtools::load_all()
-library(leaflet)
-# Base map object to reuse for tests
-nyc_map_base <- leaflet() %>%
-  setView(lng = -74.0060, lat = 40.7128, zoom = 10)
-# --- Test 1: Default 'full_screen' layout ---
-# Expected result: The map should fill the entire Viewer pane.
-nyc_map_base %>%
-  set_council_mapsize() %>%
-  add_council_basemaps()
-# --- Test 2: 'right' layout ---
-# Expected result: The map should fill the right 75% of the Viewer pane.
-nyc_map_base %>%
-  set_council_mapsize(layout = "right") %>%
-  add_council_basemaps()
-# --- Test 3: 'top' layout ---
-# Expected result: The map should fill the top 75% of the Viewer pane.
-nyc_map_base %>%
-  set_council_mapsize(layout = "top") %>%
-  add_council_basemaps()
-# --- Test 4: Integration with other councildown functions ---
-# Expected result: A map with council districts filling the left 75% of the pane.
-leaflet() %>% # Start fresh as addCouncilStyle sets its own view
-  set_council_mapsize(layout = "left") %>%
-  addCouncilStyle(add_dists = TRUE, dist_year = "2023") %>%
-  add_council_basemaps(selection = c(1, 2))
+# # Additional code to test set_council_mapsize directly in the console
+# setwd("~/Documents/councildown")
+# devtools::load_all()
+# library(leaflet)
+# # Base map object to reuse for tests
+# nyc_map_base <- leaflet() %>%
+#   setView(lng = -74.0060, lat = 40.7128, zoom = 10)
+# # --- Test 1: Default 'full_screen' layout ---
+# # Expected result: The map should fill the entire Viewer pane.
+# nyc_map_base %>%
+#   set_council_mapsize() %>%
+#   add_council_basemaps()
+# # --- Test 2: 'right' layout ---
+# # Expected result: The map should fill the right 75% of the Viewer pane.
+# nyc_map_base %>%
+#   set_council_mapsize(layout = "right") %>%
+#   add_council_basemaps()
+# # --- Test 3: 'top' layout ---
+# # Expected result: The map should fill the top 75% of the Viewer pane.
+# nyc_map_base %>%
+#   set_council_mapsize(layout = "top") %>%
+#   add_council_basemaps()
+# # --- Test 4: Integration with other councildown functions ---
+# # Expected result: A map with council districts filling the left 75% of the pane.
+# leaflet() %>% # Start fresh as addCouncilStyle sets its own view
+#   set_council_mapsize(layout = "left") %>%
+#   addCouncilStyle(add_dists = TRUE, dist_year = "2023") %>%
+#   add_council_basemaps(selection = c(1, 2))
 
 
 
