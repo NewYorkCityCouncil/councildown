@@ -43,6 +43,8 @@ cool <- c('#e3eaf7', '#c4cbe2', '#a5adcd', '#8691b9', '#6775a5', '#485a91', '#23
 bw <- c('#e8e8e8', '#c3c3c3', '#a0a0a0', '#7e7e7e', '#5d5d5d', '#3e3e3e', '#222222')
 # palette based off maroon:#800000, light grey:#E6E6E6, and forest:#007534 / blue:#1D5FD6
 div <- c('#6d2516','#a93922','#dc6c55',"#e6e6e6",'#53c4de','#2091ab','#155d6d')
+# palette based off maroon:#800000, light grey:#E6E6E6, and dark blue:#1D5FD6
+div2 <- c('#6d2516','#a93922','#dc6c55',"#e6e6e6",'#acb2d9','#556cb3',"#23417D")
 # meant for mapping; palette interpolated from white to nycc_blue, with white removed (can use white as NA)
 nycc_blue <- c('#e3e5f2', '#c8cbe6', '#acb2d9', '#909acc', '#7482c0', '#556cb3', '#2f56a6')
 # additional council color based palettes
@@ -280,4 +282,59 @@ ggplot_add.ScaleDiscrete_Fill <- function(object, plot, object_name) {
   }
   plot$scales$add(object)
   plot
+}
+
+
+
+
+#' Make a diverging palette centered around a number of choice. Made by Noah
+#'
+#'
+#' @param color_low Color for the low end of the palette
+#' @param color_mid Color for the middle of the palette
+#' @param color_high Color for the high end of the palette
+#' @param low Value for low end of the palette. Can either be "min" for minimum of domain or numerical value.
+#' @param mid Value for middle of the palette. Can either be "median", "mean", or numerical value.
+#' @param high Value for high end of the palette. Can either be "max" for maximum of domain or numerical value.
+#' @param ... Further arguments passed to \code{colorNumeric}
+#'
+#' @return A palette function made by \code{colorNumeric}
+#'
+#' @importFrom grDevices colorRampPalette
+#' @importFrom leaflet colorNumeric
+#'
+colorDiverging <- function(domain, color_low = "#800000", color_mid = "#E6E6E6", color_high = "#23417D", low = "min", mid = "median", high = "max", ...) {
+  if(low == "min") {
+    low = min(domain, na.rm = T)
+  } else if(!is.numeric(low)) stop("low must be either 'min' or numerical value")
+
+  if(mid == "median") {
+    mid = median(domain, na.rm = T)
+  } else if(mid == "mean") {
+    mid = mean(domain, na.rm = T)
+  } else if(!is.numeric(mid)) stop("mid must be either 'mean', 'median', or numerical value")
+
+  if(high == "max") {
+    high = max(domain, na.rm = T)
+  } else if(!is.numeric(high)) stop("high must be either 'max' or numerical value")
+
+  if(low >= mid) stop("low can't be greater than or equal to mid")
+  if(mid >= high) stop("mid can't be greater than or equal to high")
+
+  mid_scaled = round((mid - low) / (high - low) * 100) # Scale between 0 and 100
+
+  if(mid_scaled == 100) stop("need to pick a lower value for mid, it's basically equal to max")
+  if(mid_scaled == 0) stop("need to pick a higher value for mid, it's basically equal to min")
+
+  ## Make vector of colors for values smaller than median
+  rc1 <- colorRampPalette(colors = c("#800000", "#E6E6E6"), space = "Lab")(mid_scaled)
+
+  ## Make vector of colors for values larger than median
+  rc2 <- colorRampPalette(colors = c("#E6E6E6", "#3B2483"), space = "Lab")(100 - mid_scaled)
+
+  ## Combine the two color palettes
+  rampcols <- c(rc1, rc2)
+
+  pal <- colorNumeric(palette = rampcols, domain = domain, ...)
+  pal
 }
