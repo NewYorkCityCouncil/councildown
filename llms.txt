@@ -1,0 +1,226 @@
+# Overview
+
+The `councildown` package implements style guide compliant defaults for
+R Markdown documents, `ggplot2` plots, and `leaflet` maps.
+
+## Installation
+
+You can install the released version of `councildown` from GitHub
+
+``` r
+remotes::install_github("newyorkcitycouncil/councildown")
+```
+
+## Load Package
+
+Note that the order of loading the libraries is important. Make sure to
+load `councildown` last.
+
+``` r
+library(tidyverse)
+# load last
+library(councildown)
+```
+
+## Vignette
+
+For a demo of the functions available, see `vignettes/councilverse.Rmd`
+in the `councilverse` package.
+
+## Quick Start
+
+First load the `councildown` package as above.
+
+### ggplot2
+
+On load, common `ggplot2` scale\_\* functions are overwritten with
+[`scale_fill_nycc()`](https://newyorkcitycouncil.github.io/councildown/reference/scale_fill_nycc.md)
+and
+[`scale_color_nycc()`](https://newyorkcitycouncil.github.io/councildown/reference/scale_fill_nycc.md).
+
+There are 6 color palettes available for
+[`scale_fill_nycc()`](https://newyorkcitycouncil.github.io/councildown/reference/scale_fill_nycc.md)
+and
+[`scale_color_nycc()`](https://newyorkcitycouncil.github.io/councildown/reference/scale_fill_nycc.md).
+Check the documentation for full default parameters. For brand
+guidelines, see:
+<https://newyorkcitycouncil.github.io/nycc-brand-guidelines/>.
+
+`palette = "main"` for use of primary Council colors. Default for
+[`scale_color_nycc()`](https://newyorkcitycouncil.github.io/councildown/reference/scale_fill_nycc.md).  
+`palette = "mixed"` for secondary Council colors. Default for
+[`scale_fill_nycc()`](https://newyorkcitycouncil.github.io/councildown/reference/scale_fill_nycc.md).  
+`palette = "bw"` for grey scale.  
+`palette = "warm"` for a warm palette.  
+`palette = "cool"` for a cool palette.  
+`palette = "diverging"` for a diverging palette.
+
+If `palette = "single"` then the color will be the first color of
+`"main"`.  
+If `palette = "double"`, then the color will be the first and second
+color of `"main"`.
+
+``` r
+data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
+  ggplot(aes(x, y, color = z)) +
+ geom_point() +
+ labs(title = "Test",
+      subtitle = "Test",
+      caption = "Test",
+      color = "Legend",
+      x = "Test a",
+      y = "Test b") +
+  scale_color_nycc() +
+  theme_nycc()
+```
+
+![](reference/figures/README-unnamed-chunk-2-1.png)
+
+Additionally,
+[`theme_nycc()`](https://newyorkcitycouncil.github.io/councildown/reference/theme_nycc.md)
+has an argument `facet` for changing the theme to better fit faceted
+plots.
+
+``` r
+data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
+  ggplot(aes(x, y, color = z)) +
+ geom_point() +
+ labs(title = "Test",
+      subtitle = "Test",
+      caption = "Test",
+      color = "Legend",
+      x = "Test a",
+      y = "Test b") +
+  facet_wrap(~z) +
+  scale_color_nycc() +
+  theme_nycc(facet=TRUE)
+```
+
+If you are only using one variable/color, you can add the `"single"`
+palette using `pal_nycc`. Use the `"double"` palette for two
+variables/colors.
+
+``` r
+data.frame(x = rnorm(20), y = rnorm(20)) %>%
+  ggplot(aes(x, y)) +
+ geom_point(color = pal_nycc("single")) +
+ labs(title = "Test",
+      subtitle = "Test",
+      caption = "Test",
+      color = "Legend",
+      x = "Test a",
+      y = "Test b") +
+  theme_nycc()
+```
+
+### leaflet
+
+The function
+[`addCouncilStyle()`](https://newyorkcitycouncil.github.io/councildown/reference/addCouncilStyle.md)
+sets the default view, zoom, and background. There is an additional
+option for `add_dists` to add map tiles and City Council district
+outlines and labels to `leaflet` maps. The `dist_year` option allows for
+`"2023"` or `"2013"` Council District lines.
+
+``` r
+library(leaflet)
+leaflet() %>% 
+  addCouncilStyle(add_dists = T, dist_year = "2023")
+```
+
+![](reference/figures/README-unnamed-chunk-5-1.png)
+
+You may also use the add_council_basemaps function to directly add one
+or more of six different background maps to your leaflet map (1 = Dark,
+2 = Light, 3 = Streets, 4 = Physical, 5 = Satellite, 6 = Basic).
+
+``` r
+library(leaflet)
+leaflet() %>%
+  addCouncilStyle(add_dists = T, dist_year = "2023") %>%
+    add_council_basemaps(selection = c(1, 5),
+                       custom_names = c("Default View", "Satellite View"),
+                       control_position = "topright",
+                       control_collapsed = FALSE)
+```
+
+![](reference/figures/README-unnamed-chunk-6-1.png)
+
+Additionally, use `mapshot` to save leaflet maps as a static png image.
+[`mapshot()`](https://newyorkcitycouncil.github.io/councildown/reference/mapshot.md)
+overwrites
+[`mapview::mapshot()`](https://r-spatial.github.io/mapview/reference/mapshot.html)
+to force map saves with standardized width, height, and zoom. Use
+[`mapview::mapshot`](https://r-spatial.github.io/mapview/reference/mapshot.html)
+if you want the original `mapshot` function.
+
+``` r
+map <- leaflet() %>% 
+  addCouncilStyle(add_dists = T, dist_year = "2023")
+mapshot(map, file = "map.png")
+```
+
+### R Markdown
+
+The package includes an R Markdown template for writing Council reports.
+After installing the package, create a new report by choosing New \> R
+Markdown \> From Template \> City Council Report in RStudio. \[In
+Progress\]
+
+# Package index
+
+## All functions
+
+- [`addCouncilStyle()`](https://newyorkcitycouncil.github.io/councildown/reference/addCouncilStyle.md)
+  : Style a leaflet map
+- [`addLegend_decreasing()`](https://newyorkcitycouncil.github.io/councildown/reference/addLegend_decreasing.md)
+  : addLegend - but with the option for the highest number to be at the
+  top of the legend
+- [`addPolygons()`](https://newyorkcitycouncil.github.io/councildown/reference/addPolygons.md)
+  : Wrapper for addPolygons
+- [`addSourceText()`](https://newyorkcitycouncil.github.io/councildown/reference/addSourceText.md)
+  : Add a "Source" note to a leaflet that will be a static output
+- [`add_council_basemaps()`](https://newyorkcitycouncil.github.io/councildown/reference/add_council_basemaps.md)
+  : Add Selectable Council Basemaps to a Leaflet Map
+- [`colorBin()`](https://newyorkcitycouncil.github.io/councildown/reference/colorBin.md)
+  : Wrapper for colorBin
+- [`councilPopup()`](https://newyorkcitycouncil.github.io/councildown/reference/councilPopup.md)
+  : Basic Styling for Leaflet Popups
+- [`council_pdf()`](https://newyorkcitycouncil.github.io/councildown/reference/council_pdf.md)
+  [`council_html()`](https://newyorkcitycouncil.github.io/councildown/reference/council_pdf.md)
+  : Render a New York City Council PDF or HTML report
+- [`hook_pdfembed()`](https://newyorkcitycouncil.github.io/councildown/reference/hook_pdfembed.md)
+  : Embed fonts in PDF images
+- [`mapshot()`](https://newyorkcitycouncil.github.io/councildown/reference/mapshot.md)
+  : mapshot pdf
+- [`nycc_cd_13`](https://newyorkcitycouncil.github.io/councildown/reference/nycc_cd_13.md)
+  : 2013-2023 Council District Shapefile
+- [`nycc_cd_23`](https://newyorkcitycouncil.github.io/councildown/reference/nycc_cd_23.md)
+  : 2023-2033 Council District Shapefile
+- [`nycc_ct_10`](https://newyorkcitycouncil.github.io/councildown/reference/nycc_ct_10.md)
+  : 2010 Census Tract Shapefile (clipped to shoreline)
+- [`nycc_ct_20`](https://newyorkcitycouncil.github.io/councildown/reference/nycc_ct_20.md)
+  : 2020 Census Tract Shapefile (clipped to shoreline)
+- [`nycc_pal()`](https://newyorkcitycouncil.github.io/councildown/reference/nycc_pal.md)
+  : DEPRACATED: Make a color palette with NYCC colors
+- [`pal_nycc()`](https://newyorkcitycouncil.github.io/councildown/reference/pal_nycc.md)
+  : Make a color palette with NYCC colors. Second iteration from
+  nycc_pal.
+- [`%>%`](https://newyorkcitycouncil.github.io/councildown/reference/pipe.md)
+  : Pipe
+- [`pretty_date()`](https://newyorkcitycouncil.github.io/councildown/reference/pretty_date.md)
+  : Make a pretty date
+- [`scale_fill_nycc()`](https://newyorkcitycouncil.github.io/councildown/reference/scale_fill_nycc.md)
+  [`scale_color_nycc()`](https://newyorkcitycouncil.github.io/councildown/reference/scale_fill_nycc.md)
+  [`scale_color_discrete()`](https://newyorkcitycouncil.github.io/councildown/reference/scale_fill_nycc.md)
+  [`scale_color_continuous()`](https://newyorkcitycouncil.github.io/councildown/reference/scale_fill_nycc.md)
+  [`scale_fill_discrete()`](https://newyorkcitycouncil.github.io/councildown/reference/scale_fill_nycc.md)
+  [`scale_fill_continuous()`](https://newyorkcitycouncil.github.io/councildown/reference/scale_fill_nycc.md)
+  : Color and fill scales for ggplots
+- [`scale_nycc()`](https://newyorkcitycouncil.github.io/councildown/reference/scale_nycc.md)
+  : Make a color palette with NYCC colors for scale\_\*\_nycc
+- [`set_council_mapsize()`](https://newyorkcitycouncil.github.io/councildown/reference/set_council_mapsize.md)
+  : Set Leaflet Map Size and Position
+- [`theme_nycc()`](https://newyorkcitycouncil.github.io/councildown/reference/theme_nycc.md)
+  : New York City Council Theme
+
