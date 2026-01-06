@@ -22,5 +22,5 @@ A character string representing the date.
 
 ``` r
 pretty_date()
-#> [1] "December 9, 2025"
+#> [1] "January 6, 2026"
 ```

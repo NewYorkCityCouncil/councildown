@@ -6,14 +6,14 @@
 
 ## Citation
 
-Team D (2025). *councildown: Brand Guideline Styling for New York City
-Council Reports & Dashboards*. R package version 0.0.3.9000,
+Team D (2026). *councildown: Brand Guideline Styling for New York City
+Council Reports & Dashboards*. R package version 0.1.0,
 <https://newyorkcitycouncil.github.io/councildown/>.
 
     @Manual{,
       title = {councildown: Brand Guideline Styling for New York City Council Reports & Dashboards},
       author = {Data Team},
-      year = {2025},
-      note = {R package version 0.0.3.9000},
+      year = {2026},
+      note = {R package version 0.1.0},
       url = {https://newyorkcitycouncil.github.io/councildown/},
     }
