@@ -37,9 +37,9 @@ mapshot(
 - remove_controls:
 
   `character` vector of control buttons to be removed from the map when
-  saving to file. Any combination of "zoomControl", "layersControl",
-  "homeButton", "scaleBar", "drawToolbar", "easyButton". If set to
-  `NULL` nothing will be removed. Ignord if `x` is not a mapview or
+  saving to file. Any combination of `"zoomControl"`, `"layersControl"`,
+  `"homeButton"`, `"scaleBar"`, `"drawToolbar"`, `"easyButton"`. If set
+  to `NULL` nothing will be removed. Ignored if `x` is not a mapview or
   leaflet map.
 
 - ...:

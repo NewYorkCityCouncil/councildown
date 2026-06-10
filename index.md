@@ -8,6 +8,7 @@ R Markdown documents, `ggplot2` plots, and `leaflet` maps.
 You can install the released version of `councildown` from GitHub
 
 ``` r
+
 remotes::install_github("newyorkcitycouncil/councildown")
 ```
 
@@ -17,6 +18,7 @@ Note that the order of loading the libraries is important. Make sure to
 load `councildown` last.
 
 ``` r
+
 library(tidyverse)
 # load last
 library(councildown)
@@ -61,6 +63,7 @@ If `palette = "double"`, then the color will be the first and second
 color of `"main"`.
 
 ``` r
+
 data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
   ggplot(aes(x, y, color = z)) +
  geom_point() +
@@ -82,6 +85,7 @@ has an argument `facet` for changing the theme to better fit faceted
 plots.
 
 ``` r
+
 data.frame(x = rnorm(20), y = rnorm(20), z = c("a", "b")) %>%
   ggplot(aes(x, y, color = z)) +
  geom_point() +
@@ -101,6 +105,7 @@ palette using `pal_nycc`. Use the `"double"` palette for two
 variables/colors.
 
 ``` r
+
 data.frame(x = rnorm(20), y = rnorm(20)) %>%
   ggplot(aes(x, y)) +
  geom_point(color = pal_nycc("single")) +
@@ -123,6 +128,7 @@ outlines and labels to `leaflet` maps. The `dist_year` option allows for
 `"2023"` or `"2013"` Council District lines.
 
 ``` r
+
 library(leaflet)
 leaflet() %>% 
   addCouncilStyle(add_dists = T, dist_year = "2023")
@@ -135,6 +141,7 @@ or more of six different background maps to your leaflet map (1 = Dark,
 2 = Light, 3 = Streets, 4 = Physical, 5 = Satellite, 6 = Basic).
 
 ``` r
+
 library(leaflet)
 leaflet() %>%
   addCouncilStyle(add_dists = T, dist_year = "2023") %>%
@@ -155,6 +162,7 @@ to force map saves with standardized width, height, and zoom. Use
 if you want the original `mapshot` function.
 
 ``` r
+
 map <- leaflet() %>% 
   addCouncilStyle(add_dists = T, dist_year = "2023")
 mapshot(map, file = "map.png")

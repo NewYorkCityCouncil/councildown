@@ -15,6 +15,9 @@
   : Add Selectable Council Basemaps to a Leaflet Map
 - [`colorBin()`](https://newyorkcitycouncil.github.io/councildown/reference/colorBin.md)
   : Wrapper for colorBin
+- [`colorDiverging()`](https://newyorkcitycouncil.github.io/councildown/reference/colorDiverging.md)
+  : Make a diverging palette centered around a number of choice. Made by
+  Noah
 - [`councilPopup()`](https://newyorkcitycouncil.github.io/councildown/reference/councilPopup.md)
   : Basic Styling for Leaflet Popups
 - [`council_pdf()`](https://newyorkcitycouncil.github.io/councildown/reference/council_pdf.md)

@@ -1,0 +1,99 @@
+# Make a diverging palette centered around a number of choice. Made by Noah
+
+Make a diverging palette centered around a number of choice. Made by
+Noah
+
+## Usage
+
+``` r
+colorDiverging(
+  domain,
+  color_low = "#800000",
+  color_mid = "#E6E6E6",
+  color_high = "#23417D",
+  low = "min",
+  mid = "median",
+  high = "max",
+  ...
+)
+```
+
+## Arguments
+
+- domain:
+
+  The numeric vector of data to be colored (e.g. df#column)
+
+- color_low:
+
+  Color for the low end of the palette (default: maroon)
+
+- color_mid:
+
+  Color for the middle of the palette (default: light gray)
+
+- color_high:
+
+  Color for the high end of the palette (default: navy)
+
+- low:
+
+  Value for low end of the palette. Can either be "min" for minimum of
+  domain or numerical value.
+
+- mid:
+
+  Value for middle of the palette. Can either be "median", "mean", or
+  numerical value.
+
+- high:
+
+  Value for high end of the palette. Can either be "max" for maximum of
+  domain or numerical value.
+
+- ...:
+
+  Further arguments passed to `colorNumeric`
+
+## Value
+
+A palette function made by `colorNumeric`
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+library(leaflet)
+
+# Create some skewed data
+# Most values are small (1-5), one value is huge (100)
+df <- data.frame(val = c(1, 2, 3, 2, 1, 100))
+
+# 1. Standard usage: Midpoint is the Median (2)
+pal_standard <- colorDiverging(df$val)
+
+leaflet(data = df) %>%
+  addTiles() %>%
+  addCircleMarkers(lng = -74, lat = 40,
+                   fillColor = ~pal_standard(val),
+                   fillOpacity = 1)
+
+# 2. Custom usage: Green to Purple, centered at mean
+pal_custom <- colorDiverging(
+  df$val,
+  color_low = "green",
+  color_mid = "white",
+  color_high = "purple",
+  mid = "mean"
+)
+
+# 3. Custom numeric range: -10 to 10, centered at 0
+vals <- -10:10
+pal_zero <- colorDiverging(
+  vals,
+  low = -10,
+  mid = 0,
+  high = 10
+)
+} # }
+```
