@@ -322,11 +322,15 @@ nycc_pal <- function(palette = "mixed", reverse = FALSE, ...) {
 #'
 #'
 scale_fill_nycc <- function(
-  palette = "mixed",
+  palette = NULL,
   discrete = TRUE,
   reverse = FALSE,
   ...
 ) {
+  if (is.null(palette)) {
+    palette <- if (discrete) "mixed" else "cool"
+  }
+
   pal <- scale_nycc(palette = palette, reverse = reverse)
 
   if (discrete) {
@@ -349,11 +353,15 @@ scale_fill_nycc <- function(
 #' @rdname scale_fill_nycc
 #' @export
 scale_color_nycc <- function(
-  palette = "main",
+  palette = NULL,
   discrete = TRUE,
   reverse = FALSE,
   ...
 ) {
+  if (is.null(palette)) {
+    palette <- if (discrete) "main" else "cool"
+  }
+
   pal <- scale_nycc(palette = palette, reverse = reverse)
 
   if (discrete) {
@@ -394,7 +402,7 @@ scale_fill_discrete <- scale_fill_nycc
 #' @rdname scale_fill_nycc
 #' @export
 scale_fill_continuous <- function(...) {
-  councildown::scale_fill_nycc(discrete = FALSE)
+  councildown::scale_fill_nycc(discrete = FALSE, ...)
 }
 
 #' @export
