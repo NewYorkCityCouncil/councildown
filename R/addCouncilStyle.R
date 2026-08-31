@@ -18,63 +18,91 @@
 #'  addCouncilStyle(add_dists=TRUE)
 #'
 #' @export
-addCouncilStyle <- function(map,
-                            add_dists = FALSE,
-                            highlight_dists = NULL,
-                            dist_year = "2013",
-                            highlight_color = "#cdd9f1",
-                            minZoom = 10, maxZoom = 15)
-{
+addCouncilStyle <- function(
+  map,
+  add_dists = FALSE,
+  highlight_dists = NULL,
+  dist_year = "2013",
+  highlight_color = "#cdd9f1",
+  minZoom = 10,
+  maxZoom = 15
+) {
   # Adds min and max Zoom
-  map$x$options$minZoom = minZoom
-  map$x$options$maxZoom = maxZoom
-  map$x$options$zoomControl = F
+  map$x$options$minZoom <- minZoom
+  map$x$options$maxZoom <- maxZoom
+  map$x$options$zoomControl <- F
 
-  map <-  map %>%
+  map <- map %>%
     setView(-73.984865, 40.710542, zoom = 11) %>%
     leaflet.extras::setMapWidgetStyle(list(background = "white")) %>%
-    htmlwidgets::onRender("function(el, x) {
+    htmlwidgets::onRender(
+      "function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)
-    }")
+    }"
+    )
 
-  if(add_dists) {
-    if(dist_year != "2013" & dist_year != "2023")
-    {stop("The dist_year you have entered is invalid. Choose either '2013' or '2023'")}
-    if(dist_year == "2013") {dists <- councildown::nycc_cd_13}
-    else {dists <- councildown::nycc_cd_23}
+  if (add_dists) {
+    if (dist_year != "2013" & dist_year != "2023") {
+      stop(
+        "The dist_year you have entered is invalid. Choose either '2013' or '2023'"
+      )
+    }
+    if (dist_year == "2013") {
+      dists <- councildown::nycc_cd_13
+    } else {
+      dists <- councildown::nycc_cd_23
+    }
 
     map <- map %>%
-      leaflet::addPolygons(data = dists,
-                           fill = FALSE,
-                           weight = 1,
-                           color = "#2F56A6",
-                           opacity = .5,
-                           smoothFactor = 0,
-                           group = "Council Districts") %>%
-      leaflet::addLabelOnlyMarkers(data = dists,
-                                   lat = ~lab_y, lng = ~lab_x,
-                                   label = ~coun_dist,
-                                   labelOptions =
-                                     leaflet::labelOptions(permanent = TRUE,
-                                                           noHide = TRUE,
-                                                           textOnly = TRUE,
-                                                           textsize = 12,
-                                                           direction = "center",
-                                                           style =
-                                                             list(color =  "#23417D", "font-family" = "'Open Sans', sans-serif", "font-weight" = "bold")))
+      leaflet::addPolygons(
+        data = dists,
+        fill = FALSE,
+        weight = 1,
+        color = "#2F56A6",
+        opacity = .5,
+        smoothFactor = 0,
+        group = "Council Districts"
+      ) %>%
+      leaflet::addLabelOnlyMarkers(
+        data = dists,
+        lat = ~lab_y,
+        lng = ~lab_x,
+        label = ~coun_dist,
+        labelOptions = leaflet::labelOptions(
+          permanent = TRUE,
+          noHide = TRUE,
+          textOnly = TRUE,
+          textsize = 12,
+          direction = "center",
+          style = list(
+            color = "#23417D",
+            "font-family" = "'Open Sans', sans-serif",
+            "font-weight" = "bold"
+          )
+        )
+      )
 
     if (length(highlight_dists) > 0) {
-
       map <- map %>%
-        leaflet::addLabelOnlyMarkers(data = dists[dists$coun_dist %in% highlight_dists, ],
-                                     lat = ~lab_y, lng = ~lab_x, label = ~coun_dist,
-                                     labelOptions = leaflet::labelOptions
-                                     (permanent = TRUE, noHide = TRUE,
-                                       textOnly = TRUE, textsize = 12,
-                                       direction = "center",
-                                       style = list(color = highlight_color,
-                                                    "font-family" = "'Open Sans',
-                                      sans-serif", "font-weight" = "bold")))
+        leaflet::addLabelOnlyMarkers(
+          data = dists[dists$coun_dist %in% highlight_dists, ],
+          lat = ~lab_y,
+          lng = ~lab_x,
+          label = ~coun_dist,
+          labelOptions = leaflet::labelOptions(
+            permanent = TRUE,
+            noHide = TRUE,
+            textOnly = TRUE,
+            textsize = 12,
+            direction = "center",
+            style = list(
+              color = highlight_color,
+              "font-family" = "'Open Sans',
+                                      sans-serif",
+              "font-weight" = "bold"
+            )
+          )
+        )
     }
   }
 
@@ -94,24 +122,31 @@ addCouncilStyle <- function(map,
 #' @return A \code{leaflet} map with a source note added in the bottom right for the councildown defined NYC frame
 #'
 #' @export
-addSourceText <- function(map, source_text, color = "#555555",
-                          fontSize = "15px", lat=-73.645, lon=40.5,...) {
+addSourceText <- function(
+  map,
+  source_text,
+  color = "#555555",
+  fontSize = "15px",
+  lat = -73.645,
+  lon = 40.5,
+  ...
+) {
+  geo <- sf::st_sfc(sf::st_point(c(lat, lon)))
+  source_notes_geo <- sf::st_sf(source = source_text, geometry = geo)
 
-  geo = sf::st_sfc(sf::st_point(c(lat, lon)))
-  source_notes_geo = sf::st_sf(source = source_text,
-                               geometry = geo)
-
-  map = map %>%
-    leaflet::addLabelOnlyMarkers(data = source_notes_geo,
-                                 label = ~source,
-                                 labelOptions = labelOptions(noHide = T,
-                                                             direction = 'left',
-                                                             textOnly = T,
-                                                             style = list('color'="#555555",
-                                                                          'fontSize'="15px")))
+  map <- map %>%
+    leaflet::addLabelOnlyMarkers(
+      data = source_notes_geo,
+      label = ~source,
+      labelOptions = labelOptions(
+        noHide = T,
+        direction = 'left',
+        textOnly = T,
+        style = list('color' = "#555555", 'fontSize' = "15px")
+      )
+    )
 
   return(map)
-
 }
 #'
 #'
@@ -125,9 +160,8 @@ addSourceText <- function(map, source_text, color = "#555555",
 #'
 #' @export
 addPolygons <- function(map, smoothFactor = 0, weight = 0, ...) {
-  map = map %>%
-    leaflet::addPolygons(smoothFactor = smoothFactor,
-                         weight = weight, ...)
+  map <- map %>%
+    leaflet::addPolygons(smoothFactor = smoothFactor, weight = weight, ...)
 
   return(map)
 }
@@ -141,12 +175,21 @@ addPolygons <- function(map, smoothFactor = 0, weight = 0, ...) {
 #' @return A \code{leaflet} colorBin palette
 #'
 #' @export
-colorBin <- function(palette = "nycc_blue", domain = NULL,
-                     bins = 7, na.color = "#FFFFFF", ...) {
-  if((length(bins) == 1 & bins[1] > 7) | length(bins) > 7){
+colorBin <- function(
+  palette = "nycc_blue",
+  domain = NULL,
+  bins = 7,
+  na.color = "#FFFFFF",
+  ...
+) {
+  if ((length(bins) == 1 & bins[1] > 7) | length(bins) > 7) {
     cli::cli_abort("Can't create color mapping with more than 7 bins")
   }
-  palette <- if(!is.null(councildown::pal_nycc(palette))) {councildown::pal_nycc(palette)} else {palette}
+  palette <- if (!is.null(councildown::pal_nycc(palette))) {
+    councildown::pal_nycc(palette)
+  } else {
+    palette
+  }
   leaflet::colorBin(
     palette = palette,
     na.color = na.color,
@@ -185,6 +228,9 @@ colorBin <- function(palette = "nycc_blue", domain = NULL,
 #' @param control_collapsed Logical; should the layers control be collapsed
 #'   initially? Defaults to TRUE.
 #'
+#' @param carto_api_key Pass a Carto API key to remove "API KEY REQUIRED" watermark when using
+#' Carto tiles. Defaults to Sys.getenv("CARTO_API_KEY")
+#'
 #' @return The modified leaflet map object with selected basemaps and layer control added.
 #'
 #' @export
@@ -218,32 +264,66 @@ colorBin <- function(palette = "nycc_blue", domain = NULL,
 #'     add_council_basemaps(selection = c(5, 1), control_collapsed = FALSE)
 #' }
 #' }
-add_council_basemaps <- function(map,
-                                 selection = NULL,
-                                 custom_names = NULL,
-                                 control_position = "bottomleft",
-                                 control_collapsed = TRUE) {
-
+add_council_basemaps <- function(
+  map,
+  selection = NULL,
+  custom_names = NULL,
+  control_position = "bottomleft",
+  control_collapsed = TRUE,
+  carto_api_key = Sys.getenv("CARTO_API_KEY")
+) {
   # --- Define available basemaps ---
   .council_basemap_catalog <- list(
-    `1` = list(default_name = "Light", provider_call = quote(leaflet::providers$CartoDB.Positron)),
-    `2` = list(default_name = "Dark", provider_call = quote(leaflet::providers$CartoDB.DarkMatter)),
-    `3` = list(default_name = "Streets", provider_call = quote(leaflet::providers$CartoDB.Voyager)),
-    `4` = list(default_name = "Physical", provider_call = quote(leaflet::providers$Esri.WorldTopoMap)),
-    `5` = list(default_name = "Satellite", provider_call = quote(leaflet::providers$Esri.WorldImagery)),
-    `6` = list(default_name = "Basic", provider_call = quote(leaflet::providers$Esri.WorldGrayCanvas))
+    `1` = list(
+      default_name = "Light",
+      type = "carto",
+      style = "light_all"
+    ),
+    `2` = list(
+      default_name = "Dark",
+      type = "carto",
+      style = "dark_all"
+    ),
+    `3` = list(
+      default_name = "Streets",
+      type = "carto",
+      style = "voyager"
+    ),
+    `4` = list(
+      default_name = "Physical",
+      provider_call = quote(leaflet::providers$Esri.WorldTopoMap)
+    ),
+    `5` = list(
+      default_name = "Satellite",
+      provider_call = quote(leaflet::providers$Esri.WorldImagery)
+    ),
+    `6` = list(
+      default_name = "Basic",
+      provider_call = quote(leaflet::providers$Esri.WorldGrayCanvas)
+    )
   )
+
   max_selection <- length(.council_basemap_catalog)
 
   # --- Input Validation ---
   if (!inherits(map, "leaflet")) {
-    stop("Input 'map' must be a leaflet map object created by leaflet::leaflet().", call. = FALSE)
+    stop(
+      "Input 'map' must be a leaflet map object created by leaflet::leaflet().",
+      call. = FALSE
+    )
   }
   if (!is.character(control_position) || length(control_position) != 1) {
     stop("'control_position' must be a single character string.", call. = FALSE)
   }
-  if (!is.logical(control_collapsed) || length(control_collapsed) != 1 || is.na(control_collapsed)) {
-    stop("'control_collapsed' must be a single logical value (TRUE or FALSE), not NA.", call. = FALSE)
+  if (
+    !is.logical(control_collapsed) ||
+      length(control_collapsed) != 1 ||
+      is.na(control_collapsed)
+  ) {
+    stop(
+      "'control_collapsed' must be a single logical value (TRUE or FALSE), not NA.",
+      call. = FALSE
+    )
   }
 
   # Validate and process 'selection'
@@ -256,32 +336,68 @@ add_council_basemaps <- function(map,
     # Keep original order, remove duplicates by processing from end, then ensure uniqueness
     selection_cleaned <- rev(unique(rev(as.integer(selection))))
 
-    if (any(selection_cleaned < 1 | selection_cleaned > max_selection | is.na(selection_cleaned))) {
-      stop(paste0("Invalid 'selection'. Choose numbers between 1 and ", max_selection, "."), call. = FALSE)
+    if (
+      any(
+        selection_cleaned < 1 |
+          selection_cleaned > max_selection |
+          is.na(selection_cleaned)
+      )
+    ) {
+      stop(
+        paste0(
+          "Invalid 'selection'. Choose numbers between 1 and ",
+          max_selection,
+          "."
+        ),
+        call. = FALSE
+      )
     }
-    if (length(selection_cleaned) == 0 && length(selection) > 0) { # User provided non-empty but all invalid
-      warning("All values in 'selection' were invalid. No basemaps added.", call. = FALSE)
+    if (length(selection_cleaned) == 0 && length(selection) > 0) {
+      # User provided non-empty but all invalid
+      warning(
+        "All values in 'selection' were invalid. No basemaps added.",
+        call. = FALSE
+      )
       return(map)
     }
     current_selection <- selection_cleaned
   }
 
-  if (length(current_selection) == 0) { # No basemaps to add
+  if (any(current_selection %in% c(1, 2, 3)) && !nzchar(carto_api_key)) {
+    stop(
+      "Must supply Carto API Key. To permanently store API key, run Sys.setenv(CARTO_API_KEY = 'your-api-key-here')",
+      call. = FALSE
+    )
+  }
+
+  if (length(current_selection) == 0) {
+    # No basemaps to add
     return(map)
   }
 
   # Determine group names for controls
   group_names_for_control <- character(length(current_selection))
   if (!is.null(custom_names)) {
-    if (!is.character(custom_names) || length(custom_names) != length(current_selection)) {
-      stop(paste0("'custom_names' must be a character vector with ", length(current_selection),
-                  " elements, matching the number of unique valid basemaps in 'selection' (order matters)."), call. = FALSE)
+    if (
+      !is.character(custom_names) ||
+        length(custom_names) != length(current_selection)
+    ) {
+      stop(
+        paste0(
+          "'custom_names' must be a character vector with ",
+          length(current_selection),
+          " elements, matching the number of unique valid basemaps in 'selection' (order matters)."
+        ),
+        call. = FALSE
+      )
     }
     group_names_for_control <- custom_names
   } else {
     for (i in seq_along(current_selection)) {
       selected_id_str <- as.character(current_selection[i])
-      group_names_for_control[i] <- .council_basemap_catalog[[selected_id_str]]$default_name
+      group_names_for_control[i] <- .council_basemap_catalog[[
+        selected_id_str
+      ]]$default_name
     }
   }
 
@@ -291,8 +407,37 @@ add_council_basemaps <- function(map,
     tile_info <- .council_basemap_catalog[[selected_id_str]]
     current_group_name <- group_names_for_control[i]
 
-    map <- map %>%
-      leaflet::addProviderTiles(eval(tile_info$provider_call), group = current_group_name)
+    if (
+      !is.null(tile_info$type) &&
+        tile_info$type == "carto"
+    ) {
+      url_template <- paste0(
+        "https://{s}.basemaps.cartocdn.com/rastertiles/",
+        tile_info$style,
+        "/{z}/{x}/{y}.png?key=",
+        carto_api_key
+      )
+
+      map <- map %>%
+        leaflet::addTiles(
+          urlTemplate = url_template,
+          group = current_group_name,
+          attribution = paste(
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            '&copy; <a href="https://carto.com/attributions">CARTO</a>'
+          ),
+          options = leaflet::tileOptions(
+            subdomains = c("a", "b", "c", "d"),
+            maxZoom = 20
+          )
+        )
+    } else {
+      map <- map %>%
+        leaflet::addProviderTiles(
+          eval(tile_info$provider_call),
+          group = current_group_name
+        )
+    }
   }
 
   # --- Add Layers Control ---
@@ -363,10 +508,12 @@ add_council_basemaps <- function(map,
 #' }
 #' }
 set_council_mapsize <- function(map, layout = "full_screen") {
-
   # --- Input Validation ---
   if (!inherits(map, "leaflet")) {
-    stop("Input 'map' must be a leaflet map object created by leaflet::leaflet().", call. = FALSE)
+    stop(
+      "Input 'map' must be a leaflet map object created by leaflet::leaflet().",
+      call. = FALSE
+    )
   }
 
   supported_layouts <- c("full_screen", "right", "left", "top", "bottom")
@@ -378,9 +525,10 @@ set_council_mapsize <- function(map, layout = "full_screen") {
   # Base CSS for layouts that need the page to act as a canvas
   page_canvas_css <- "html, body { width: 100%; height: 100%; margin: 0; padding: 0; }"
 
-  switch(layout,
-         "full_screen" = {
-           css_string <- "
+  switch(
+    layout,
+    "full_screen" = {
+      css_string <- "
         html, body {
             width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
         }
@@ -388,43 +536,55 @@ set_council_mapsize <- function(map, layout = "full_screen") {
             width: 100% !important; height: 100% !important;
         }
       "
-         },
-         "right" = {
-           css_string <- paste(page_canvas_css, "
+    },
+    "right" = {
+      css_string <- paste(
+        page_canvas_css,
+        "
         .html-widget {
             position: absolute !important;
             top: 0; right: 0;
             width: 75% !important; height: 100% !important;
         }
-      ")
-         },
-         "left" = {
-           css_string <- paste(page_canvas_css, "
+      "
+      )
+    },
+    "left" = {
+      css_string <- paste(
+        page_canvas_css,
+        "
         .html-widget {
             position: absolute !important;
             top: 0; left: 0;
             width: 75% !important; height: 100% !important;
         }
-      ")
-         },
-         "top" = {
-           css_string <- paste(page_canvas_css, "
+      "
+      )
+    },
+    "top" = {
+      css_string <- paste(
+        page_canvas_css,
+        "
         .html-widget {
             position: absolute !important;
             top: 0; left: 0;
             width: 100% !important; height: 75% !important;
         }
-      ")
-         },
-         "bottom" = {
-           css_string <- paste(page_canvas_css, "
+      "
+      )
+    },
+    "bottom" = {
+      css_string <- paste(
+        page_canvas_css,
+        "
         .html-widget {
             position: absolute !important;
             bottom: 0; left: 0;
             width: 100% !important; height: 75% !important;
         }
-      ")
-         }
+      "
+      )
+    }
   )
 
   # --- Create the HTML style tag and attach it to the map widget ---
