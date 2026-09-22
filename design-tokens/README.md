@@ -85,6 +85,10 @@ npm run check:skill  # committed skill token reference is up to date
 npm run fixtures:r   # regenerate R reference outputs (needs R + leaflet)
 ```
 
+CI (`.github/workflows/design-tokens.yaml`) runs all of these, plus
+`claude plugin validate`, on every PR that touches `design-tokens/`, `plugins/`,
+`.claude-plugin/` or `R/`.
+
 To change a color or palette, edit `tokens/`, then `npm run build` and commit
 the regenerated skill reference in `plugins/nycc-style/`. Until
 councildown reads `generated/r/tokens.R` directly, also update `R/colors.R` and
