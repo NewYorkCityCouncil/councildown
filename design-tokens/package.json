@@ -20,7 +20,8 @@
     "dist",
     "generated/css",
     "generated/tailwind",
-    "generated/json"
+    "generated/json",
+    "ai"
   ],
   "scripts": {
     "tokens": "node build.mjs",

@@ -41,6 +41,10 @@ Tailwind v4:
 
 Plain values: `@nycc/design/tokens.json`.
 
+AI rules: the package includes the `nycc-style` skill at
+`node_modules/@nycc/design/ai/nycc-style/` (`SKILL.md` + `references/`). Point
+your AI tool at it; see `plugins/nycc-style/templates/AGENTS.md`.
+
 ## R ↔ TypeScript
 
 | councildown (R)          | @nycc/design (TS)                      |
@@ -66,6 +70,7 @@ scripts/            # R parity check and fixture generator
 generated/          # GENERATED: css/, tailwind/, json/, r/
                     # also writes ../plugins/nycc-style/skills/nycc-style/references/tokens.md (committed)
 dist/               # GENERATED: bundled JS + types
+ai/                 # GENERATED: copy of plugins/nycc-style/skills/nycc-style/ for the package
 ```
 
 ## Develop

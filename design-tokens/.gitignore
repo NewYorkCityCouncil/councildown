@@ -3,3 +3,4 @@ dist/
 generated/
 src/generated/
 .DS_Store
+ai/
