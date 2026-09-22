@@ -1,4 +1,4 @@
-// Builds tokens/*.json into dist/ for CSS, TypeScript, JSON and R.
+// Builds tokens/*.json into generated/ (CSS, Tailwind, JSON, R) and src/generated/ (TypeScript).
 // Run: npm run build
 import StyleDictionary from 'style-dictionary';
 import { readFileSync } from 'node:fs';
@@ -97,6 +97,28 @@ StyleDictionary.registerFormat({
   },
 });
 
+// Tailwind v4 theme: bg-nycc-maroon, text-nycc-dark-blue, fill-nycc-warm-3, font-heading.
+StyleDictionary.registerFormat({
+  name: 'nycc/tailwind',
+  format: ({ dictionary }) => {
+    const kebab = (s) => s.replace(/_/g, '-');
+    const lines = [
+      `/* ${HEADER} */`,
+      '/* Usage: @import "tailwindcss"; @import "@nycc/design/tailwind.css"; */',
+      '',
+      '@theme {',
+    ];
+    for (const t of dictionary.allTokens) {
+      const [top, a, b] = t.path;
+      if (top === 'color') lines.push(`  --color-nycc-${a}: ${t.$value};`);
+      if (top === 'palette') lines.push(`  --color-nycc-${kebab(a)}-${b}: ${t.$value};`);
+      if (top === 'font') lines.push(`  --font-${a}: ${t.$value};`);
+    }
+    lines.push('}', '');
+    return lines.join('\n');
+  },
+});
+
 const transforms = ['attribute/cti', 'name/kebab'];
 
 const sd = new StyleDictionary({
@@ -107,22 +129,27 @@ const sd = new StyleDictionary({
     css: {
       transforms,
       prefix: 'nycc',
-      buildPath: 'dist/css/',
+      buildPath: 'generated/css/',
       files: [{ destination: 'tokens.css', format: 'css/variables', options: { outputReferences: true } }],
+    },
+    tailwind: {
+      transforms,
+      buildPath: 'generated/tailwind/',
+      files: [{ destination: 'theme.css', format: 'nycc/tailwind' }],
     },
     ts: {
       transforms,
-      buildPath: 'dist/ts/',
+      buildPath: 'src/generated/',
       files: [{ destination: 'tokens.ts', format: 'nycc/typescript' }],
     },
     json: {
       transforms,
-      buildPath: 'dist/json/',
+      buildPath: 'generated/json/',
       files: [{ destination: 'tokens.json', format: 'nycc/json' }],
     },
     r: {
       transforms,
-      buildPath: 'dist/r/',
+      buildPath: 'generated/r/',
       files: [{ destination: 'tokens.R', format: 'nycc/r' }],
     },
   },

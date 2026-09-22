@@ -1,9 +1,9 @@
-# Checks that generated dist/r/tokens.R matches the hand-written values in
+# Checks that generated generated/r/tokens.R matches the hand-written values in
 # councildown's R/colors.R. Run from design-tokens/: npm run check:r
 old <- new.env()
 sys.source("../R/colors.R", envir = old)
 new <- new.env()
-sys.source("dist/r/tokens.R", envir = new)
+sys.source("generated/r/tokens.R", envir = new)
 
 ok <- TRUE
 check <- function(label, a, b) {

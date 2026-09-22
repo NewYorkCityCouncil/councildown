@@ -1,3 +1,5 @@
 node_modules/
 dist/
+generated/
+src/generated/
 .DS_Store

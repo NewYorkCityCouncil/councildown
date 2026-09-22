@@ -1,14 +1,45 @@
 {
-  "name": "@nycc/design-tokens",
+  "name": "@nycc/design",
   "version": "0.1.0",
   "private": true,
-  "description": "NYC Council design tokens (colors, palettes, fonts, chart and map styles). Single source of truth for councildown (R) and web (React/TypeScript).",
+  "description": "NYC Council design system for the web: tokens (colors, palettes, fonts, chart and map styles) and palette/scale helpers that match councildown in R.",
   "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./tokens.css": "./generated/css/tokens.css",
+    "./tailwind.css": "./generated/tailwind/theme.css",
+    "./tokens.json": "./generated/json/tokens.json"
+  },
+  "files": [
+    "dist",
+    "generated/css",
+    "generated/tailwind",
+    "generated/json"
+  ],
   "scripts": {
-    "build": "node build.mjs",
-    "check:r": "Rscript scripts/check-r-parity.R"
+    "tokens": "node build.mjs",
+    "build": "npm run tokens && tsup",
+    "typecheck": "npm run tokens && tsc --noEmit",
+    "test": "npm run tokens && vitest run",
+    "check:r": "npm run tokens && Rscript scripts/check-r-parity.R",
+    "fixtures:r": "Rscript scripts/make-r-fixtures.R"
+  },
+  "dependencies": {
+    "d3-color": "^3.1.0",
+    "d3-interpolate": "^3.0.1"
   },
   "devDependencies": {
-    "style-dictionary": "^5.0.0"
+    "@types/d3-color": "^3.1.3",
+    "@types/d3-interpolate": "^3.0.4",
+    "style-dictionary": "^5.0.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.0"
   }
 }

@@ -1,43 +1,94 @@
-# NYC Council design tokens
+# @nycc/design
 
-Single source of truth for Council colors, palettes, fonts, and chart/map styling.
-The same values feed councildown (R) and our React/TypeScript web projects.
+NYC Council design system for the web. One source of truth for Council colors,
+palettes, fonts and chart/map styling, shared with councildown (R). The palette
+and scale helpers are ports of the councildown functions and are tested against
+their R output.
+
+## Use it
+
+```ts
+import { colors, fonts, palettes, categoricalColors, colorBin, colorDiverging } from '@nycc/design';
+
+colors.nyccBlue;                  // "#2F56A6"
+fonts.heading;                    // "Georgia, serif"
+palettes.warm;                    // 7 colors, light -> dark
+
+categoricalColors(3);             // first 3 of "main": one color per series (max 7)
+
+const fill = colorBin(values, { palette: 'nycc_blue' }); // like councildown::colorBin()
+fill(42);                         // hex color
+fill.breaks; fill.colors;         // for legends
+
+const div = colorDiverging(values);  // like councildown::colorDiverging(), centered on the median
+div(12);
+```
+
+CSS variables:
+
+```css
+@import '@nycc/design/tokens.css';
+h1 { font-family: var(--nycc-font-heading); color: var(--nycc-color-dark-blue); }
+```
+
+Tailwind v4:
+
+```css
+@import 'tailwindcss';
+@import '@nycc/design/tailwind.css';
+/* bg-nycc-maroon, text-nycc-dark-blue, fill-nycc-warm-3, font-heading, font-body */
+```
+
+Plain values: `@nycc/design/tokens.json`.
+
+## R ↔ TypeScript
+
+| councildown (R)          | @nycc/design (TS)                      |
+| ------------------------ | -------------------------------------- |
+| `nycc_colors`            | `colors` (camelCase keys)              |
+| `nycc_palettes`          | `palettes`, `paletteKinds`             |
+| `pal_nycc(p, reverse)`   | `getPalette(p, { reverse })`           |
+| `scale_nycc(p)(n)`       | `rampPalette(p, n)`                    |
+| `colorBin(...)`          | `colorBin(domain, { palette, bins })`  |
+| `colorDiverging(...)`    | `colorDiverging(domain, { low, mid, high, colorLow, ... })` |
+| `pretty(x, n)`           | `pretty(x, n)`                         |
+
+`categoricalColors(n)` has no R equivalent. See "Known differences".
 
 ## Layout
 
 ```
-tokens/          # SOURCE — edit these (W3C Design Tokens format)
-  color.json     # core colors (nycc_colors)
-  palette.json   # named 7-step palettes (nycc_palettes)
-  font.json      # typefaces
-  chart.json     # chart rules (theme_nycc, scale_*_nycc)
-  map.json       # leaflet map rules (addCouncilStyle, addSourceText, colorBin)
-build.mjs        # Style Dictionary config + custom formats
-dist/            # GENERATED — do not edit
-  css/tokens.css # CSS custom properties, e.g. var(--nycc-color-nycc-blue)
-  ts/tokens.ts   # colors, palettes, fonts, chart, map, paletteKinds
-  json/tokens.json
-  r/tokens.R     # nycc_colors, nycc_palettes, nycc_fonts, nycc_chart, nycc_map
+tokens/             # SOURCE: edit these (W3C Design Tokens format)
+build.mjs           # Style Dictionary: tokens -> generated/ and src/generated/
+src/                # palette + scale helpers
+test/               # unit tests + R parity tests (fixtures/r-reference.json)
+scripts/            # R parity check and fixture generator
+generated/          # GENERATED: css/, tailwind/, json/, r/
+dist/               # GENERATED: bundled JS + types
 ```
 
-## Usage
+## Develop
 
 ```sh
 npm install
-npm run build     # regenerate dist/
-npm run check:r   # confirm dist/r/tokens.R matches R/colors.R
+npm run build        # tokens + bundle
+npm test             # unit + R parity tests
+npm run typecheck
+npm run check:r      # generated/r/tokens.R matches R/colors.R
+npm run fixtures:r   # regenerate R reference outputs (needs R + leaflet)
 ```
 
-## Changing a color or palette
+To change a color or palette, edit `tokens/`, then `npm run build`. Until
+councildown reads `generated/r/tokens.R` directly, also update `R/colors.R` and
+run `npm run check:r` and `npm run fixtures:r && npm test`.
 
-1. Edit the JSON in `tokens/`.
-2. `npm run build`.
-3. Until councildown reads `dist/r/tokens.R` directly, also update `R/colors.R`
-   and run `npm run check:r` to confirm the two agree.
+## Known differences from R
 
-## Notes
-
-- Palettes have at most 7 colors. Sequential palettes go light → dark; categorical
-  palettes are listed in assignment order. `paletteKinds` says which is which.
-- `div2` in `R/colors.R` isn't in `nycc_palettes`, so it's not included here.
+- **Categorical colors.** R's discrete ggplot scales call `colorRampPalette`, so
+  5 or 6 categories get blended colors that aren't in the palette (e.g.
+  `#69778C` for `main`, n = 5). `rampPalette` reproduces that;
+  `categoricalColors` takes the first n palette colors instead.
+- Lab-space colors can differ from R by 1-2 per RGB channel (different Lab
+  conversions). Tests allow that.
 - Chart font sizes are in points (ggplot); map sizes are in px.
+- `div2` from `R/colors.R` isn't in `nycc_palettes`, so it's not included.
