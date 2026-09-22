@@ -1,0 +1,14 @@
+{
+  "name": "@nycc/design-tokens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NYC Council design tokens (colors, palettes, fonts, chart and map styles). Single source of truth for councildown (R) and web (React/TypeScript).",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "check:r": "Rscript scripts/check-r-parity.R"
+  },
+  "devDependencies": {
+    "style-dictionary": "^5.0.0"
+  }
+}
