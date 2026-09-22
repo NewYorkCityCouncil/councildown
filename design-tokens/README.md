@@ -64,6 +64,7 @@ src/                # palette + scale helpers
 test/               # unit tests + R parity tests (fixtures/r-reference.json)
 scripts/            # R parity check and fixture generator
 generated/          # GENERATED: css/, tailwind/, json/, r/
+                    # also writes ../plugins/nycc-style/skills/nycc-style/references/tokens.md (committed)
 dist/               # GENERATED: bundled JS + types
 ```
 
@@ -75,10 +76,12 @@ npm run build        # tokens + bundle
 npm test             # unit + R parity tests
 npm run typecheck
 npm run check:r      # generated/r/tokens.R matches R/colors.R
+npm run check:skill  # committed skill token reference is up to date
 npm run fixtures:r   # regenerate R reference outputs (needs R + leaflet)
 ```
 
-To change a color or palette, edit `tokens/`, then `npm run build`. Until
+To change a color or palette, edit `tokens/`, then `npm run build` and commit
+the regenerated skill reference in `plugins/nycc-style/`. Until
 councildown reads `generated/r/tokens.R` directly, also update `R/colors.R` and
 run `npm run check:r` and `npm run fixtures:r && npm test`.
 

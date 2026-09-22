@@ -4,3 +4,5 @@
 ^councildown\.Rproj$
 ^\.Rproj\.user$
 ^design-tokens$
+^\.claude-plugin$
+^plugins$

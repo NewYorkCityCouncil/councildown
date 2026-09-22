@@ -28,7 +28,8 @@
     "typecheck": "npm run tokens && tsc --noEmit",
     "test": "npm run tokens && vitest run",
     "check:r": "npm run tokens && Rscript scripts/check-r-parity.R",
-    "fixtures:r": "Rscript scripts/make-r-fixtures.R"
+    "fixtures:r": "Rscript scripts/make-r-fixtures.R",
+    "check:skill": "npm run tokens && git diff --exit-code -- ../plugins/nycc-style/skills/nycc-style/references/tokens.md"
   },
   "dependencies": {
     "d3-color": "^3.1.0",
