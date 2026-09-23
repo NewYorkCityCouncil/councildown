@@ -1,9 +1,12 @@
 # @nycc/design
 
 NYC Council design system for the web. One source of truth for Council colors,
-palettes, fonts and chart/map styling, shared with councildown (R). The palette
-and scale helpers are ports of the councildown functions and are tested against
-their R output.
+palettes, fonts and chart/map styling, shared with councildown (R).
+
+Web charts don't try to reproduce ggplot output exactly. What must match R is the
+Council styling: colors and palettes, fonts, chart chrome and map defaults
+(see the `nycc-style` skill for the rules). The helpers here are ordinary web
+implementations that follow those rules.
 
 ## Use it
 
@@ -52,12 +55,12 @@ your AI tool at it; see `plugins/nycc-style/templates/AGENTS.md`.
 | `nycc_colors`            | `colors` (camelCase keys)              |
 | `nycc_palettes`          | `palettes`, `paletteKinds`             |
 | `pal_nycc(p, reverse)`   | `getPalette(p, { reverse })`           |
-| `scale_nycc(p)(n)`       | `rampPalette(p, n)`                    |
+| `scale_color_nycc()` (discrete) | `categoricalColors(n)`          |
 | `colorBin(...)`          | `colorBin(domain, { palette, bins })`  |
 | `colorDiverging(...)`    | `colorDiverging(domain, { low, mid, high, colorLow, ... })` |
-| `pretty(x, n)`           | `pretty(x, n)`                         |
 
-`categoricalColors(n)` has no R equivalent. See "Known differences".
+Same palettes, defaults and limits (max 7 colors / bins). The exact bin breaks
+and in-between colors can differ from R; see "Differences from R".
 
 ## Layout
 
@@ -65,8 +68,8 @@ your AI tool at it; see `plugins/nycc-style/templates/AGENTS.md`.
 tokens/             # SOURCE: edit these (W3C Design Tokens format)
 build.mjs           # Style Dictionary: tokens -> generated/ and src/generated/
 src/                # palette + scale helpers
-test/               # unit tests + R parity tests (fixtures/r-reference.json)
-scripts/            # R parity check and fixture generator
+test/               # unit tests
+scripts/            # check that tokens match R/colors.R
 generated/          # GENERATED: css/, tailwind/, json/, r/
                     # also writes ../plugins/nycc-style/skills/nycc-style/references/tokens.md (committed)
 dist/               # GENERATED: bundled JS + types
@@ -78,11 +81,10 @@ ai/                 # GENERATED: copy of plugins/nycc-style/skills/nycc-style/ f
 ```sh
 npm install
 npm run build        # tokens + bundle
-npm test             # unit + R parity tests
+npm test             # unit tests
 npm run typecheck
 npm run check:r      # generated/r/tokens.R matches R/colors.R
 npm run check:skill  # committed skill token reference is up to date
-npm run fixtures:r   # regenerate R reference outputs (needs R + leaflet)
 ```
 
 CI (`.github/workflows/design-tokens.yaml`) runs all of these, plus
@@ -92,15 +94,17 @@ CI (`.github/workflows/design-tokens.yaml`) runs all of these, plus
 To change a color or palette, edit `tokens/`, then `npm run build` and commit
 the regenerated skill reference in `plugins/nycc-style/`. Until
 councildown reads `generated/r/tokens.R` directly, also update `R/colors.R` and
-run `npm run check:r` and `npm run fixtures:r && npm test`.
+run `npm run check:r`.
 
-## Known differences from R
+## Differences from R
 
 - **Categorical colors.** R's discrete ggplot scales call `colorRampPalette`, so
   5 or 6 categories get blended colors that aren't in the palette (e.g.
-  `#69778C` for `main`, n = 5). `rampPalette` reproduces that;
-  `categoricalColors` takes the first n palette colors instead.
-- Lab-space colors can differ from R by 1-2 per RGB channel (different Lab
-  conversions). Tests allow that.
+  `#69778C` for `main`, n = 5). `categoricalColors` always uses exact palette
+  colors.
+- **Binned maps.** `colorBin` uses exact palette steps (evenly spaced, light to
+  dark); leaflet interpolates between them when there are fewer than 7 bins.
+  Break points are rounded with d3 and can differ slightly from R's `pretty()`.
+  Explicit 8 break points (7 bins) are allowed; R's `colorBin` rejects them.
 - Chart font sizes are in points (ggplot); map sizes are in px.
 - `div2` from `R/colors.R` isn't in `nycc_palettes`, so it's not included.

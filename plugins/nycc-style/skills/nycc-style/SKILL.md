@@ -5,9 +5,13 @@ description: NYC Council (NYCC) styling rules — colors, palettes, fonts, chart
 
 # NYC Council style
 
-Council visuals must look the same whether they come from R (councildown) or the
-web (`@nycc/design`). Both read from one set of design tokens. Your job is to use
-those tokens, never to recreate them.
+Council visuals must share the same styling whether they come from R
+(councildown) or the web (`@nycc/design`). Both read from one set of design
+tokens. Your job is to use those tokens, never to recreate them.
+
+Match the Council styling (colors and palettes, fonts, chart chrome, map
+defaults), not ggplot pixel for pixel. Use each web library's normal layout and
+interactions, as long as the rules below hold.
 
 ## Hard rules
 
@@ -35,13 +39,12 @@ those tokens, never to recreate them.
 | --- | --- | --- | --- |
 | Categories / series (≤ 7) | `main` (or `mixed`) | `categoricalColors(n)` | `scale_color_nycc()` / `scale_fill_nycc("main")` |
 | 1 series | first `main` color | `categoricalColors(1)` | `pal_nycc("single")` |
-| Ordered magnitude | `nycc_blue` (default), `cool`, `warm`, others | `palettes.nycc_blue` / `rampPalette(name, n)` | `scale_fill_nycc("nycc_blue", discrete = FALSE)` |
+| Ordered magnitude | `nycc_blue` (default), `cool`, `warm`, others | `palettes.nycc_blue` | `scale_fill_nycc("nycc_blue", discrete = FALSE)` |
 | Choropleth map | `nycc_blue`, ≤ 7 bins | `colorBin(values)` | `colorBin("nycc_blue", domain)` |
 | Above/below a meaningful midpoint | maroon ↔ grey ↔ dark blue | `colorDiverging(values, { mid })` | `colorDiverging(values, mid = …)` |
 | Missing values | white on maps, medium grey in charts | `map.naFill` / `chart.naFill` | defaults already set |
 
 - Use `categoricalColors` for categories in TS. It returns exact palette colors.
-  `rampPalette` copies R's ggplot behavior, which blends colors for 5–6 categories.
 - Sequential palettes run light → dark; darker means more.
 - Don't use the light end of a sequential palette for text.
 - Color must not be the only cue: add labels, patterns or a legend.

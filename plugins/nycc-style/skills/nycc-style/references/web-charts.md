@@ -1,6 +1,8 @@
 # Web charts
 
 Rules come from councildown's `theme_nycc()`; follow them in any chart library.
+They're the parts that must match R. Layout, spacing, tooltips and interactions
+can follow the library's normal web conventions.
 
 ## Style
 
@@ -17,11 +19,11 @@ Rules come from councildown's `theme_nycc()`; follow them in any chart library.
 ## Colors
 
 ```ts
-import { categoricalColors, rampPalette, palettes, chart } from '@nycc/design';
+import { categoricalColors, palettes, chart } from '@nycc/design';
 
 const seriesColors = categoricalColors(series.length); // throws above 7
 const oneSeries = categoricalColors(1)[0];
-const ordinal = rampPalette('nycc_blue', 5);           // 5 steps light -> dark
+const ordinal = palettes.nycc_blue;                     // 7 steps light -> dark
 ```
 
 ## Recharts
@@ -57,7 +59,8 @@ const color = scaleOrdinal<string>().domain(groups).range(categoricalColors(grou
 ```
 
 For continuous encodings, use `colorBin` or `colorDiverging` from `@nycc/design`
-rather than d3 interpolators, so web output matches R.
+(or the steps in `palettes`) rather than d3's built-in color schemes, so only
+Council colors are used.
 
 ## Other libraries (Plotly, Nivo, ECharts, Chart.js, MUI X)
 

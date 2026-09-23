@@ -1,7 +1,8 @@
-import { labColors, labRamp } from './color';
+import { nice, ticks } from 'd3-array';
+import { rgb } from 'd3-color';
+import { interpolateLab } from 'd3-interpolate';
 import { getPalette, type PaletteOption } from './palettes';
 import { colors, map } from './generated/tokens';
-import { pretty } from './pretty';
 
 export type Value = number | null | undefined;
 
@@ -9,17 +10,12 @@ export type Value = number | null | undefined;
 export type ColorScale = (value: Value) => string;
 
 const isNumber = (v: Value): v is number => typeof v === 'number' && Number.isFinite(v);
+const hex = (c: string) => rgb(c).formatHex();
 
 function median(xs: number[]): number {
   const s = [...xs].sort((a, b) => a - b);
   const m = s.length >> 1;
   return s.length % 2 ? s[m]! : (s[m - 1]! + s[m]!) / 2;
-}
-
-// R's round() rounds halves to even.
-function roundHalfEven(x: number): number {
-  const r = Math.round(x);
-  return Math.abs(x % 1) === 0.5 && r % 2 !== 0 ? r - 1 : r;
 }
 
 export interface DivergingOptions {
@@ -32,13 +28,13 @@ export interface DivergingOptions {
   mid?: 'median' | 'mean' | number;
   /** High end: `"max"` of the data or a number. */
   high?: 'max' | number;
-  /** Color for missing / out-of-range values (leaflet default). */
+  /** Color for missing / out-of-range values. */
   naColor?: string;
 }
 
 /**
- * Diverging scale centered on a midpoint (median by default).
- * Port of `colorDiverging()` in councildown.
+ * Diverging scale centered on a midpoint (median by default): maroon -> light
+ * grey -> dark blue, like `colorDiverging()` in councildown.
  */
 export function colorDiverging(domain: readonly Value[], options: DivergingOptions = {}): ColorScale {
   const {
@@ -62,26 +58,19 @@ export function colorDiverging(domain: readonly Value[], options: DivergingOptio
   if (lowVal >= midVal) throw new Error("low can't be greater than or equal to mid");
   if (midVal >= highVal) throw new Error("mid can't be greater than or equal to high");
 
-  // Same 100-color ramp as the R version, split at the midpoint's percentile.
-  const midScaled = roundHalfEven(((midVal - lowVal) / (highVal - lowVal)) * 100);
-  if (midScaled === 100) throw new Error("need to pick a lower value for mid, it's basically equal to max");
-  if (midScaled === 0) throw new Error("need to pick a higher value for mid, it's basically equal to min");
-
-  const ramp = labRamp([
-    ...labColors([colorLow, colorMid], midScaled),
-    ...labColors([colorMid, colorHigh], 100 - midScaled),
-  ]);
+  const lowToMid = interpolateLab(colorLow, colorMid);
+  const midToHigh = interpolateLab(colorMid, colorHigh);
 
   return (v) => {
     if (!isNumber(v) || v < lowVal || v > highVal) return naColor;
-    return ramp((v - lowVal) / (highVal - lowVal));
+    return hex(v <= midVal ? lowToMid((v - lowVal) / (midVal - lowVal)) : midToHigh((v - midVal) / (highVal - midVal)));
   };
 }
 
 export interface BinOptions {
   /** Palette name or explicit colors. Default `"nycc_blue"`. */
   palette?: PaletteOption | readonly string[];
-  /** Approximate bin count (breaks chosen like R's `pretty()`), or explicit break points. Default 7. */
+  /** Target bin count (breaks are rounded to nice numbers), or explicit break points. Default 7. */
   bins?: number | readonly number[];
   /** Color for missing / out-of-range values. Default white. */
   naColor?: string;
@@ -94,33 +83,57 @@ export interface BinScale extends ColorScale {
   colors: string[];
 }
 
+// Round breaks covering the data, with at most maxBins bins.
+function niceBreaks(values: number[], target: number): number[] {
+  const lo = Math.min(...values);
+  const hi = Math.max(...values);
+  if (lo === hi) return [lo, hi];
+  for (let count = target; count >= 1; count--) {
+    const [a, b] = nice(lo, hi, count);
+    const t = ticks(a, b, count);
+    if (t.length >= 2 && t.length - 1 <= map.maxBins) return t;
+  }
+  return [lo, hi];
+}
+
+// n colors from a palette: evenly spaced exact steps when it has enough colors,
+// otherwise interpolated between them.
+function binColors(pal: readonly string[], n: number): string[] {
+  if (n === 1) return [pal[Math.floor((pal.length - 1) / 2)]!];
+  if (n <= pal.length) return Array.from({ length: n }, (_, i) => pal[Math.round((i * (pal.length - 1)) / (n - 1))]!);
+  return Array.from({ length: n }, (_, i) => {
+    const pos = (i * (pal.length - 1)) / (n - 1);
+    const j = Math.min(Math.floor(pos), pal.length - 2);
+    return hex(interpolateLab(pal[j]!, pal[j + 1]!)(pos - j));
+  });
+}
+
 /**
- * Binned color scale for choropleths. Port of `colorBin()` in councildown
- * (a wrapper around `leaflet::colorBin`).
+ * Binned color scale for choropleths: `nycc_blue` by default, at most 7 bins,
+ * white for missing values. Like `colorBin()` in councildown.
  */
 export function colorBin(domain: readonly Value[], options: BinOptions = {}): BinScale {
   const { palette = 'nycc_blue', bins = map.maxBins, naColor = map.naFill } = options;
 
-  if ((typeof bins === 'number' && bins > map.maxBins) || (typeof bins !== 'number' && bins.length > map.maxBins)) {
-    throw new Error(`Can't create color mapping with more than ${map.maxBins} bins`);
-  }
-  if (typeof bins === 'number' && bins < 2) throw new Error(`bin count must be at least 2 (got ${bins})`);
+  const nBinsAsked = typeof bins === 'number' ? bins : bins.length - 1;
+  if (nBinsAsked > map.maxBins) throw new Error(`Can't create color mapping with more than ${map.maxBins} bins`);
+  if (nBinsAsked < 1) throw new Error('need at least 1 bin');
 
-  const breaks = typeof bins === 'number' ? pretty(domain.filter(isNumber), bins) : [...bins].sort((a, b) => a - b);
-  if (breaks.length < 2) throw new Error('need at least 2 break points');
+  const values = domain.filter(isNumber);
+  if (typeof bins === 'number' && values.length === 0) throw new Error('domain has no numeric values');
 
-  const pal = typeof palette === 'string' ? getPalette(palette as PaletteOption) : [...palette];
-  const ramp = labRamp(pal);
+  const breaks = typeof bins === 'number' ? niceBreaks(values, bins) : [...bins].sort((a, b) => a - b);
   const nBins = breaks.length - 1;
-  const binColors = Array.from({ length: nBins }, (_, i) => ramp(nBins === 1 ? 0.5 : i / (nBins - 1)));
+  const pal = typeof palette === 'string' ? getPalette(palette) : [...palette];
+  const scaleColors = binColors(pal, nBins);
 
   const scale = ((v: Value) => {
     if (!isNumber(v) || v < breaks[0]! || v > breaks[nBins]!) return naColor;
     let i = 0;
     while (i < nBins - 1 && v >= breaks[i + 1]!) i++;
-    return binColors[i]!;
+    return scaleColors[i]!;
   }) as BinScale;
   scale.breaks = breaks;
-  scale.colors = binColors;
+  scale.colors = scaleColors;
   return scale;
 }

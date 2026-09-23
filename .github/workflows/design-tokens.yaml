@@ -45,7 +45,7 @@ jobs:
       - name: Type check
         run: npm run typecheck
 
-      - name: Test (unit + R parity fixtures)
+      - name: Test
         run: npm test
 
       - name: Build
@@ -61,8 +61,8 @@ jobs:
       - name: Package contents
         run: npm pack --dry-run
 
-  r-parity:
-    name: R and tokens agree
+  tokens-match-r:
+    name: Tokens match R/colors.R
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -76,21 +76,11 @@ jobs:
       - run: npm ci
 
       - uses: r-lib/actions/setup-r@v2
-        with:
-          use-public-rspm: true
-
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          packages: any::leaflet, any::jsonlite
 
       - name: Tokens match R/colors.R
-        run: npm run check:r
-
-      - name: R reference fixtures are up to date
         run: |
-          npm run fixtures:r
-          git diff --exit-code -- test/fixtures/r-reference.json || {
-            echo "::error::test/fixtures/r-reference.json no longer matches councildown's output. Run 'npm run fixtures:r && npm test' in design-tokens/, fix any failures, and commit the fixture."
+          npm run check:r || {
+            echo "::error::design-tokens/tokens/ and R/colors.R disagree. Update both so they match."
             exit 1
           }
 

@@ -1,11 +1,16 @@
 {
   "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
   "name": "nycc-style",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "NYC Council styling rules (colors, palettes, fonts, charts, maps) for web (@nycc/design) and R (councildown).",
   "author": {
     "name": "NYC Council Data Team"
   },
   "repository": "https://github.com/NewYorkCityCouncil/councildown",
-  "keywords": ["nycc", "design-system", "dataviz", "style"]
+  "keywords": [
+    "nycc",
+    "design-system",
+    "dataviz",
+    "style"
+  ]
 }

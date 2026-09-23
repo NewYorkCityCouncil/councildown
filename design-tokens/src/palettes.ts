@@ -1,4 +1,3 @@
-import { rgbRamp } from './color';
 import { chart, palettes, type PaletteName } from './generated/tokens';
 
 /** A named palette, or `"single"` / `"double"` for the first one / two colors of `main`. */
@@ -19,18 +18,8 @@ export function getPalette(name: PaletteOption = 'main', { reverse = false }: Pa
 }
 
 /**
- * `n` colors spread evenly across a palette, interpolating between its colors
- * when needed. Same as the discrete ggplot scales in councildown
- * (`scale_nycc(palette)(n)`), so it will blend colors for some `n`. For
- * distinct category colors use `categoricalColors()`.
- */
-export function rampPalette(name: PaletteOption, n: number, options: PaletteOptions = {}): string[] {
-  return rgbRamp(getPalette(name, options), n);
-}
-
-/**
  * First `n` colors of a categorical palette, for series / category colors.
- * Throws above `chart.maxCategories` (7), matching the councildown limit.
+ * Throws above `chart.maxCategories` (7).
  */
 export function categoricalColors(n: number, name: 'main' | 'mixed' = 'main'): string[] {
   if (n > chart.maxCategories) {
