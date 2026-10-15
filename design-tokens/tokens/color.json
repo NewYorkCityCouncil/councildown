@@ -1,0 +1,23 @@
+{
+  "color": {
+    "$type": "color",
+    "$description": "Core NYC Council colors. Mirrors nycc_colors in R/colors.R; $extensions.nycc.rName keeps the original R name.",
+    "nycc-blue":    { "$value": "#2F56A6", "$extensions": { "nycc": { "rName": "nycc blue" } } },
+    "dark-blue":    { "$value": "#23417D", "$extensions": { "nycc": { "rName": "dark blue" } } },
+    "dark-grey":    { "$value": "#666666", "$extensions": { "nycc": { "rName": "dark grey" } } },
+    "medium-grey":  { "$value": "#CACACA", "$extensions": { "nycc": { "rName": "medium grey" } } },
+    "light-grey":   { "$value": "#E6E6E6", "$extensions": { "nycc": { "rName": "light grey" } } },
+    "off-white":    { "$value": "#F9F9F9", "$extensions": { "nycc": { "rName": "off white" } } },
+    "white":        { "$value": "#FFFFFF", "$extensions": { "nycc": { "rName": "white" } } },
+    "black":        { "$value": "#222222", "$extensions": { "nycc": { "rName": "black" } } },
+    "maroon":       { "$value": "#800000", "$extensions": { "nycc": { "rName": "maroon" } } },
+    "blood-orange": { "$value": "#B63F26", "$extensions": { "nycc": { "rName": "blood orange" } } },
+    "bronze":       { "$value": "#846126", "$extensions": { "nycc": { "rName": "Bronze" } } },
+    "forest":       { "$value": "#007534", "$extensions": { "nycc": { "rName": "Forest" } } },
+    "blue":         { "$value": "#1D5FD6", "$extensions": { "nycc": { "rName": "Blue" } } },
+    "indigo":       { "$value": "#3B2483", "$extensions": { "nycc": { "rName": "Indigo" } } },
+    "violet":       { "$value": "#8744BC", "$extensions": { "nycc": { "rName": "Violet" } } },
+    "brown":        { "$value": "#674200", "$extensions": { "nycc": { "rName": "Brown" } } },
+    "terra-orange": { "$value": "#dc6d4f", "$extensions": { "nycc": { "rName": "terra orange" } } }
+  }
+}

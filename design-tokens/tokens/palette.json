@@ -1,0 +1,374 @@
+{
+  "palette": {
+    "$type": "color",
+    "$description": "Named palettes, mirrors nycc_palettes in R/colors.R. Order matters: sequential palettes go light -> dark; categorical palettes are in assignment order. Max 7 colors.",
+    "bw": {
+      "1": {
+        "$value": "#e8e8e8"
+      },
+      "2": {
+        "$value": "#c3c3c3"
+      },
+      "3": {
+        "$value": "#a0a0a0"
+      },
+      "4": {
+        "$value": "#7e7e7e"
+      },
+      "5": {
+        "$value": "#5d5d5d"
+      },
+      "6": {
+        "$value": "#3e3e3e"
+      },
+      "7": {
+        "$value": "#222222"
+      },
+      "$extensions": {
+        "nycc": {
+          "kind": "sequential"
+        }
+      }
+    },
+    "main": {
+      "1": {
+        "$value": "#660000"
+      },
+      "2": {
+        "$value": "#1850b5"
+      },
+      "3": {
+        "$value": "#ba9f64"
+      },
+      "4": {
+        "$value": "#1f3a70"
+      },
+      "5": {
+        "$value": "#b3b3ff"
+      },
+      "6": {
+        "$value": "#af6d46"
+      },
+      "7": {
+        "$value": "#666666"
+      },
+      "$extensions": {
+        "nycc": {
+          "kind": "categorical"
+        }
+      },
+      "$description": "Default categorical palette (scale_color_nycc default). \"single\" = first color, \"double\" = first two."
+    },
+    "mixed": {
+      "1": {
+        "$value": "#211183"
+      },
+      "2": {
+        "$value": "#979797"
+      },
+      "3": {
+        "$value": "#1d5fd6"
+      },
+      "4": {
+        "$value": "#d6593f"
+      },
+      "5": {
+        "$value": "#002e14"
+      },
+      "6": {
+        "$value": "#9d9dff"
+      },
+      "7": {
+        "$value": "#584019"
+      },
+      "$extensions": {
+        "nycc": {
+          "kind": "categorical"
+        }
+      },
+      "$description": "Alternate categorical palette (scale_fill_nycc default)."
+    },
+    "nycc_blue": {
+      "1": {
+        "$value": "#e3e5f2"
+      },
+      "2": {
+        "$value": "#c8cbe6"
+      },
+      "3": {
+        "$value": "#acb2d9"
+      },
+      "4": {
+        "$value": "#909acc"
+      },
+      "5": {
+        "$value": "#7482c0"
+      },
+      "6": {
+        "$value": "#556cb3"
+      },
+      "7": {
+        "$value": "#2f56a6"
+      },
+      "$extensions": {
+        "nycc": {
+          "kind": "sequential"
+        }
+      },
+      "$description": "Sequential, meant for maps; white removed so white can mean NA."
+    },
+    "warm": {
+      "1": {
+        "$value": "#ffd8d8"
+      },
+      "2": {
+        "$value": "#eeb6b1"
+      },
+      "3": {
+        "$value": "#db958b"
+      },
+      "4": {
+        "$value": "#c67466"
+      },
+      "5": {
+        "$value": "#b05344"
+      },
+      "6": {
+        "$value": "#993123"
+      },
+      "7": {
+        "$value": "#800000"
+      },
+      "$extensions": {
+        "nycc": {
+          "kind": "sequential"
+        }
+      }
+    },
+    "cool": {
+      "1": {
+        "$value": "#e3eaf7"
+      },
+      "2": {
+        "$value": "#c4cbe2"
+      },
+      "3": {
+        "$value": "#a5adcd"
+      },
+      "4": {
+        "$value": "#8691b9"
+      },
+      "5": {
+        "$value": "#6775a5"
+      },
+      "6": {
+        "$value": "#485a91"
+      },
+      "7": {
+        "$value": "#23417d"
+      },
+      "$extensions": {
+        "nycc": {
+          "kind": "sequential"
+        }
+      }
+    },
+    "diverging": {
+      "1": {
+        "$value": "#6d2516"
+      },
+      "2": {
+        "$value": "#a93922"
+      },
+      "3": {
+        "$value": "#dc6c55"
+      },
+      "4": {
+        "$value": "#e6e6e6"
+      },
+      "5": {
+        "$value": "#53c4de"
+      },
+      "6": {
+        "$value": "#2091ab"
+      },
+      "7": {
+        "$value": "#155d6d"
+      },
+      "$extensions": {
+        "nycc": {
+          "kind": "diverging"
+        }
+      },
+      "$description": "Maroon -> light grey -> teal. Midpoint is index 4."
+    },
+    "indigo": {
+      "1": {
+        "$value": "#e8e4f7"
+      },
+      "2": {
+        "$value": "#ccc1e3"
+      },
+      "3": {
+        "$value": "#b0a0d0"
+      },
+      "4": {
+        "$value": "#947fbc"
+      },
+      "5": {
+        "$value": "#7760a9"
+      },
+      "6": {
+        "$value": "#5a4296"
+      },
+      "7": {
+        "$value": "#3b2483"
+      },
+      "$extensions": {
+        "nycc": {
+          "kind": "sequential"
+        }
+      }
+    },
+    "blue": {
+      "1": {
+        "$value": "#e7eefb"
+      },
+      "2": {
+        "$value": "#cdd4f5"
+      },
+      "3": {
+        "$value": "#b3bbf0"
+      },
+      "4": {
+        "$value": "#98a3ea"
+      },
+      "5": {
+        "$value": "#7a8be3"
+      },
+      "6": {
+        "$value": "#5675dd"
+      },
+      "7": {
+        "$value": "#1d5fd6"
+      },
+      "$extensions": {
+        "nycc": {
+          "kind": "sequential"
+        }
+      }
+    },
+    "violet": {
+      "1": {
+        "$value": "#f3ecf8"
+      },
+      "2": {
+        "$value": "#e2cfee"
+      },
+      "3": {
+        "$value": "#d1b3e5"
+      },
+      "4": {
+        "$value": "#c098db"
+      },
+      "5": {
+        "$value": "#ae7cd1"
+      },
+      "6": {
+        "$value": "#9b60c6"
+      },
+      "7": {
+        "$value": "#8744bc"
+      },
+      "$extensions": {
+        "nycc": {
+          "kind": "sequential"
+        }
+      }
+    },
+    "bronze": {
+      "1": {
+        "$value": "#f7f0e4"
+      },
+      "2": {
+        "$value": "#e5d7c2"
+      },
+      "3": {
+        "$value": "#d2bea1"
+      },
+      "4": {
+        "$value": "#bfa681"
+      },
+      "5": {
+        "$value": "#ac8e62"
+      },
+      "6": {
+        "$value": "#987744"
+      },
+      "7": {
+        "$value": "#846126"
+      },
+      "$extensions": {
+        "nycc": {
+          "kind": "sequential"
+        }
+      }
+    },
+    "orange": {
+      "1": {
+        "$value": "#f9eae7"
+      },
+      "2": {
+        "$value": "#f3cdc4"
+      },
+      "3": {
+        "$value": "#eab1a2"
+      },
+      "4": {
+        "$value": "#e09582"
+      },
+      "5": {
+        "$value": "#d37962"
+      },
+      "6": {
+        "$value": "#c65d44"
+      },
+      "7": {
+        "$value": "#b63f26"
+      },
+      "$extensions": {
+        "nycc": {
+          "kind": "sequential"
+        }
+      }
+    },
+    "forest_green": {
+      "1": {
+        "$value": "#d1ffe6"
+      },
+      "2": {
+        "$value": "#addbc0"
+      },
+      "3": {
+        "$value": "#89b99b"
+      },
+      "4": {
+        "$value": "#679778"
+      },
+      "5": {
+        "$value": "#467757"
+      },
+      "6": {
+        "$value": "#255837"
+      },
+      "7": {
+        "$value": "#003a1a"
+      },
+      "$extensions": {
+        "nycc": {
+          "kind": "sequential"
+        }
+      }
+    }
+  }
+}

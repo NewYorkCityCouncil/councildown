@@ -1,0 +1,33 @@
+{
+  "map": {
+    "$description": "Leaflet map styling, mirrors addCouncilStyle(), addSourceText() and colorBin() in R.",
+    "background": { "$type": "color", "$value": "{color.white}" },
+    "na-fill":    { "$type": "color", "$description": "colorBin() default na.color.", "$value": "{color.white}" },
+    "max-bins":   { "$type": "number", "$value": 7 },
+    "view": {
+      "$type": "number",
+      "lng":      { "$value": -73.984865 },
+      "lat":      { "$value": 40.710542 },
+      "zoom":     { "$value": 11 },
+      "min-zoom": { "$value": 10 },
+      "max-zoom": { "$value": 15 }
+    },
+    "district": {
+      "outline-color":   { "$type": "color",  "$value": "{color.nycc-blue}" },
+      "outline-weight":  { "$type": "number", "$value": 1 },
+      "outline-opacity": { "$type": "number", "$value": 0.5 },
+      "label-color":     { "$type": "color",  "$value": "{color.dark-blue}" },
+      "label-highlight": { "$type": "color",  "$value": "#cdd9f1" },
+      "label-font":      { "$type": "fontFamily", "$value": "{font.body}" },
+      "label-size":      { "$type": "number", "$description": "px", "$value": 12 }
+    },
+    "source-text": {
+      "color": { "$type": "color",  "$value": "#555555" },
+      "size":  { "$type": "number", "$description": "px", "$value": 15 }
+    },
+    "popup": {
+      "heading-font": { "$type": "fontFamily", "$value": "{font.heading}" },
+      "body-font":    { "$type": "fontFamily", "$value": "{font.body}" }
+    }
+  }
+}

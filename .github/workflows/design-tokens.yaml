@@ -1,0 +1,104 @@
+# Checks the design tokens, the @nycc/design package and the nycc-style plugin.
+# Publishing @nycc/design isn't set up yet; add a release job once the team
+# picks a registry.
+name: design-tokens.yaml
+
+on:
+  push:
+    branches: [main, master]
+    paths: &paths
+      - design-tokens/**
+      - plugins/**
+      - .claude-plugin/**
+      - R/**
+      - .github/workflows/design-tokens.yaml
+  pull_request:
+    paths: *paths
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: design-tokens-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: design-tokens
+
+jobs:
+  package:
+    name: Build and test @nycc/design
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: design-tokens/package-lock.json
+
+      - run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Skill token reference is up to date
+        run: |
+          npm run check:skill || {
+            echo "::error::plugins/nycc-style/skills/nycc-style/references/tokens.md is out of date. Run 'npm run build' in design-tokens/ and commit it."
+            exit 1
+          }
+
+      - name: Package contents
+        run: npm pack --dry-run
+
+  tokens-match-r:
+    name: Tokens match R/colors.R
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: design-tokens/package-lock.json
+
+      - run: npm ci
+
+      - uses: r-lib/actions/setup-r@v2
+
+      - name: Tokens match R/colors.R
+        run: |
+          npm run check:r || {
+            echo "::error::design-tokens/tokens/ and R/colors.R disagree. Update both so they match."
+            exit 1
+          }
+
+  plugin:
+    name: Validate Claude Code plugin
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Validate marketplace
+        run: npx -y @anthropic-ai/claude-code@2 plugin validate --strict .claude-plugin/marketplace.json
+
+      - name: Validate plugin
+        run: npx -y @anthropic-ai/claude-code@2 plugin validate --strict plugins/nycc-style

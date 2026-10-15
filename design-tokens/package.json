@@ -1,0 +1,48 @@
+{
+  "name": "@nycc/design",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NYC Council design system for the web: tokens (colors, palettes, fonts, chart and map styles) and palette/scale helpers that match councildown in R.",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./tokens.css": "./generated/css/tokens.css",
+    "./tailwind.css": "./generated/tailwind/theme.css",
+    "./tokens.json": "./generated/json/tokens.json"
+  },
+  "files": [
+    "dist",
+    "generated/css",
+    "generated/tailwind",
+    "generated/json",
+    "ai"
+  ],
+  "scripts": {
+    "tokens": "node build.mjs",
+    "build": "npm run tokens && tsup",
+    "typecheck": "npm run tokens && tsc --noEmit",
+    "test": "npm run tokens && vitest run",
+    "check:r": "npm run tokens && Rscript scripts/check-r-parity.R",
+    "check:skill": "npm run tokens && git diff --exit-code -- ../plugins/nycc-style/skills/nycc-style/references/tokens.md"
+  },
+  "dependencies": {
+    "d3-array": "^3.2.4",
+    "d3-color": "^3.1.0",
+    "d3-interpolate": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/d3-array": "^3.2.2",
+    "@types/d3-color": "^3.1.3",
+    "@types/d3-interpolate": "^3.0.4",
+    "style-dictionary": "^5.0.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.0"
+  }
+}

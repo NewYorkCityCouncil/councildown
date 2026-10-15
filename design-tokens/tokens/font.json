@@ -1,0 +1,9 @@
+{
+  "font": {
+    "$type": "fontFamily",
+    "$description": "Council typefaces. Headings/chart text use Georgia; body/UI text uses Open Sans; printed output uses Times New Roman.",
+    "heading": { "$value": "Georgia, serif" },
+    "body":    { "$value": "'Open Sans', sans-serif" },
+    "print":   { "$value": "'Times New Roman', serif" }
+  }
+}

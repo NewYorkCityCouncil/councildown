@@ -1,0 +1,14 @@
+{
+  "name": "nycc",
+  "owner": {
+    "name": "NYC Council Data Team"
+  },
+  "description": "NYC Council Data Team plugins for Claude Code.",
+  "plugins": [
+    {
+      "name": "nycc-style",
+      "source": "./plugins/nycc-style",
+      "description": "NYC Council styling rules (colors, palettes, fonts, charts, maps) for web (@nycc/design) and R (councildown)."
+    }
+  ]
+}

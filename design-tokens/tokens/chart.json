@@ -1,0 +1,20 @@
+{
+  "chart": {
+    "$description": "Chart styling rules, mirrors theme_nycc() and scale_*_nycc() in R.",
+    "font-family": { "$type": "fontFamily", "$value": "{font.heading}" },
+    "font-size": {
+      "$type": "number",
+      "$description": "Sizes in points, as used by theme_nycc().",
+      "title":      { "$value": 16 },
+      "subtitle":   { "$value": 12 },
+      "caption":    { "$value": 12 },
+      "axis-title": { "$value": 12 },
+      "axis-text":  { "$value": 11 },
+      "legend":     { "$value": 9 }
+    },
+    "axis-line":    { "$type": "color", "$value": "{color.medium-grey}" },
+    "panel-border": { "$type": "color", "$description": "Facet panel border.", "$value": "{color.dark-grey}" },
+    "na-fill":      { "$type": "color", "$description": "Fill for missing values in discrete scales.", "$value": "{color.medium-grey}" },
+    "max-categories": { "$type": "number", "$description": "Discrete scales error above this many levels.", "$value": 7 }
+  }
+}
