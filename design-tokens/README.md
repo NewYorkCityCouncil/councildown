@@ -8,6 +8,50 @@ Council styling: colors and palettes, fonts, chart chrome and map defaults
 (see the `nycc-style` skill for the rules). The helpers here are ordinary web
 implementations that follow those rules.
 
+## Use it on a new site
+
+How the pieces fit: the **tokens** (`tokens/`) hold the Council styling copied
+from councildown, **`@nycc/design`** carries them into React/TypeScript, and the
+**`nycc-style` skill** (via `AGENTS.md`) tells AI tools to use the package
+instead of making up colors and fonts.
+
+1. **Install the package.** It isn't published yet, so pack it and install the file:
+
+   ```sh
+   cd councildown/design-tokens
+   npm install && npm run build
+   npm pack                                  # creates nycc-design-0.1.0.tgz
+   cd path/to/your-site
+   npm install path/to/nycc-design-0.1.0.tgz
+   ```
+
+2. **Add the AI rules.** Copy `AGENTS.md` and `CLAUDE.md` from
+   `plugins/nycc-style/templates/` into the site's root. They point AI tools to
+   the skill inside `node_modules/@nycc/design/ai/`. Claude Code users can also
+   install the `nycc-style` plugin.
+
+3. **Ask the AI for the site in plain terms** (e.g. "build a page with these
+   three charts"). The rules tell it to import `@nycc/design/tokens.css` or the
+   Tailwind theme, take chart colors from `palettes` / `categoricalColors` /
+   `colorBin` / `colorDiverging`, and follow the Council chart and map styling.
+
+4. **Get the plots onto the page**, one of two ways:
+   - **Redraw them in React (recommended).** R or Python exports only the data
+     (CSV, GeoJSON); the site draws the charts (e.g. Recharts, react-leaflet)
+     with `@nycc/design`. Interactive, consistent with the rest of the site, and
+     works for Python projects too.
+   - **Embed finished R output.** Save ggplot as PNG/SVG and leaflet as HTML,
+     then show them with `<img>` / `<iframe>`. They're already styled by
+     councildown. There's no Python equivalent of councildown yet.
+
+Not covered yet:
+
+- **Page text sizes.** The tokens only have chart font sizes (from
+  `theme_nycc()`). Body and page heading sizes aren't defined, since councildown
+  doesn't define them.
+- **Python.** No Python version of the tokens and no Python guidance in the
+  skill; use `tokens.json` for the values.
+
 ## Use it
 
 ```ts
