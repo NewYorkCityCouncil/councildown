@@ -39,18 +39,20 @@ instead of making up colors and fonts.
    - **Redraw them in React (recommended).** R or Python exports only the data
      (CSV, GeoJSON); the site draws the charts (e.g. Recharts, react-leaflet)
      with `@nycc/design`. Interactive, consistent with the rest of the site, and
-     works for Python projects too.
+     it doesn't matter whether R or Python made the data.
    - **Embed finished R output.** Save ggplot as PNG/SVG and leaflet as HTML,
      then show them with `<img>` / `<iframe>`. They're already styled by
-     councildown. There's no Python equivalent of councildown yet.
+     councildown. Plots drawn in Python can't be embedded this way yet, since
+     there's no Python equivalent of councildown.
 
 Not covered yet:
 
 - **Page text sizes.** The tokens only have chart font sizes (from
   `theme_nycc()`). Body and page heading sizes aren't defined, since councildown
   doesn't define them.
-- **Python.** No Python version of the tokens and no Python guidance in the
-  skill; use `tokens.json` for the values.
+- **Visuals drawn in Python** (Plotly, matplotlib, Dash or Folium output). No
+  Python version of the tokens and no Python guidance in the skill; use
+  `tokens.json` for the values. Python that only prepares data is fine (step 4).
 
 ## Use it
 
