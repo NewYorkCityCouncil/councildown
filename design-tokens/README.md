@@ -42,17 +42,18 @@ instead of making up colors and fonts.
      it doesn't matter whether R or Python made the data.
    - **Embed finished R output.** Save ggplot as PNG/SVG and leaflet as HTML,
      then show them with `<img>` / `<iframe>`. They're already styled by
-     councildown. Plots drawn in Python can't be embedded this way yet, since
-     there's no Python equivalent of councildown.
+     councildown. Not for Python plots: those are being moved to React (see
+     below).
+
+Python visuals (Plotly, matplotlib, Dash, Folium) are being moved to React, so
+there's no Python version of the tokens. Python only prepares the data, like R
+in step 4.
 
 Not covered yet:
 
 - **Page text sizes.** The tokens only have chart font sizes (from
   `theme_nycc()`). Body and page heading sizes aren't defined, since councildown
   doesn't define them.
-- **Visuals drawn in Python** (Plotly, matplotlib, Dash or Folium output). No
-  Python version of the tokens and no Python guidance in the skill; use
-  `tokens.json` for the values. Python that only prepares data is fine (step 4).
 
 ## Use it
 
